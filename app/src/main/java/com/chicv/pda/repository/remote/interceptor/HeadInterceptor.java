@@ -1,15 +1,12 @@
 package com.chicv.pda.repository.remote.interceptor;
 
-import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import com.chicv.pda.bean.User;
 import com.chicv.pda.utils.SPUtils;
-import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -27,14 +24,15 @@ public class HeadInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         User user = SPUtils.getUser();
-        String value = Base64.encodeToString(user.getName().getBytes("UTF-8"), Base64.DEFAULT);
+        String operateName = user.getName()==null?"":Base64.encodeToString(user.getName().getBytes("UTF-8"), Base64.DEFAULT);
+        String operateId = user.getId()==null?"":user.getId();
         Request original = chain.request();
         Request request = original
                 .newBuilder()
                 .addHeader("Content-Type", "application/json; charset=UTF-8")
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Accept", "application/json")
-                .addHeader("OperateId", user.getId())
+                .addHeader("OperateId", operateId)
 //                .addHeader("OperateName", URLEncoder.encode(value))
                 .build();
         return chain.proceed(request);

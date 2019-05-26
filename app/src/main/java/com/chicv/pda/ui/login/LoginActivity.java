@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.chicv.pda.BuildConfig;
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.User;
@@ -29,20 +31,27 @@ public class LoginActivity extends BaseActivity {
     EditText editAccount;
     @BindView(R.id.edit_pwd)
     EditText editPwd;
+    @BindView(R.id.text_version)
+    TextView textVersion;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        initView();
 
         editAccount.setText("liheyu");
         editPwd.setText("LHYlhy123");
     }
 
+    private void initView() {
+        textVersion.setText("版本号V"+ BuildConfig.VERSION_NAME);
+    }
+
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
-        if(checkData()){
+        if (checkData()) {
             login();
         }
     }
@@ -50,24 +59,23 @@ public class LoginActivity extends BaseActivity {
     private void login() {
         LoginParam param = new LoginParam();
         param.setAccount(CommonUtils.getString(editAccount));
-        param.setPassword(CommonUtils.getString(editAccount));
-        RxUtils.wrapHttp(apiService.login(param)).subscribe(new RxObserver<User>(true,this) {
+        param.setPassword(CommonUtils.getString(editPwd));
+        RxUtils.wrapHttp(apiService.login(param)).subscribe(new RxObserver<User>(true, this) {
             @Override
             public void onSuccess(User value) {
                 SPUtils.saveUser(value);
                 Logger.d(new Gson().toJson(SPUtils.getUser()));
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
     }
 
     private boolean checkData() {
-        if(TextUtils.isEmpty(CommonUtils.getString(editAccount))){
+        if (TextUtils.isEmpty(CommonUtils.getString(editAccount))) {
             ToastUtils.showString(R.string.please_input_account);
             return false;
         }
-        if(TextUtils.isEmpty(CommonUtils.getString(editPwd))){
+        if (TextUtils.isEmpty(CommonUtils.getString(editPwd))) {
             ToastUtils.showString(R.string.please_input_pwd);
             return false;
         }

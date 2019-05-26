@@ -1,7 +1,5 @@
 package com.chicv.pda.bean;
 
-import java.util.List;
-
 public class PickGoods {
 
     public int Id ;
@@ -11,78 +9,42 @@ public class PickGoods {
     public String stopTime ;
     /// 批次物品数量
     public int totalCount ;
-//    /// <summary>
-//    /// 包裹数量
-//    /// </summary>
-//    public int PackageCount { get; set; }
-//    /// <summary>
-//    /// 囤货物品数量
-//    /// </summary>
-//    public int BatchCodeCount { get; set; }
-//    /// <summary>
-//    /// 库房
-//    /// </summary>
-//    public int RoomId { get; set; }
-//    /// <summary>
-//    /// 位置类型
-//    /// </summary>
-//    public PickLocationType LocationType { get; set; }
-//    /// <summary>
-//    /// 拣货单状态
-//    /// </summary>
-//    public PickStatus PickStatus { get; set; }
-//    /// <summary>
-//    /// 数据类型
-//    /// </summary>
-//    public PickSourceType SourceType { get; set; }
-//    /// <summary>
-//    /// 出库数量
-//    /// </summary>
-//    public int PickCount { get; set; }
-//    /// <summary>
-//    /// 配合数量
-//    /// </summary>
-//    public int MatchCount { get; set; }
-//    /// <summary>
-//    /// 出库数量
-//    /// </summary>
-//    public int OutCount { get; set; }
-//    /// <summary>
-//    /// 异常数量
-//    /// </summary>
-//    public int ExceptionCount { get; set; }
-//    /// <summary>
-//    /// 拣货结束时间
-//    /// </summary>
-//    public DateTime? PickEndTime { get; set; }
-//    /// <summary>
-//    /// 配合结束时间
-//    /// </summary>
-//    public DateTime? MatchEndTime { get; set; }
-//    /// <summary>
-//    /// 出库结束时间
-//    /// </summary>
-//    public DateTime? OutEndTime { get; set; }
-//    /// <summary>
-//    /// 拣货负责人
-//    /// </summary>
-//    public string PickDutyUserName { get; set; }
-//    /// <summary>
-//    /// 拣货领取时间
-//    /// </summary>
-//    public DateTime? PickReceiveTime { get; set; }
-//    /// <summary>
-//    /// 配合负责人
-//    /// </summary>
-//    public string MatchDutyUserName { get; set; }
-//    /// <summary>
-//    /// 配货领取时间
-//    /// </summary>
-//    public DateTime? MatchReceiveTime { get; set; }
-//    /// <summary>
-//    /// 拣货单打印次数
-//    /// </summary>
-//    public int PrintNumber { get; set; }
+    // 包裹数量
+    public int packageCount;
+    // 囤货物品数量
+    public int batchCodeCount ;
+    // 库房
+    public int RoomId ;
+//    // 位置类型
+//    public PickLocationType LocationType ;
+//    // 拣货单状态
+//    public PickStatus PickStatus;
+//    // 数据类型
+//    public PickSourceType SourceType ;
+    //出库数量
+    public int pickCount ;
+    // 配合数量
+    public int matchCount ;
+    // 出库数量
+    public int outCount ;
+    /// 异常数量
+    public int exceptionCount ;
+    /// 拣货结束时间
+    public String pickEndTime ;
+    // 配合结束时间
+    public String matchEndTime ;
+    // 出库结束时间
+    public String outEndTime ;
+    // 拣货负责人
+    public String pickDutyUserName ;
+    /// 拣货领取时间
+    public String pickReceiveTime ;
+    /// 配合负责人
+    public String matchDutyUserName ;
+    /// 配货领取时间
+    public String  matchReceiveTime ;
+    /// 拣货单打印次数
+    public int printNumber ;
 //    /// <summary>
 //    /// 拣货明细
 //    /// </summary>
