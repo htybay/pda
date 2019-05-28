@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,25 +14,50 @@ import com.chicv.pda.R;
 import com.chicv.pda.adapter.PickGoodsAdapter;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.PickGoods;
+import com.chicv.pda.bean.StockInfo;
+import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.repository.remote.RxObserver;
+import com.chicv.pda.utils.BarcodeUtils;
+import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.SPUtils;
+import com.chicv.pda.utils.ToastUtils;
+import com.chicv.pda.widget.PickGoodsDialog;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.chicv.pda.utils.RxUtils.wrapHttp;
 
+/**
+ * 捡货页面
+ */
 public class PickgoodsActivity extends BaseActivity {
 
     @BindView(R.id.rlv_pick_goods)
     RecyclerView rlvPickGoods;
     @BindView(R.id.edit_barcode)
     EditText editBarcode;
+    @BindView(R.id.text_pick_num)
+    TextView textPickNum;
+    @BindView(R.id.text_stock_current)
+    TextView textStockCurrent;
+    @BindView(R.id.text_stock_next)
+    TextView textStockNext;
+
     private PickGoodsAdapter mPickGoodsAdapter;
+    private PickGoods mPickGoods;
+    private String mBarcode;
+    private List<StockInfo> mStockInfos = new ArrayList<>();
+    private StockInfo mCurrentStockInfo;
+    private User mUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,17 +65,9 @@ public class PickgoodsActivity extends BaseActivity {
         setContentView(R.layout.activity_pick_goods);
         ButterKnife.bind(this);
         initToolbar("拣货");
-        getGoodsInfo("");
+        mUser = SPUtils.getUser();
         initView();
-        test();
-    }
-
-    private void test() {
-        List<PickGoods> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            list.add(new PickGoods());
-        }
-        mPickGoodsAdapter.setNewData(list);
+        editBarcode.setText("jh-002170097");
     }
 
     private void initView() {
@@ -59,23 +78,290 @@ public class PickgoodsActivity extends BaseActivity {
         editBarcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(event.getAction()==KeyEvent.KEYCODE_SEARCH){
-                    Logger.d("搜索");
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    showKeyboard(false);
+                    handleBarcode(CommonUtils.getString(editBarcode));
                 }
                 return false;
             }
         });
     }
 
-    private void getGoodsInfo(String barcode) {
-        PickGoodsParam param = new PickGoodsParam();
-        param.setPickId(barcode);
-        wrapHttp(apiService.pickGoods(param)).subscribe(new RxObserver<PickGoods>() {
-            @Override
-            public void onSuccess(PickGoods value) {
-
-            }
-        });
+    //收到扫描数据
+    private void handleBarcode(String barcode) {
+        if (TextUtils.isEmpty(barcode)) {
+            return;
+        }
+        mBarcode = barcode;
+        if (BarcodeUtils.isPickCode(barcode)) {
+            //捡货单号
+            getPickGoodsInfo(String.valueOf(BarcodeUtils.getBarcodeId(barcode)));
+        } else if (BarcodeUtils.isContainerCode(barcode)) {
+            //货位单号
+            handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
+        } else if (BarcodeUtils.isGoodsCode(barcode)) {
+            //物品单号
+            handleGoodsBarcode(BarcodeUtils.getBarcodeId(barcode));
+        } else if (BarcodeUtils.isGoodsRuleCode(barcode)) {
+            //囤货规格 扫到什么就是什么忽略大小写
+            handleGoodsRuleBarcode(barcode);
+        } else {
+            ToastUtils.showString("无效的条码！");
+        }
     }
 
+    //扫描到物品条码
+    private void handleGoodsBarcode(long goodsId) {
+        if (mPickGoods == null) {
+            ToastUtils.showString("请先扫描拣货单！");
+            return;
+        }
+        if (mCurrentStockInfo == null) {
+            ToastUtils.showString("请先扫描货位号！");
+            return;
+        }
+        List<PickGoods.PickGoodsDetail> data = mPickGoodsAdapter.getData();
+        PickGoods.PickGoodsDetail scanGoods = null;
+        for (PickGoods.PickGoodsDetail goodsDetail : data) {
+            if (goodsDetail.getGoodsId() == goodsId) {
+                scanGoods = goodsDetail;
+                break;
+            }
+        }
+        if (scanGoods == null) {
+            ToastUtils.showString("该货位上没有此物品！");
+            return;
+        }
+        if (scanGoods.pickStatus >= 40) {
+            ToastUtils.showString("该货物已扫描!");
+            return;
+        }
+        uploadGoodInfo(scanGoods);
+    }
+
+    // 扫描到囤货规格条码
+    private void handleGoodsRuleBarcode(String barcode) {
+        if (mPickGoods == null) {
+            ToastUtils.showString("请先扫描拣货单！");
+            return;
+        }
+        if (mCurrentStockInfo == null) {
+            ToastUtils.showString("请先扫描货位号！");
+            return;
+        }
+
+        List<PickGoods.PickGoodsDetail> data = mPickGoodsAdapter.getData();
+        boolean isExist = false;
+        PickGoods.PickGoodsDetail scanGoods = null;
+        for (PickGoods.PickGoodsDetail goodsDetail : data) {
+            if (TextUtils.equals(goodsDetail.batchCode.toLowerCase(), barcode.toLowerCase())) {
+                if (!isExist) isExist = true;
+                if (goodsDetail.pickStatus == 30) {
+                    scanGoods = goodsDetail;
+                    break;
+                }
+            }
+        }
+        if (!isExist) {
+            ToastUtils.showString("此货位没有该囤货规格的物品！");
+            return;
+        }
+        if (scanGoods == null) {
+            ToastUtils.showString("该囤货规格已拣完");
+            return;
+        }
+        uploadGoodInfo(scanGoods);
+    }
+
+    //扫描到货物后上传货物信息
+    private void uploadGoodInfo(final PickGoods.PickGoodsDetail scanGoods) {
+        PickGoodsParam param = new PickGoodsParam();
+        param.setPickId(String.valueOf(mPickGoods.getId()));
+        param.setGoodsId(String.valueOf(scanGoods.getGoodsId()));
+        param.setOperateUserId(mUser.getId());
+        param.setOperateUserName(mUser.getName());
+        wrapHttp(apiService.pickGoods(param)).compose(this.<Object>bindToLifecycle())
+                .subscribe(new RxObserver<Object>(true, this) {
+                    @Override
+                    public void onSuccess(Object value) {
+                        scanGoods.setPickStatus(40);
+                        if (checkIsOver()) {
+                            ToastUtils.showString("恭喜你，物品已扫为齐，拣货完成！");
+                            mPickGoodsAdapter.setNewData(mPickGoods.getDetails());
+                        } else {
+                            mPickGoodsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+    //检查是否全部扫完，如果扫完显示捡货单所有信息；
+    private boolean checkIsOver() {
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.getDetails();
+        boolean isOver = true;
+        if (details != null) {
+            for (PickGoods.PickGoodsDetail detail : details) {
+                if (detail.getPickStatus() == 30) {
+                    isOver = false;
+                    break;
+                }
+            }
+        }
+        return isOver;
+    }
+
+    //扫到货位条码
+    private void handleStockBarcode(long barcodeId) {
+        if (mPickGoods == null) {
+            ToastUtils.showString("请先扫描拣货单！");
+            return;
+        }
+        int stockIndex = queryStockIndex(barcodeId);
+        if (stockIndex < 0) {
+            ToastUtils.showString("扫描货柜错误！");
+            return;
+        }
+
+        //当前货位
+        mCurrentStockInfo = mStockInfos.get(stockIndex);
+        textStockCurrent.setText(mCurrentStockInfo.getDescription());
+        mPickGoodsAdapter.setNewData(queryPickGoodsDetailByStockId(mCurrentStockInfo.getId()), true);
+
+        //下一货位
+        StockInfo nextStockInfo = queryNextStockIndexByStockId(stockIndex);
+        if (nextStockInfo == null) {
+            textStockNext.setText("");
+        } else {
+            textStockNext.setText(nextStockInfo.getDescription());
+        }
+    }
+
+    //扫描到拣货单条码 ，根据拣货单ID查找拣货信息
+    private void getPickGoodsInfo(String barcodeId) {
+        wrapHttp(apiService.getPickGoodsInfo(barcodeId))
+                .compose(this.<PickGoods>bindToLifecycle())
+                .subscribe(new RxObserver<PickGoods>(true, this) {
+                    @Override
+                    public void onSuccess(PickGoods value) {
+                        if (value.getPickStatus() == 20) {
+                            ToastUtils.showString("拣货单未领取！");
+                            return;
+                        }
+                        //TODO TEST 先注释，便于测试
+//                        if (!TextUtils.equals(value.getPickDutyUserName(), SPUtils.getUser().getName())) {
+//                            ToastUtils.showString("负责人错误，该拣货单的负责人是：" + value.getPickDutyUserName());
+//                            return;
+//                        }
+                        mPickGoods = value;
+                        handleData();
+                        setViewData();
+                    }
+                });
+    }
+
+    //处理服务器返回的拣货单信息
+    private void handleData() {
+        if (mPickGoods == null) {
+            return;
+        }
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
+        List<Long> stockIds = new ArrayList<>();
+        for (PickGoods.PickGoodsDetail detail : details) {
+            StockInfo stockInfo = detail.getStockGrid();
+            if (!stockIds.contains(stockInfo.getId())) {
+                stockIds.add(stockInfo.getId());
+                mStockInfos.add(stockInfo);
+            }
+        }
+        Collections.sort(mStockInfos);
+        Logger.d(new Gson().toJson(stockIds));
+    }
+
+    private void clearViewData() {
+        textPickNum.setText("");
+        textStockCurrent.setText("");
+        textStockNext.setText("");
+    }
+
+    private void setViewData() {
+        textPickNum.setText(mBarcode);
+        mPickGoodsAdapter.setNewData(mPickGoods.details);
+    }
+
+    //根据货位ID查找货位在当前货位集合中的位置
+    private int queryStockIndex(long stockId) {
+        int index = -1;
+        if (mStockInfos != null) {
+            for (int i = 0; i < mStockInfos.size(); i++) {
+                if (mStockInfos.get(i).getId() == stockId) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+
+    //根据货位ID，查找货物
+    private List<PickGoods.PickGoodsDetail> queryPickGoodsDetailByStockId(long id) {
+        List<PickGoods.PickGoodsDetail> list = new ArrayList<>();
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.getDetails();
+        if (details != null) {
+            for (PickGoods.PickGoodsDetail detail : details) {
+                if (detail.getStockGrid().getId() == id) {
+                    list.add(detail);
+                }
+            }
+        }
+        return list;
+    }
+
+    //判断该货位上是否存在未拣货的货物
+    private boolean isExistNotScanGoods(StockInfo stockInfo) {
+        List<PickGoods.PickGoodsDetail> list = queryPickGoodsDetailByStockId(stockInfo.getId());
+        if (list.isEmpty()) {
+            return false;
+        }
+
+        boolean result = false;
+        for (PickGoods.PickGoodsDetail pickGoodsDetail : list) {
+            if (pickGoodsDetail.getPickStatus() == 30) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+
+    //根据当前货位位置，查找下一个最近的没扫货物所在的货位位置,先顺序查找如果有返回没有的话从头开始查找
+    private StockInfo queryNextStockIndexByStockId(int currentStockIndex) {
+        int beginIndex = currentStockIndex + 1;
+
+        for (int i = beginIndex; i < mStockInfos.size(); i++) {
+            StockInfo stockInfo = mStockInfos.get(i);
+            if (isExistNotScanGoods(stockInfo)) {
+                return stockInfo;
+            }
+        }
+        for (int i = 0; i < currentStockIndex; i++) {
+            StockInfo stockInfo = mStockInfos.get(i);
+            if (isExistNotScanGoods(stockInfo)) {
+                return stockInfo;
+            }
+        }
+        return null;
+    }
+
+
+    //点击领取
+    @OnClick(R.id.btn_receive)
+    public void onViewClicked() {
+        showPickGoodsDialog();
+    }
+
+    private void showPickGoodsDialog() {
+        PickGoodsDialog pickGoodsDialog = new PickGoodsDialog(this);
+        pickGoodsDialog.show();
+    }
 }

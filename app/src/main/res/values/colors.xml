@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/black_dark</color>
-    <color name="colorPrimaryDark">@color/black_dark</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">@color/red_dark</color>
     <color name="black_dark">#0e161e</color>
     <color name="black">#000000</color>
@@ -11,5 +11,9 @@
     <color name="color_999">#999999</color>
     <color name="red">#AE0000</color>
     <color name="red_dark">#bb1f30</color>
+    <color name="red_light">#e19098</color>
     <color name="yellow_gray">#ffffe9af</color>
+    <color name="gray">#b7acac</color>
+    <color name="blue_light">#a2a2e9</color>
+
 </resources>

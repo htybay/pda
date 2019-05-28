@@ -24,7 +24,7 @@ public class HeadInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         User user = SPUtils.getUser();
-        String operateName = user.getName()==null?"":Base64.encodeToString(user.getName().getBytes("UTF-8"), Base64.DEFAULT);
+        String operateName = user.getName()==null?"":Base64.encodeToString(user.getName().getBytes(), Base64.NO_WRAP);
         String operateId = user.getId()==null?"":user.getId();
         Request original = chain.request();
         Request request = original
@@ -33,7 +33,7 @@ public class HeadInterceptor implements Interceptor {
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Accept", "application/json")
                 .addHeader("OperateId", operateId)
-//                .addHeader("OperateName", URLEncoder.encode(value))
+                .addHeader("OperateName", operateName)
                 .build();
         return chain.proceed(request);
     }

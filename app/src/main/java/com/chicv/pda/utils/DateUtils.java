@@ -56,7 +56,7 @@ public class DateUtils {
      * @return 给定时间的时间戳
      */
     public static long getTimestemp(String time) {
-        SimpleDateFormat format = new SimpleDateFormat(dateFormat,Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat(dateFormat, Locale.CHINA);
         Date date = new Date();
         try {
             date = format.parse(time);
@@ -68,5 +68,21 @@ public class DateUtils {
 
     public static String getWeek() {
         return new SimpleDateFormat("EEEE", Locale.CHINA).format(new Date());
+    }
+
+    public static final String PDA_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+
+    //pda后台返回的时间都是 2019-03-19T11:28:20.86
+    public static String getPdaDate(String time) {
+        SimpleDateFormat format = new SimpleDateFormat(PDA_TIME_FORMAT, Locale.CHINA);
+        Date date = new Date();
+        if (time != null) {
+            try {
+                date = format.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return getTime(date);
     }
 }

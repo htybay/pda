@@ -21,6 +21,9 @@ public class RxUtils {
                 if (!tApiResult.isSuccess()) {
                     throw new ApiException(tApiResult.getMessage());
                 }
+                if(tApiResult.getData()==null){
+                    tApiResult.setData((T) new Object());
+                }
                 return tApiResult.getData();
             }
         }).subscribeOn(Schedulers.io())

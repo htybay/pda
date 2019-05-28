@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="领取拣货单"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text_code_des"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:text="捡货单："
+        android:textColor="@color/color_333"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
+
+    <EditText
+        android:id="@+id/edit_code"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_666"
+        android:textSize="15sp"
+        android:imeOptions="actionSearch"
+        android:maxLines="1"
+        android:inputType="text"
+        app:layout_constraintLeft_toRightOf="@+id/text_code_des"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_code_des"
+        android:layout_marginRight="20dp"
+        tools:text="JH-809808080" />
+
+    <TextView
+        android:id="@+id/text_name_des"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:text="领取人："
+        android:textColor="@color/color_333"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/text_code_des" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:textColor="@color/color_666"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/text_name_des"
+        app:layout_constraintTop_toTopOf="@+id/text_name_des"
+        tools:text="JH-809808080" />
+
+    <TextView
+        android:id="@+id/text_time_des"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:text="领取时间："
+        android:textColor="@color/color_333"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/text_name_des" />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|right"
+        android:textColor="@color/color_666"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/text_time_des"
+        app:layout_constraintTop_toTopOf="@+id/text_time_des"
+        tools:text="1989-02-03" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_selector"
+        android:text="取消"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_change_name"
+        app:layout_constraintTop_toBottomOf="@+id/text_time_des" />
+
+    <Button
+        android:id="@+id/btn_change_name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_selector"
+        android:text="更换负责人"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/btn_cancel"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_cancel" />
+
+</android.support.constraint.ConstraintLayout>

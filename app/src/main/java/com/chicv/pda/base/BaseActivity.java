@@ -65,7 +65,7 @@ public class BaseActivity extends RxAppCompatActivity {
         });
     }
 
-    protected void showKeyboard(boolean isShow) {
+    public void showKeyboard(boolean isShow) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (isShow) {
             if (getCurrentFocus() == null) {

@@ -43,6 +43,7 @@ public class LoginActivity extends BaseActivity {
 
         editAccount.setText("liheyu");
         editPwd.setText("LHYlhy123");
+
     }
 
     private void initView() {

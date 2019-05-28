@@ -5,15 +5,11 @@ import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.LoginParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
-import com.google.gson.JsonObject;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Multipart;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -24,10 +20,24 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
-     @POST("/api/Account/Auth/Login")
-     Observable<ApiResult<User>> login(@Body LoginParam param);
+    //登陆
+    @POST("api/Account/Auth/Login")
+    Observable<ApiResult<User>> login(@Body LoginParam param);
 
-     @POST("/api/Stock/Picking/Receive")
-     Observable<ApiResult<PickGoods>> pickGoods(@Body PickGoodsParam param);
+    //获取拣货信息
+    @GET("api/Stock/Picking/GetStockPick")
+    Observable<ApiResult<PickGoods>> getPickGoodsInfo(@Query("pickId") String pickId);
+
+    //拣货，扫描到货物时上传数据
+    @POST("/api/Stock/Picking/Picking")
+    Observable<ApiResult<Object>> pickGoods(@Body PickGoodsParam pickId);
+
+    //领取捡货单
+    @POST("/api/Stock/Picking/Receive")
+    Observable<ApiResult<Object>> receivePickGoods(@Body PickGoodsParam pickParam);
+
+    //更改捡货单
+    @POST("api/Stock/Picking/ReceiveChange")
+    Observable<ApiResult<Object>> changePickGoods(@Body PickGoodsParam pickParam);
 
 }
