@@ -1,10 +1,13 @@
 package com.chicv.pda.base;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.device.ScanManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,6 +28,8 @@ public class BaseActivity extends RxAppCompatActivity {
 
     private static Handler handler;
     protected ApiService apiService;
+    private ScannerReceiver mReceiver;
+    private IntentFilter mfilter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,5 +111,36 @@ public class BaseActivity extends RxAppCompatActivity {
             handler = new Handler(getMainLooper());
         }
         return handler;
+    }
+
+
+    public class ScannerReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
+            onReceiveBarcode(new String(barcode));
+        }
+    }
+
+    protected void onReceiveBarcode(String barcode) {
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mReceiver == null) {
+            mReceiver = new ScannerReceiver();
+            mfilter = new IntentFilter(ScanManager.ACTION_DECODE);
+        }
+        registerReceiver(mReceiver, mfilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 }

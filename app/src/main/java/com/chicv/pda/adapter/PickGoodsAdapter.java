@@ -74,7 +74,7 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
             if (i != 0) {
                 return i;
             }
-            i = o1.getStatus() - o2.getStatus();
+            i = o1.getPickStatus() - o2.getPickStatus();
             if (i != 0) {
                 return i;
             }

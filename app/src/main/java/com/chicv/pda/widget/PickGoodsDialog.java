@@ -76,8 +76,6 @@ public class PickGoodsDialog extends Dialog {
                 return false;
             }
         });
-        //TODO TEST
-        editCode.setText("jh-002169765");
     }
 
     private void initConfig() {
@@ -169,6 +167,7 @@ public class PickGoodsDialog extends Dialog {
 
     private void showChangePersonDialog() {
         new AlertDialog.Builder(getContext())
+                .setTitle("提示")
                 .setMessage("当前负责人为：" + mPickGoods.getPickDutyUserName()+" 确认更改为："+user.getName())
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", new OnClickListener() {
@@ -210,4 +209,7 @@ public class PickGoodsDialog extends Dialog {
     }
 
 
+    public void onReceiveBarcode(String barcode) {
+        handleBarcode(barcode);
+    }
 }

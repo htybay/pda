@@ -64,6 +64,7 @@ public class PickgoodsActivity extends BaseActivity {
     private List<StockInfo> mStockInfos = new ArrayList<>();
     private StockInfo mCurrentStockInfo;
     private User mUser;
+    private PickGoodsDialog mPickGoodsDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class PickgoodsActivity extends BaseActivity {
         mUser = SPUtils.getUser();
         initView();
         initData();
-        editBarcode.setText("jh-002170097");
     }
 
     private void initView() {
@@ -86,8 +86,13 @@ public class PickgoodsActivity extends BaseActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    showKeyboard(false);
-                    handleBarcode(CommonUtils.getString(editBarcode));
+                    String content = CommonUtils.getString(editBarcode);
+                    if (TextUtils.isEmpty(content)) {
+                        ToastUtils.showString("条码不能为空");
+                    } else {
+                        showKeyboard(false);
+                        handleBarcode(content);
+                    }
                 }
                 return false;
             }
@@ -102,11 +107,17 @@ public class PickgoodsActivity extends BaseActivity {
         }
     }
 
-    //收到扫描数据
-    private void handleBarcode(String barcode) {
-        if (TextUtils.isEmpty(barcode)) {
-            return;
+    @Override
+    protected void onReceiveBarcode(String barcode) {
+        if (mPickGoodsDialog != null && mPickGoodsDialog.isShowing()) {
+            mPickGoodsDialog.onReceiveBarcode(barcode);
+        } else {
+            handleBarcode(barcode);
         }
+    }
+
+    //处理条码
+    protected void handleBarcode(String barcode) {
         mBarcode = barcode;
         if (BarcodeUtils.isPickCode(barcode)) {
             //捡货单号
@@ -420,8 +431,10 @@ public class PickgoodsActivity extends BaseActivity {
     }
 
     private void showPickGoodsDialog() {
-        PickGoodsDialog pickGoodsDialog = new PickGoodsDialog(this);
-        pickGoodsDialog.show();
+        if (mPickGoodsDialog == null) {
+            mPickGoodsDialog = new PickGoodsDialog(this);
+        }
+        mPickGoodsDialog.show();
     }
 
     @Override
