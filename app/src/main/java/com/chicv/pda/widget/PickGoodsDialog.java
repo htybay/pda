@@ -203,13 +203,14 @@ public class PickGoodsDialog extends Dialog {
     }
 
     private void clearViewData() {
-        textTime.setText("");
+        textName.setText("");
         textTime.setText("");
 
     }
 
 
     public void onReceiveBarcode(String barcode) {
+        editCode.setText(barcode);
         handleBarcode(barcode);
     }
 }

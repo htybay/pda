@@ -24,7 +24,7 @@ public class HeadInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         User user = SPUtils.getUser();
-        String operateName = user.getName()==null?"":Base64.encodeToString(user.getName().getBytes(), Base64.NO_WRAP);
+        String operateName = user.getName()==null?"":Base64.encodeToString(user.getName().getBytes("GB2312"), Base64.NO_WRAP);
         String operateId = user.getId()==null?"":user.getId();
         Request original = chain.request();
         Request request = original

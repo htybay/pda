@@ -101,7 +101,7 @@ public class PickgoodsActivity extends BaseActivity {
 
     private void initData() {
         String pickId = SPUtils.getString(Constant.KEY_PICK_GOODS_ID);
-        if (!TextUtils.isEmpty(pickId)) {
+        if (!TextUtils.isEmpty(pickId) && TextUtils.equals(SPUtils.getString(Constant.KEY_PICK_GOODS_USER_ID), mUser.getId())) {
             mBarcode = BarcodeUtils.generateJHBarcode(Long.valueOf(pickId));
             handleBarcode(mBarcode);
         }
@@ -158,7 +158,7 @@ public class PickgoodsActivity extends BaseActivity {
             }
         }
         if (scanGoods == null) {
-            ToastUtils.showString("该货位上没有此物品！");
+            ToastUtils.showString("该拣货单上没有此物品！");
             SoundUtils.playError();
             return;
         }
@@ -196,7 +196,7 @@ public class PickgoodsActivity extends BaseActivity {
             }
         }
         if (!isExist) {
-            ToastUtils.showString("此货位没有该囤货规格的物品！");
+            ToastUtils.showString("该拣货单没有此囤货规格的物品！");
             SoundUtils.playError();
             return;
         }
@@ -275,7 +275,7 @@ public class PickgoodsActivity extends BaseActivity {
         SoundUtils.playSuccess();
 
         //下一货位
-        StockInfo nextStockInfo = queryNextStockIndexByStockId(stockIndex);
+        StockInfo nextStockInfo = queryNextStockIndexByStockIndex(stockIndex);
         if (nextStockInfo == null) {
             textStockNext.setText("");
         } else {
@@ -295,11 +295,17 @@ public class PickgoodsActivity extends BaseActivity {
                             SoundUtils.playError();
                             return;
                         }
-                        //TODO TEST 先注释，便于测试
-//                        if (!TextUtils.equals(value.getPickDutyUserName(), SPUtils.getUser().getName())) {
-//                            ToastUtils.showString("负责人错误，该拣货单的负责人是：" + value.getPickDutyUserName());
-//                            return;
-//                        }
+                        if (!TextUtils.equals(value.getPickDutyUserName(), SPUtils.getUser().getName())) {
+                            ToastUtils.showString("负责人错误，该拣货单的负责人是：" + value.getPickDutyUserName());
+                            SoundUtils.playError();
+                            return;
+                        }
+
+                        //test
+                        List<PickGoods.PickGoodsDetail> details = value.getDetails();
+                        for (PickGoods.PickGoodsDetail detail : details) {
+                            detail.setPickStatus(30);
+                        }
                         mPickGoods = value;
                         handleData();
                         setViewData();
@@ -373,7 +379,7 @@ public class PickgoodsActivity extends BaseActivity {
         return list;
     }
 
-    //判断该货位上是否存在未拣货的货物
+    //判断该货位上是否存在正常状态的未拣货的货物
     private boolean isExistNotScanGoods(StockInfo stockInfo) {
         List<PickGoods.PickGoodsDetail> list = queryNormalGoodsByStockId(stockInfo.getId());
         if (list.isEmpty()) {
@@ -392,7 +398,7 @@ public class PickgoodsActivity extends BaseActivity {
 
 
     //根据当前货位位置，查找下一个最近的没扫货物所在的货位位置,先顺序查找如果有返回没有的话从头开始查找
-    private StockInfo queryNextStockIndexByStockId(int currentStockIndex) {
+    private StockInfo queryNextStockIndexByStockIndex(int currentStockIndex) {
         int beginIndex = currentStockIndex + 1;
 
         for (int i = beginIndex; i < mStockInfos.size(); i++) {
@@ -431,9 +437,7 @@ public class PickgoodsActivity extends BaseActivity {
     }
 
     private void showPickGoodsDialog() {
-        if (mPickGoodsDialog == null) {
-            mPickGoodsDialog = new PickGoodsDialog(this);
-        }
+        mPickGoodsDialog = new PickGoodsDialog(this);
         mPickGoodsDialog.show();
     }
 
@@ -462,6 +466,7 @@ public class PickgoodsActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SPUtils.putString(Constant.KEY_PICK_GOODS_ID, String.valueOf(mPickGoods.getId()));
+                        SPUtils.putString(Constant.KEY_PICK_GOODS_USER_ID, mUser.getId());
                         finish();
                     }
                 }).setNegativeButton("否", null)
