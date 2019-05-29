@@ -26,7 +26,6 @@ import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.DateUtils;
 import com.chicv.pda.utils.SPUtils;
-import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -35,7 +34,7 @@ import butterknife.OnClick;
 
 import static com.chicv.pda.utils.RxUtils.wrapHttp;
 
-public class PickGoodsDialog extends Dialog {
+public class UpdateDialog extends Dialog {
 
     @BindView(R.id.edit_code)
     EditText editCode;
@@ -49,7 +48,7 @@ public class PickGoodsDialog extends Dialog {
     private PickGoods mPickGoods;
     private User user;
 
-    public PickGoodsDialog(BaseActivity context) {
+    public UpdateDialog(BaseActivity context) {
         super(context);
         mActivity = context;
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -76,7 +75,6 @@ public class PickGoodsDialog extends Dialog {
                 return false;
             }
         });
-        //TODO TEST
         editCode.setText("jh-002169765");
     }
 
@@ -115,12 +113,10 @@ public class PickGoodsDialog extends Dialog {
     private void handleBarcode(String barcode) {
         if (TextUtils.isEmpty(barcode)) {
             ToastUtils.showString("条码为空！");
-            SoundUtils.playError();
             return;
         }
         if (!BarcodeUtils.isPickCode(barcode)) {
             ToastUtils.showString("无效的条码！");
-            SoundUtils.playError();
             return;
         }
 
@@ -142,13 +138,11 @@ public class PickGoodsDialog extends Dialog {
                         }
                         mPickGoods = value;
                         setViewData();
-                        SoundUtils.playSuccess();
                     }
 
                     @Override
                     public void onFailure(String msg) {
                         clearViewData();
-                        SoundUtils.playError();
                     }
                 });
     }
@@ -162,7 +156,6 @@ public class PickGoodsDialog extends Dialog {
                     @Override
                     public void onSuccess(Object value) {
                         changeViewData();
-                        SoundUtils.playSuccess();
                     }
                 });
     }

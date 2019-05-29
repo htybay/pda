@@ -2,6 +2,7 @@ package com.chicv.pda.utils;
 
 import android.text.TextUtils;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class BarcodeUtils {
@@ -63,4 +64,13 @@ public class BarcodeUtils {
         return result;
     }
 
+    /**
+     * 生成拣货条码 JH-000000001
+     * @param pickId 拣货单ID
+     * @return
+     */
+    public static String generateJHBarcode(long pickId) {
+        return String.format(Locale.CHINA, "JH-%09d", pickId);
+
+    }
 }

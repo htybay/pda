@@ -14,4 +14,12 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void barcodeTest(){
+        // 保留code的位数
+//        String result = String.format("JH-%0" + 9 + "d", 7987879);
+        String result = String.format("JH-%09d", 7987879);
+        System.out.println(result);
+    }
 }

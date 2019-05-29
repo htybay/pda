@@ -13,7 +13,6 @@ import com.chicv.pda.utils.PdaUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,22 +57,6 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
         }
     }
 
-    //隐藏异常元素 非正常数据不显示
-    public void setNewData(@Nullable List<PickGoods.PickGoodsDetail> data, boolean hideExceptionGoods) {
-        if (data == null || !hideExceptionGoods) {
-            setNewData(data);
-        } else {
-            Iterator<PickGoods.PickGoodsDetail> iterator = data.iterator();
-            while (iterator.hasNext()) {
-                PickGoods.PickGoodsDetail goodsDetail = iterator.next();
-                if (goodsDetail.getStatus() != 1) {
-                    iterator.remove();
-                }
-            }
-            setNewData(data);
-        }
-    }
-
     @Override
     public void setNewData(@Nullable List<PickGoods.PickGoodsDetail> data) {
         if (data != null) {
@@ -87,11 +70,11 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
 
         @Override
         public int compare(PickGoods.PickGoodsDetail o1, PickGoods.PickGoodsDetail o2) {
-            int i = o1.status - o2.status;
+            int i = o1.getStatus() - o2.getStatus();
             if (i != 0) {
                 return i;
             }
-            i = o1.pickStatus - o2.pickStatus;
+            i = o1.getStatus() - o2.getStatus();
             if (i != 0) {
                 return i;
             }

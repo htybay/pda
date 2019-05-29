@@ -3,11 +3,10 @@ package com.chicv.pda.repository;
 import com.chicv.pda.base.Constant;
 import com.chicv.pda.repository.remote.ApiService;
 import com.chicv.pda.repository.remote.OkhttpManager;
-import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Liheyu on 2017/3/3.

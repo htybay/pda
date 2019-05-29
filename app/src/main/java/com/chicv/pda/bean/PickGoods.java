@@ -275,64 +275,64 @@ public class PickGoods {
         /// <summary>
         /// Id
         /// </summary>
-        public int id;
+        private int id;
         /// <summary>
         /// 拣货单号
         /// </summary>
-        public int pickId;
+        private int pickId;
         /// <summary>
         /// 物品所在位置
         /// </summary>
-        public int gridId;
+        private int gridId;
         /// <summary>
         /// 物品编号
         /// </summary>
-        public int goodsId;
+        private int goodsId;
         /// <summary>
         /// 囤货规格
         /// </summary>
-        public String batchCode;
+        private String batchCode;
         /// <summary>
         /// Spu
         /// </summary>
-        public int spuId;
+        private int spuId;
         /// <summary>
         /// Sku
         /// </summary>
-        public int skuId;
+        private int skuId;
         /// <summary>
         /// 规格
         /// </summary>
-        public String specification;
+        private String specification;
         /// <summary>
         /// 是否已拣货出库
         /// </summary>
-        public boolean isOut;
+        private boolean isOut;
         /// <summary>
         /// 是否已拣货
         /// </summary>
-        public boolean isPick;
+        private boolean isPick;
         /// <summary>
         /// 配货位
         /// </summary>
-        public int groupNo;
+        private int groupNo;
         /// <summary>
         /// 包裹编号
         /// </summary>
-        public int packageId;
+        private int packageId;
         /// <summary>
         /// 物品类型
         // 订单物品 = 0,
         // 囤货物品 = 1
-        public int goodsType;
+        private int goodsType;
         /// <summary>
         /// 是否已扫描【囤货物品时需要设置】
         /// </summary>
-        public boolean isScan;
+        private boolean isScan;
         /// <summary>
         /// 是否打印了条码
         /// </summary>
-        public boolean isPrintBar;
+        private boolean isPrintBar;
         /// <summary>
         /// 错误状态
         //        未知数据 = 0,
@@ -345,35 +345,35 @@ public class PickGoods {
         //        搬仓移库 = 7,
         //        调拨移位丢失 = 8,
         //        手动丢失 = 99
-        public int status;
+        private int status;
         /// <summary>
         /// 状态
         /// </summary>
-        public int pickStatus;
+        private int pickStatus;
         /// <summary>
         /// 拣货时间
         /// </summary>
-        public String pickTime;
+        private String pickTime;
         /// <summary>
         /// 配货时间
         /// </summary>
-        public String matchTime;
+        private String matchTime;
         /// <summary>
         /// 出库时间
         /// </summary>
-        public String outTime;
+        private String outTime;
         /// 错误时间
-        public String exceptionTime;
+        private String exceptionTime;
         /// 拣货人
-        public String pickUserName;
+        private String pickUserName;
         /// 配货人
-        public String matchUserName;
+        private String matchUserName;
         /// 出库人
-        public String outUserName;
+        private String outUserName;
         /// 错误执行人
-        public String exceptionUserName;
+        private String exceptionUserName;
         // 货位信息
-        public StockInfo stockGrid;
+        private StockInfo stockGrid;
 
         public int getId() {
             return id;

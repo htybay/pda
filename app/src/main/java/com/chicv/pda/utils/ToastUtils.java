@@ -1,6 +1,7 @@
 package com.chicv.pda.utils;
 
 import android.support.annotation.StringRes;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.chicv.pda.base.BaseApplication;
@@ -14,7 +15,7 @@ public class ToastUtils {
 
     public static void showString(String content) {
         Toast toast = Toast.makeText(BaseApplication.getContext(), content, Toast.LENGTH_SHORT);
-        //toast.setGravity(Gravity.TOP,0,120);
+        toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }
 
