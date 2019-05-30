@@ -73,4 +73,14 @@ public class BarcodeUtils {
         return String.format(Locale.CHINA, "JH-%09d", pickId);
 
     }
+
+    /**
+     * 生成物品条码 WP-000000001
+     * @param pickId 拣货单ID
+     * @return
+     */
+    public static String generateWPBarcode(long pickId) {
+        return String.format(Locale.CHINA, "WP-%09d", pickId);
+
+    }
 }

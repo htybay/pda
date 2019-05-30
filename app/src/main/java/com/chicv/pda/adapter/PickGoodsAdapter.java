@@ -1,6 +1,7 @@
 package com.chicv.pda.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chicv.pda.R;
 import com.chicv.pda.bean.PickGoods;
+import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.PdaUtils;
 
 import java.util.Collections;
@@ -35,13 +37,14 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
 
     @Override
     protected void convert(PickGoodsHolder helper, PickGoods.PickGoodsDetail item) {
-        helper.textProductNum.setText(String.valueOf(item.getGoodsId()));
+        String wpCode = BarcodeUtils.generateWPBarcode(item.getGoodsId());
+        helper.textProductNum.setText(TextUtils.isEmpty(item.getBatchCode()) ? wpCode : item.getBatchCode());
         helper.textColorSize.setText(item.getSpecification());
         helper.textStock.setText(item.getStockGrid().getDescription());
         helper.textDeliveryNum.setText(String.valueOf(item.getGroupNo()));
         helper.textStatus.setText(PdaUtils.getPickStatusDesc(item.getPickStatus()));
         helper.textPacket.setText(String.valueOf(item.getPackageId()));
-
+        helper.textGoodsId.setText(wpCode);
 
         if (item.getStatus() != 1) {
             //非正常数据标红
@@ -104,6 +107,9 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
         //包裹号
         @BindView(R.id.text_packet)
         TextView textPacket;
+        //物品号
+        @BindView(R.id.text_goods_id)
+        TextView textGoodsId;
 
 
         public PickGoodsHolder(View view) {

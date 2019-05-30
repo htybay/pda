@@ -68,6 +68,15 @@
             android:gravity="center"
             android:textColor="@color/color_666"
             android:text="包裹号" />
+        <include layout="@layout/view_line_vertical_gray" />
+
+        <TextView
+            android:id="@+id/text_goods_id"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_666"
+            android:text="物品号" />
     </LinearLayout>
 
     <View

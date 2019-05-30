@@ -1,8 +1,14 @@
 package com.chicv.pda;
 
+import com.chicv.pda.bean.StockInfo;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -16,10 +22,30 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void barcodeTest(){
+    public void barcodeTest() {
         // 保留code的位数
 //        String result = String.format("JH-%0" + 9 + "d", 7987879);
         String result = String.format("JH-%09d", 7987879);
         System.out.println(result);
     }
+
+    @Test
+    public void sortTest() {
+        List<StockInfo> list = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            StockInfo stockInfo = new StockInfo();
+            stockInfo.setAreaSort(i % 5);
+            stockInfo.setShelfId(i % 4);
+            stockInfo.setColumnId(i % 3);
+            stockInfo.setRowsId(i % 2);
+            list.add(stockInfo);
+        }
+
+        Collections.sort(list);
+        for (StockInfo stockInfo : list) {
+            System.out.println(stockInfo.getAreaSort() + "-" + stockInfo.getColumnId() + "-" + stockInfo.getShelfId() + "-" + stockInfo.getRowsId());
+        }
+    }
+
+
 }

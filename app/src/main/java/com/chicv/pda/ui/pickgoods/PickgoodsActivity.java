@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,20 +60,25 @@ public class PickgoodsActivity extends BaseActivity {
     TextView textStockCurrent;
     @BindView(R.id.text_stock_next)
     TextView textStockNext;
+    @BindView(R.id.text_count)
+    TextView textCount;
 
     private PickGoodsAdapter mPickGoodsAdapter;
     private PickGoods mPickGoods;
     private String mBarcode;
+    private User mUser;
     private List<StockInfo> mStockInfos = new ArrayList<>();
     private StockInfo mCurrentStockInfo;
-    private User mUser;
     private PickGoodsDialog mPickGoodsDialog;
+    private int mNormalGoodsCount = 0;
+    private int mNormalReadyPickCount = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_goods);
         ButterKnife.bind(this);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         initToolbar("拣货");
         mUser = SPUtils.getUser();
         initView();
@@ -163,7 +171,7 @@ public class PickgoodsActivity extends BaseActivity {
             return;
         }
         if (scanGoods.getPickStatus() >= 40) {
-            ToastUtils.showString("该货物已扫描!");
+            ToastUtils.showString("该物品已扫描!");
             SoundUtils.playError();
             return;
         }
@@ -220,7 +228,9 @@ public class PickgoodsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object value) {
                         scanGoods.setPickStatus(40);
-                        if (checkIsOver()) {
+                        mNormalReadyPickCount--;
+                        refreshCountText();
+                        if (mNormalReadyPickCount == 0) {
                             ToastUtils.showString("恭喜你，物品已扫为齐，拣货完成！");
                             mPickGoodsAdapter.setNewData(mPickGoods.getDetails());
                         } else {
@@ -290,6 +300,7 @@ public class PickgoodsActivity extends BaseActivity {
                 .subscribe(new RxObserver<PickGoods>(true, this) {
                     @Override
                     public void onSuccess(PickGoods value) {
+                        clearPickData();
                         if (value.getPickStatus() == 20) {
                             ToastUtils.showString("拣货单未领取！");
                             SoundUtils.playError();
@@ -300,66 +311,94 @@ public class PickgoodsActivity extends BaseActivity {
                             SoundUtils.playError();
                             return;
                         }
-
-                        //test
-                        List<PickGoods.PickGoodsDetail> details = value.getDetails();
-                        for (PickGoods.PickGoodsDetail detail : details) {
-                            detail.setPickStatus(30);
-                        }
-                        mPickGoods = value;
-                        handleData();
+                        handleData(value);
                         setViewData();
+                        refreshCountText();
                         SoundUtils.playSuccess();
                     }
 
                     @Override
                     public void onFailure(String msg) {
-                        clearPickGoodsData();
+                        clearPickData();
+                        clearViewData();
                         SoundUtils.playError();
                     }
                 });
     }
 
-    //处理服务器返回的拣货单信息
-    private void handleData() {
-        if (mPickGoods == null) {
-            return;
-        }
+    //处理服务器返回的拣货单信息 1，获取所有货位去重排序 2，获取所有正常可扫的件数
+    private void handleData(PickGoods value) {
+        mPickGoods = value;
         List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
         List<Long> stockIds = new ArrayList<>();
+        if (details == null) return;
         for (PickGoods.PickGoodsDetail detail : details) {
             StockInfo stockInfo = detail.getStockGrid();
             if (!stockIds.contains(stockInfo.getId())) {
                 stockIds.add(stockInfo.getId());
                 mStockInfos.add(stockInfo);
             }
+            if (detail.getStatus() == 1) {
+                mNormalGoodsCount++;
+                if (detail.getPickStatus() == 30) {
+                    mNormalReadyPickCount++;
+                }
+            }
         }
         Collections.sort(mStockInfos);
         Logger.d(new Gson().toJson(stockIds));
     }
 
-    private void clearPickGoodsData() {
+    private void setViewData() {
+        textPickNum.setText(mBarcode);
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
+        mPickGoodsAdapter.setNewData(details);
+        if (mStockInfos.size() > 0) {
+            textStockNext.setText(mStockInfos.get(0).getDescription());
+        }
+    }
+
+    private void refreshCountText() {
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
+        if (details != null && details.size() > 0) {
+            textCount.setVisibility(View.VISIBLE);
+            textCount.setText(String.format(Locale.CHINA, "总件数:%d 已扫:%d 未扫:%d  异常:%d",
+                    details.size(),
+                    mNormalGoodsCount - mNormalReadyPickCount,
+                    mNormalReadyPickCount,
+                    details.size() - mNormalGoodsCount));
+        } else {
+            textCount.setText("");
+            textCount.setVisibility(View.GONE);
+        }
+
+    }
+
+    //清楚VIEW数据
+    private void clearViewData() {
         textPickNum.setText("");
         textStockCurrent.setText("");
         textStockNext.setText("");
         mPickGoodsAdapter.setNewData(null);
-        mPickGoods = null;
+        textCount.setText("");
     }
 
-    private void setViewData() {
-        textPickNum.setText(mBarcode);
-        mPickGoodsAdapter.setNewData(mPickGoods.details);
+    //清理捡货数据
+    private void clearPickData() {
+        mPickGoods = null;
+        mNormalReadyPickCount = 0;
+        mNormalGoodsCount = 0;
+        mStockInfos.clear();
+        mCurrentStockInfo=null;
     }
 
     //根据货位ID查找货位在当前货位集合中的位置
     private int queryStockIndex(long stockId) {
         int index = -1;
-        if (mStockInfos != null) {
-            for (int i = 0; i < mStockInfos.size(); i++) {
-                if (mStockInfos.get(i).getId() == stockId) {
-                    index = i;
-                    break;
-                }
+        for (int i = 0; i < mStockInfos.size(); i++) {
+            if (mStockInfos.get(i).getId() == stockId) {
+                index = i;
+                break;
             }
         }
         return index;
@@ -453,7 +492,7 @@ public class PickgoodsActivity extends BaseActivity {
     }
 
     private void doBack() {
-        if (checkIsOver()) {
+        if (mNormalReadyPickCount == 0) {
             SPUtils.putString(Constant.KEY_PICK_GOODS_ID, "");
             finish();
             return;
