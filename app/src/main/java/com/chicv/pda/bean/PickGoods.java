@@ -325,10 +325,7 @@ public class PickGoods {
         // 订单物品 = 0,
         // 囤货物品 = 1
         private int goodsType;
-        /// <summary>
-        /// 是否已扫描【囤货物品时需要设置】
-        /// </summary>
-        private boolean isScan;
+
         /// <summary>
         /// 是否打印了条码
         /// </summary>
@@ -374,6 +371,21 @@ public class PickGoods {
         private String exceptionUserName;
         // 货位信息
         private StockInfo stockGrid;
+
+
+        //是否已丢失
+        private boolean isLose;
+
+        // 是否已扫描
+        private boolean isScan;
+
+        public boolean isLose() {
+            return isLose;
+        }
+
+        public void setLose(boolean lose) {
+            this.isLose = lose;
+        }
 
         public int getId() {
             return id;

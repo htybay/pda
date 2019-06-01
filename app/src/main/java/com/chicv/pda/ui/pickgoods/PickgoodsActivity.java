@@ -26,6 +26,7 @@ import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.PdaUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
@@ -166,11 +167,16 @@ public class PickgoodsActivity extends BaseActivity {
             }
         }
         if (scanGoods == null) {
-            ToastUtils.showString("该拣货单上没有此物品！");
+            ToastUtils.showString("该货位上没有此物品！");
             SoundUtils.playError();
             return;
         }
-        if (scanGoods.getPickStatus() >= 40) {
+        if (scanGoods.getStatus() != 1) {
+            ToastUtils.showString("物品异常：" + PdaUtils.getStatusDesc(scanGoods.getStatus()));
+            SoundUtils.playError();
+            return;
+        }
+        if (scanGoods.getPickStatus() > Constant.PICK_STATUS_UNPICK) {
             ToastUtils.showString("该物品已扫描!");
             SoundUtils.playError();
             return;
@@ -196,15 +202,15 @@ public class PickgoodsActivity extends BaseActivity {
         PickGoods.PickGoodsDetail scanGoods = null;
         for (PickGoods.PickGoodsDetail goodsDetail : data) {
             if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
-                if (!isExist) isExist = true;
-                if (goodsDetail.getPickStatus() == 30) {
+                isExist = true;
+                if (goodsDetail.getPickStatus() == Constant.PICK_STATUS_UNPICK) {
                     scanGoods = goodsDetail;
                     break;
                 }
             }
         }
         if (!isExist) {
-            ToastUtils.showString("该拣货单没有此囤货规格的物品！");
+            ToastUtils.showString("该货位上没有此囤货规格的物品！");
             SoundUtils.playError();
             return;
         }
@@ -227,12 +233,13 @@ public class PickgoodsActivity extends BaseActivity {
                 .subscribe(new RxObserver<Object>(true, this) {
                     @Override
                     public void onSuccess(Object value) {
-                        scanGoods.setPickStatus(40);
+                        scanGoods.setPickStatus(Constant.PICK_STATUS_UNDELIVERY);
                         mNormalReadyPickCount--;
                         refreshCountText();
                         if (mNormalReadyPickCount == 0) {
-                            ToastUtils.showString("恭喜你，物品已扫为齐，拣货完成！");
-                            mPickGoodsAdapter.setNewData(mPickGoods.getDetails());
+                            ToastUtils.showString("恭喜你，物品已扫齐，拣货完成！");
+                            clearPickData();
+                            clearViewData();
                         } else {
                             mPickGoodsAdapter.notifyDataSetChanged();
                         }
@@ -254,7 +261,7 @@ public class PickgoodsActivity extends BaseActivity {
             if (details != null) {
                 for (PickGoods.PickGoodsDetail detail : details) {
                     //正常数据且有待捡的
-                    if (detail.getStatus() == 1 && detail.getPickStatus() == 30) {
+                    if (detail.getStatus() == 1 && detail.getPickStatus() == Constant.PICK_STATUS_UNPICK) {
                         isOver = false;
                         break;
                     }
@@ -300,8 +307,7 @@ public class PickgoodsActivity extends BaseActivity {
                 .subscribe(new RxObserver<PickGoods>(true, this) {
                     @Override
                     public void onSuccess(PickGoods value) {
-                        clearPickData();
-                        if (value.getPickStatus() == 20) {
+                        if (value.getPickStatus() == Constant.PICK_STATUS_UNRECEIVE) {
                             ToastUtils.showString("拣货单未领取！");
                             SoundUtils.playError();
                             return;
@@ -311,6 +317,7 @@ public class PickgoodsActivity extends BaseActivity {
                             SoundUtils.playError();
                             return;
                         }
+                        clearPickData();
                         handleData(value);
                         setViewData();
                         refreshCountText();
@@ -329,6 +336,8 @@ public class PickgoodsActivity extends BaseActivity {
     //处理服务器返回的拣货单信息 1，获取所有货位去重排序 2，获取所有正常可扫的件数
     private void handleData(PickGoods value) {
         mPickGoods = value;
+        mNormalReadyPickCount = 0;
+        mNormalGoodsCount = 0;
         List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
         List<Long> stockIds = new ArrayList<>();
         if (details == null) return;
@@ -340,7 +349,7 @@ public class PickgoodsActivity extends BaseActivity {
             }
             if (detail.getStatus() == 1) {
                 mNormalGoodsCount++;
-                if (detail.getPickStatus() == 30) {
+                if (detail.getPickStatus() == Constant.PICK_STATUS_UNPICK) {
                     mNormalReadyPickCount++;
                 }
             }
@@ -359,18 +368,18 @@ public class PickgoodsActivity extends BaseActivity {
     }
 
     private void refreshCountText() {
-        List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
-        if (details != null && details.size() > 0) {
-            textCount.setVisibility(View.VISIBLE);
-            textCount.setText(String.format(Locale.CHINA, "总件数:%d 已扫:%d 未扫:%d  异常:%d",
-                    details.size(),
-                    mNormalGoodsCount - mNormalReadyPickCount,
-                    mNormalReadyPickCount,
-                    details.size() - mNormalGoodsCount));
-        } else {
+        if (mPickGoods == null || mPickGoods.details == null || mPickGoods.details.size() == 0) {
             textCount.setText("");
             textCount.setVisibility(View.GONE);
+            return;
         }
+        List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
+        textCount.setVisibility(View.VISIBLE);
+        textCount.setText(String.format(Locale.CHINA, "总件数:%d 已扫:%d 未扫:%d  异常:%d",
+                details.size(),
+                mNormalGoodsCount - mNormalReadyPickCount,
+                mNormalReadyPickCount,
+                details.size() - mNormalGoodsCount));
 
     }
 
@@ -381,6 +390,7 @@ public class PickgoodsActivity extends BaseActivity {
         textStockNext.setText("");
         mPickGoodsAdapter.setNewData(null);
         textCount.setText("");
+        textCount.setVisibility(View.GONE);
     }
 
     //清理捡货数据
@@ -389,7 +399,7 @@ public class PickgoodsActivity extends BaseActivity {
         mNormalReadyPickCount = 0;
         mNormalGoodsCount = 0;
         mStockInfos.clear();
-        mCurrentStockInfo=null;
+        mCurrentStockInfo = null;
     }
 
     //根据货位ID查找货位在当前货位集合中的位置

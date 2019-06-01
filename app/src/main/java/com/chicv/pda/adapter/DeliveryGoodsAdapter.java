@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chicv.pda.R;
+import com.chicv.pda.base.Constant;
 import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.PdaUtils;
@@ -26,12 +27,12 @@ import butterknife.ButterKnife;
  * email：liheyu999@163.com
  * description：
  */
-public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail, PickGoodsAdapter.PickGoodsHolder> {
+public class DeliveryGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail, DeliveryGoodsAdapter.PickGoodsHolder> {
 
     private final MyComparator comparator;
 
-    public PickGoodsAdapter() {
-        super(R.layout.item_pick_goods);
+    public DeliveryGoodsAdapter() {
+        super(R.layout.item_delivery_goods);
         comparator = new MyComparator();
     }
 
@@ -40,21 +41,18 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
         String wpCode = BarcodeUtils.generateWPBarcode(item.getGoodsId());
         helper.textProductNum.setText(TextUtils.isEmpty(item.getBatchCode()) ? wpCode : item.getBatchCode());
         helper.textColorSize.setText(item.getSpecification());
-        helper.textStock.setText(item.getStockGrid().getDescription());
         helper.textDeliveryNum.setText(String.valueOf(item.getGroupNo()));
         helper.textStatus.setText(PdaUtils.getPickStatusDesc(item.getPickStatus()));
-        helper.textPacket.setText(String.valueOf(item.getPackageId()));
-        helper.textGoodsId.setText(wpCode);
 
         if (item.getStatus() != 1) {
             //非正常数据标红
             helper.llRoot.setBackgroundResource(R.color.red_light);
         } else {
-            if (item.getPickStatus() != 30) {
-                //非待捡货标蓝
+            if (item.getPickStatus() != Constant.PICK_STATUS_UNDELIVERY) {
+                //非待配货标蓝
                 helper.llRoot.setBackgroundResource(R.color.blue_light);
             } else {
-                //待捡也就是正常数据为白色
+                //待配货也就是正常数据为白色
                 helper.llRoot.setBackgroundResource(R.color.white);
             }
         }
@@ -91,23 +89,15 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
         //产品编号
         @BindView(R.id.text_product_num)
         TextView textProductNum;
+        //规格
         @BindView(R.id.text_color_size)
         TextView textColorSize;
-        //货位信息
-        @BindView(R.id.text_stock)
-        TextView textStock;
         //配货位
         @BindView(R.id.text_delivery_num)
         TextView textDeliveryNum;
         //状态
         @BindView(R.id.text_status)
         TextView textStatus;
-        //包裹号
-        @BindView(R.id.text_packet)
-        TextView textPacket;
-        //物品号
-        @BindView(R.id.text_goods_id)
-        TextView textGoodsId;
 
 
         public PickGoodsHolder(View view) {

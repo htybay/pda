@@ -1,7 +1,6 @@
 package com.chicv.pda.repository.remote;
 
 
-
 import com.chicv.pda.BuildConfig;
 import com.chicv.pda.repository.remote.interceptor.HeadInterceptor;
 
@@ -19,7 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 public class OkhttpManager {
 
-    private static OkhttpManager instance;
+    private static OkhttpManager instance = new OkhttpManager();
     private final OkHttpClient.Builder mOkHttpBuilder;
 
     private static final int CONNECTIMEOUT = 3000;
@@ -32,18 +31,14 @@ public class OkhttpManager {
                 .readTimeout(READTIMEOUT, TimeUnit.MILLISECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HeadInterceptor())
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(BuildConfig.DEBUG?HttpLoggingInterceptor.Level.BODY:HttpLoggingInterceptor.Level.NONE))
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE))
                 .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS));
 
     }
 
     public static OkhttpManager getInstance() {
-        if (instance == null) {
-            instance = new OkhttpManager();
-        }
         return instance;
     }
-
 
     public OkHttpClient getOKhttp() {
         return mOkHttpBuilder.build();

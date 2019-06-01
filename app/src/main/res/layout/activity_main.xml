@@ -13,29 +13,30 @@
         android:gravity="center"
         android:text="细刻科技"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_pick_goods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:drawableTop="@drawable/icon_pick_goods"
         android:drawablePadding="8dp"
         android:gravity="center"
         android:padding="10dp"
-        android:text="捡货"
+        android:text="拣货"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/text_delivery_goods"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/text_delivery_goods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:drawableTop="@drawable/icon_delivery_goods"
         android:drawablePadding="8dp"
         android:gravity="center"
@@ -43,9 +44,39 @@
         android:text="配货"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/text_pick_goods"
         app:layout_constraintLeft_toRightOf="@+id/text_pick_goods"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/text_pick_goods" />
 
+    <TextView
+        android:id="@+id/text_lose_pick"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:drawableTop="@drawable/icon_lose"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="拣货丢失"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/text_delivery_goods"
+        app:layout_constraintTop_toBottomOf="@id/text_pick_goods" />
+
+    <TextView
+        android:id="@+id/text_lose_delivery"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:drawableTop="@drawable/icon_lose"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="配货丢失"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/text_lose_pick"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_lose_pick" />
 </android.support.constraint.ConstraintLayout>

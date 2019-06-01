@@ -35,4 +35,54 @@ public class PdaUtils {
         }
         return value;
     }
+
+    /// 错误状态
+    //        未知数据 = 0,
+    //        正常数据 = 1,
+    //        物品丢失 = 2,
+    //        订单取消 = 3,
+    //        订单暂停 = 4,
+    //        订单地址变更 = 5,
+    //        订单快递变更 = 6,
+    //        搬仓移库 = 7,
+    //        调拨移位丢失 = 8,
+    //        手动丢失 = 99
+
+    public static String getStatusDesc(int status) {
+        String value = "未知数据";
+        switch (status) {
+            case 0:
+                value = "未知数据";
+                break;
+            case 1:
+                value = "正常数据";
+                break;
+            case 2:
+                value = "物品丢失";
+                break;
+            case 3:
+                value = "订单取消";
+                break;
+            case 4:
+                value = "订单暂停";
+                break;
+            case 5:
+                value = "订单地址变更";
+                break;
+            case 6:
+                value = "订单快递变更";
+                break;
+            case 7:
+                value = "搬仓移库";
+                break;
+            case 8:
+                value = "调拨移位丢失";
+                break;
+            case 90:
+                value = "手动丢失";
+                break;
+        }
+        return value;
+    }
+
 }
