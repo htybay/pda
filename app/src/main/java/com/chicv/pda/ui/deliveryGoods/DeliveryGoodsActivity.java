@@ -267,7 +267,14 @@ public class DeliveryGoodsActivity extends BaseActivity {
             PickGoods.PickGoodsDetail next = iterator.next();
             if (next.getPickStatus() == Constant.PICK_STATUS_OVER) {
                 iterator.remove();
+//                continue;
             }
+//            if (detail.getStatus() == 1) {
+//                mNormalGoodsCount++;
+//                if (detail.getPickStatus() == Constant.PICK_STATUS_UNDELIVERY) {
+//                    mNormalUnDeliveryCount++;
+//                }
+//            }
         }
 
         for (PickGoods.PickGoodsDetail detail : details) {

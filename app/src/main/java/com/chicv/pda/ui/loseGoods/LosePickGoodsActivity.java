@@ -128,9 +128,8 @@ public class LosePickGoodsActivity extends BaseActivity {
 
     //只保留islose = true的数据
     private List<LoseGoods> filterGoods(List<LoseGoods> data) {
-        List<LoseGoods> list = new ArrayList<>();
         if (data == null || data.size() == 0) {
-            return list;
+            return new ArrayList<>();
         }
 
         Iterator<LoseGoods> iterator = data.iterator();
@@ -169,7 +168,7 @@ public class LosePickGoodsActivity extends BaseActivity {
         LoseGoodsParam param = new LoseGoodsParam();
         param.setPickId(String.valueOf(mData.get(0).getPickId()));
         StringBuilder builder = new StringBuilder();
-        for (LoseGoods item : mData) {
+            for (LoseGoods item : mData) {
             builder.append(item.getGoodsId()).append(",");
         }
         param.setGoodsIds(builder.toString());
