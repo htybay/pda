@@ -209,12 +209,9 @@ public class DeliveryGoodsActivity extends BaseActivity {
                         refreshCountText();
                         if (mNormalUnDeliveryCount == 0) {
                             ToastUtils.showString("恭喜你，物品已扫齐，配货完成！");
-                            clearPickData();
-                            clearViewData();
-                        } else {
-                            mDeliveryGoodsAdapter.notifyDataSetChanged();
-                            scrollToGoodsId(scanGoods.getGoodsId());
                         }
+                        mDeliveryGoodsAdapter.notifyDataSetChanged();
+                        scrollToGoodsId(scanGoods.getGoodsId());
                         SoundUtils.playSuccess();
                     }
 
@@ -353,8 +350,8 @@ public class DeliveryGoodsActivity extends BaseActivity {
             return;
         }
 
-        if (mNormalUnDeliveryCount == 0) {
-            ToastUtils.showString("没有需要配货的物品！");
+        if (mNormalGoodsCount == 0) {
+            ToastUtils.showString("没有待出库的物品！");
             return;
         }
 
