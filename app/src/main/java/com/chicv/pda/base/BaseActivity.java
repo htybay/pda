@@ -10,12 +10,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.chicv.pda.R;
 import com.chicv.pda.repository.HttpManager;
 import com.chicv.pda.repository.remote.ApiService;
+import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
@@ -83,6 +90,34 @@ public class BaseActivity extends RxAppCompatActivity {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }
+    }
+
+    protected void initEditBarcode() {
+        EditText editBarocde = findViewById(R.id.edit_barcode);
+        if (editBarocde == null) {
+            return;
+        }
+        editBarocde.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String content = CommonUtils.getString(v);
+                    if (TextUtils.isEmpty(content)) {
+                        ToastUtils.showString("条码不能为空");
+                    } else {
+                        showKeyboard(false);
+                        onReceiveBarcode(content);
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        initEditBarcode();
     }
 
     /**

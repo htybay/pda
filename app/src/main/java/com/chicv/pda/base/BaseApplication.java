@@ -115,11 +115,11 @@ public class BaseApplication extends Application {
         }
     }
 
-    public void finishOtherActivity(BaseActivity nowAct) {
+    public void finishOtherActivity(Class<? extends BaseActivity> nowAct) {
         ListIterator<BaseActivity> listIterator = activitys.listIterator();
         while (listIterator.hasNext()) {
             BaseActivity activity = listIterator.next();
-            if (activity != null && activity != nowAct) {
+            if (activity != null && !TextUtils.equals(activity.getClass().getName(), nowAct.getName())) {
                 activity.finish();
             }
         }

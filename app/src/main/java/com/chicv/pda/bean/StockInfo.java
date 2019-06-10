@@ -32,7 +32,7 @@ public class StockInfo implements Comparable<StockInfo> {
     /// </summary>
     private String shelfName;
     /// <summary>
-    /// 所属库区编号
+    /// 所属库区编号  152是快发区，只能装12个货物
     /// </summary>
     private int areaId;
     /// <summary>

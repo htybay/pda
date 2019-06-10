@@ -85,4 +85,10 @@ public class DateUtils {
         }
         return getTime(date);
     }
+
+    //传给pda后台时间 2019-03-19T11:28:20.86
+    public static String getPdaDate() {
+        SimpleDateFormat format = new SimpleDateFormat(PDA_TIME_FORMAT, Locale.CHINA);
+        return format.format(new Date());
+    }
 }

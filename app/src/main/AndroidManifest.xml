@@ -32,6 +32,7 @@
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.pickgoods.PickgoodsActivity"
@@ -58,6 +59,28 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.stock.TypeInSockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.stock.InStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".ui.goods.ReceiveGoodsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.goods.GoodsStockActivity" />
+        <activity android:name=".ui.goods.GoodsChangeStockActivity" />
+        <activity android:name=".ui.goods.StockGoodsActivity" />
     </application>
 
 </manifest>

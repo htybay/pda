@@ -1,9 +1,15 @@
 package com.chicv.pda.repository.remote;
 
 import com.chicv.pda.bean.ApiResult;
+import com.chicv.pda.bean.ExpressBean;
+import com.chicv.pda.bean.RecommendStock;
+import com.chicv.pda.bean.LocationGoods;
 import com.chicv.pda.bean.LoseGoods;
 import com.chicv.pda.bean.PickGoods;
+import com.chicv.pda.bean.StockRecord;
 import com.chicv.pda.bean.User;
+import com.chicv.pda.bean.param.InStockParam;
+import com.chicv.pda.bean.param.RecommendStockParam;
 import com.chicv.pda.bean.param.LoginParam;
 import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
@@ -56,16 +62,66 @@ public interface ApiService {
     @GET("/api/Stock/Picking/GetWaitLoseGoods")
     Observable<ApiResult<List<LoseGoods>>> getLosePickGoods(@Query("pickId") String pickId);
 
-    //拣货丢失
+    /**
+     * 拣货丢失
+     */
     @GET("/api/Stock/Picking/PickingLose")
     Observable<ApiResult<Object>> losePickGoods(@Query("pickId") String pickId, @Query("goodsIds") String goodIds);
 
-    //获取配货丢失物品集合
+    /**
+     * 获取配货丢失物品集合
+     */
     @GET("/api/Stock/Picking/GetDistributionWaitLoseGoods")
     Observable<ApiResult<List<LoseGoods>>> getLoseDeliveryGoods(@Query("pickId") String pickId);
 
-    //配货丢失
+    /**
+     * 配货丢失
+     */
     @GET("/api/Stock/Picking/DistributionGoodsLose")
     Observable<ApiResult<Object>> loseDeliveryGoods(@Query("pickId") String pickId, @Query("goodsIds") String goodIds);
+
+    /**
+     * 根据物品ID获取建议的货位信息
+     */
+    @POST("/api/Stock/Goods/GetInVerifiInfo")
+    Observable<ApiResult<RecommendStock>> getRecommendStockInfo(@Body RecommendStockParam param);
+
+    /**
+     * 入库
+     */
+    @POST("/api/Stock/Goods/GoodsIn")
+    Observable<ApiResult<Object>> inStock(@Body InStockParam param);
+
+    /**
+     * 根据货位ID获取库存信息及物品
+     */
+    @GET("/api/Stock/Goods/GetLocationGoods")
+    Observable<ApiResult<LocationGoods>> getLocationGoods(@Query("gridId") long gridId);
+
+    /**
+     * 获取库存记录
+     */
+    @GET("/Api/Stock/Goods/GetInRecord")
+    Observable<ApiResult<List<StockRecord>>> getInRecord(@Query("gridId") long gridId);
+
+
+    /**
+     * 获取库存记录
+     */
+    @GET("/Api/Stock/Goods/GetOutRecord")
+    Observable<ApiResult<List<StockRecord>>> getOutRecord(@Query("gridId") long gridId);
+
+    /**
+     * 根据快递单号获取收货信息
+     */
+//    @GET("/api/stock/GetReceiveByExpressNo")
+    @GET("/Api/Purchase/Goods/GetReceiveByExpressNo")
+    Observable<ApiResult<List<ExpressBean>>> getReceiveByExpressNo(@Query("expressNo") String expressNo);
+
+    /**
+     * 更新签收信息
+     */
+    @POST("/api/stock/UpdateReceiveByPDASign")
+    Observable<ApiResult<Object>> expressSign(@Body ExpressBean bean);
 
 }

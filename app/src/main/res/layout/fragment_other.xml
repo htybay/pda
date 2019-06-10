@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="细刻科技"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_receive"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="不合格入库"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_lose_pick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_remove"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="拣货丢失"
+            android:textColor="@color/color_333"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_pick_goods"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="内部拣货单"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_delivery_goods"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="调拨丢失"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_lose_delivery"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_lose"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="配货丢失"
+            android:textColor="@color/color_333"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_lose"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="盘点"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_pick_goods"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="报损"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_delivery_goods"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="移库操作"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_pick_goods"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="拣货批次"
+            android:textColor="@color/color_999"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</LinearLayout>

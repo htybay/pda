@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/house"
+        android:title="库房业务"
+        android:icon="@drawable/ic_home_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/stock"
+        android:title="囤货业务"
+        android:icon="@drawable/ic_stock_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/other"
+        android:title="其它业务"
+        android:icon="@drawable/ic_other_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mine"
+        android:title="系统"
+        android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="ifRoom" />
+</menu>
