@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseFragment;
 import com.chicv.pda.ui.deliveryGoods.DeliveryGoodsActivity;
+
+import com.chicv.pda.ui.goods.GoodsMoveStockActivity;
+import com.chicv.pda.ui.goods.GoodsStockActivity;
 import com.chicv.pda.ui.goods.ReceiveGoodsActivity;
 import com.chicv.pda.ui.pickgoods.PickgoodsActivity;
 import com.chicv.pda.ui.stock.TypeInSockActivity;
@@ -50,7 +53,8 @@ public class HomeFragment extends BaseFragment {
         bind.unbind();
     }
 
-    @OnClick({R.id.text_receive_goods,R.id.text_pick_goods, R.id.text_delivery_goods, R.id.text_in_stock})
+    @OnClick({R.id.text_receive_goods, R.id.text_pick_goods, R.id.text_delivery_goods, R.id.text_in_stock,
+            R.id.text_goods_stock, R.id.text_goods_change_stock})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_receive_goods:
@@ -64,6 +68,12 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.text_delivery_goods:
                 startActivity(new Intent(getActivity(), DeliveryGoodsActivity.class));
+                break;
+            case R.id.text_goods_stock:
+                startActivity(new Intent(getActivity(), GoodsStockActivity.class));
+                break;
+            case R.id.text_goods_change_stock:
+                startActivity(new Intent(getActivity(), GoodsMoveStockActivity.class));
                 break;
         }
     }

@@ -42,7 +42,7 @@ public class DeliveryGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDe
         helper.textProductNum.setText(TextUtils.isEmpty(item.getBatchCode()) ? wpCode : item.getBatchCode());
         helper.textColorSize.setText(item.getSpecification());
         helper.textDeliveryNum.setText(String.valueOf(item.getGroupNo()));
-        helper.textStatus.setText(PdaUtils.getPickStatusDesc(item.getPickStatus()));
+        helper.textStatus.setText(PdaUtils.getPickStatusDes(item.getPickStatus()));
 
         if (item.getStatus() != 1) {
             //非正常数据标红

@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text_delivery_goods"
+            android:id="@+id/text_in_stock"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="入库"
-            android:textColor="@color/color_999"
+            android:textColor="@color/color_333"
             android:textSize="18sp" />
 
         <TextView
@@ -49,6 +49,7 @@
 
 
         <TextView
+            android:id="@+id/text_goods_move"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -56,8 +57,8 @@
             android:drawablePadding="8dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="物品货位"
-            android:textColor="@color/color_999"
+            android:text="物品移位"
+            android:textColor="@color/color_333"
             android:textSize="18sp" />
 
     </LinearLayout>

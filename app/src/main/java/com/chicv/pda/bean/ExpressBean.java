@@ -4,6 +4,8 @@ package com.chicv.pda.bean;
  * author: liheyu
  * date: 2019-06-06
  * email: liheyu999@163.com
+ *
+ * 收货 快递信息
  */
 public class ExpressBean {
 

@@ -42,7 +42,7 @@ public class PickGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDetail
         helper.textColorSize.setText(item.getSpecification());
         helper.textStock.setText(item.getStockGrid().getDescription());
         helper.textDeliveryNum.setText(String.valueOf(item.getGroupNo()));
-        helper.textStatus.setText(PdaUtils.getPickStatusDesc(item.getPickStatus()));
+        helper.textStatus.setText(PdaUtils.getPickStatusDes(item.getPickStatus()));
         helper.textPacket.setText(String.valueOf(item.getPackageId()));
         helper.textGoodsId.setText(wpCode);
 

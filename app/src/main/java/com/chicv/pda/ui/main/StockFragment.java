@@ -1,5 +1,6 @@
 package com.chicv.pda.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.view.ViewGroup;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.ui.stock.BatchInStockActivity;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -44,4 +47,14 @@ public class StockFragment extends BaseFragment {
         bind.unbind();
     }
 
+    @OnClick({R.id.text_in_stock, R.id.text_goods_move})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.text_in_stock:
+                startActivity(new Intent(getActivity(), BatchInStockActivity.class));
+                break;
+            case R.id.text_goods_move:
+                break;
+        }
+    }
 }

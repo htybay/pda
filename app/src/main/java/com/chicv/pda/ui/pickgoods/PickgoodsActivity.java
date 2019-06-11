@@ -172,7 +172,7 @@ public class PickgoodsActivity extends BaseActivity {
             return;
         }
         if (scanGoods.getStatus() != 1) {
-            ToastUtils.showString("物品异常：" + PdaUtils.getStatusDesc(scanGoods.getStatus()));
+            ToastUtils.showString("物品异常：" + PdaUtils.getStatusDes(scanGoods.getStatus()));
             SoundUtils.playError();
             return;
         }

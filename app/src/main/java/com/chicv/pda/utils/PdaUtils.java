@@ -1,5 +1,7 @@
 package com.chicv.pda.utils;
 
+import com.chicv.pda.base.Constant;
+
 public class PdaUtils {
 
 
@@ -11,7 +13,7 @@ public class PdaUtils {
     //        待配货 = 40,
     //        待出库 = 50,
     //        已完成 = 90
-    public static String getPickStatusDesc(int status) {
+    public static String getPickStatusDes(int status) {
         String value = "未知数据";
         switch (status) {
             case 10:
@@ -48,7 +50,7 @@ public class PdaUtils {
     //        调拨移位丢失 = 8,
     //        手动丢失 = 99
 
-    public static String getStatusDesc(int status) {
+    public static String getStatusDes(int status) {
         String value = "未知数据";
         switch (status) {
             case 0:
@@ -84,5 +86,28 @@ public class PdaUtils {
         }
         return value;
     }
+
+
+    //GoodsStatus  物品可用状态
+    //
+    //    正常 = 0,
+    //    流程暂停 = 1,
+    //    已删除 = 10
+    public static String getGoodsStatusDes(int status) {
+        String value;
+        switch (status) {
+            case Constant.GOODS_STATUS_PAUSE:
+                value = "流程暂停";
+                break;
+            case Constant.GOODS_STATUS_DELETE:
+                value = "已删除";
+                break;
+            default:
+                value = "正常";
+                break;
+        }
+        return value;
+    }
+
 
 }

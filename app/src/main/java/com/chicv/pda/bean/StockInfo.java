@@ -86,6 +86,28 @@ public class StockInfo implements Comparable<StockInfo> {
     /// </summary>
     private boolean isEnable;
 
+    /// <summary>
+    /// 详细位置
+    /// </summary>
+    private String positionText;
+
+    /// <summary>
+    /// 创建人
+    private String createUserName ;
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    private String createTime;
+    /// <summary>
+    /// 更新人
+    /// </summary>
+    private String updateUserName ;
+    /// <summary>
+    /// 更新时间
+    /// </summary>
+    private String updateTime ;
+
+
     public String getDescription() {
         return areaName + columnName + "/" + shelfName + "-" + rowName + "-" + name;
     }
@@ -261,5 +283,45 @@ public class StockInfo implements Comparable<StockInfo> {
 
     public void setEnable(boolean enable) {
         isEnable = enable;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getPositionText() {
+        return positionText;
+    }
+
+    public void setPositionText(String positionText) {
+        this.positionText = positionText;
     }
 }

@@ -1,5 +1,6 @@
 package com.chicv.pda.utils;
 
+import com.chicv.pda.base.Constant;
 import com.chicv.pda.bean.ApiResult;
 import com.chicv.pda.repository.remote.exception.ApiException;
 
@@ -19,9 +20,9 @@ public class RxUtils {
             @Override
             public T apply(ApiResult<T> tApiResult) throws Exception {
                 if (!tApiResult.isSuccess()) {
-                    throw new ApiException(tApiResult.getMessage());
+                    throw new ApiException(Constant.TOAST_PREFIX + tApiResult.getMessage());
                 }
-                if(tApiResult.getData()==null){
+                if (tApiResult.getData() == null) {
                     tApiResult.setData((T) new Object());
                 }
                 return tApiResult.getData();

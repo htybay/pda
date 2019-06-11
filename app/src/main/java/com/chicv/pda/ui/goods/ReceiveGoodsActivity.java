@@ -11,6 +11,7 @@ import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.ExpressBean;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.repository.remote.RxObserver;
+import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.DateUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
@@ -66,7 +67,12 @@ public class ReceiveGoodsActivity extends BaseActivity {
     @Override
     protected void onReceiveBarcode(String barcode) {
         //物流单号，扫到什么就是什么
-        getExpressInfo(barcode);
+        if(BarcodeUtils.isExpressCode(barcode)){
+            getExpressInfo(barcode);
+        }else {
+            ToastUtils.showString("无效的条码！");
+            SoundUtils.playError();
+        }
     }
 
     private void getExpressInfo(String barcode) {
