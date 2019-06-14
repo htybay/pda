@@ -109,5 +109,56 @@ public class PdaUtils {
         return value;
     }
 
+    public static String getStatus() {
+        return "8090";
+    }
+
+//            待处理 = 10,
+//            待拣货 = 20,
+//            待出库 = 30,
+//            待配送 = 40,
+//            待签收 = 50,
+//            待入库 = 60,
+//            已完成 = 70
+
+    public static String getTransferStatusDes(int status) {
+        String value;
+        switch (status) {
+            case 10:
+                value = "待处理";
+                break;
+            case 20:
+                value = "待拣货";
+                break;
+            case 30:
+                value = "待出库";
+                break;
+            case 40:
+                value = "待配送";
+                break;
+            case 50:
+                value = "待签收";
+                break;
+            case 60:
+                value = "待入库";
+                break;
+            case 70:
+                value = "已完成";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+
+//    public enum TransferType
+//    {
+//        自动出库调拨 = 1,
+//        手动出库调拨 = 2,
+//        手动收货调拨 = 3
+//    }
+
 
 }

@@ -6,10 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chicv.pda.R;
@@ -19,7 +15,6 @@ import com.chicv.pda.bean.LoseGoods;
 import com.chicv.pda.bean.param.LoseGoodsParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
-import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 
@@ -40,8 +35,6 @@ import static com.chicv.pda.utils.RxUtils.wrapHttp;
  */
 public class LosePickGoodsActivity extends BaseActivity {
 
-    @BindView(R.id.edit_barcode)
-    EditText editBarcode;
     @BindView(R.id.rlv_goods)
     RecyclerView rlvGoods;
     @BindView(R.id.text_pick_num)
@@ -65,21 +58,6 @@ public class LosePickGoodsActivity extends BaseActivity {
         rlvGoods.setLayoutManager(layoutManager);
         mAdapter = new LosePickGoodsAdapter();
         rlvGoods.setAdapter(mAdapter);
-        editBarcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String content = CommonUtils.getString(editBarcode);
-                    if (TextUtils.isEmpty(content)) {
-                        ToastUtils.showString("条码不能为空");
-                    } else {
-                        showKeyboard(false);
-                        handleBarcode(content);
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     @Override

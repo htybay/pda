@@ -1,6 +1,5 @@
 package com.chicv.pda.ui.goods;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,7 +60,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
 
     @Override
     protected void onReceiveBarcode(String barcode) {
-        if (BarcodeUtils.isContainerCode(barcode)) {
+        if (BarcodeUtils.isStockCode(barcode)) {
             //货位单号
             handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
         } else if (BarcodeUtils.isGoodsCode(barcode)) {
@@ -115,10 +114,10 @@ public class GoodsMoveStockActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_stock:
-                if(mStockMoveBean==null){
+                if (mStockMoveBean == null) {
                     return;
                 }
-                startActivity(new Intent(this, StockInfoActivity.class).putExtra(StockInfoActivity.KEY_STOCK_ID,mStockMoveBean.getId()));
+                StockInfoActivity.start(this, mStockMoveBean.getId());
                 break;
             case R.id.btn_remove:
                 remove();
@@ -127,11 +126,11 @@ public class GoodsMoveStockActivity extends BaseActivity {
     }
 
     private void remove() {
-        if(mStockMoveBean==null){
+        if (mStockMoveBean == null) {
             ToastUtils.showString("请扫描货位!");
             return;
         }
-        if(mAdapter.getData().size()==0){
+        if (mAdapter.getData().size() == 0) {
             ToastUtils.showString("请扫描物品!");
             return;
         }
@@ -142,7 +141,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
         }
         wrapHttp(apiService.moveGoods(data))
                 .compose(bindToLifecycle())
-                .subscribe(new RxObserver<Object>(true,this) {
+                .subscribe(new RxObserver<Object>(true, this) {
                     @Override
                     public void onSuccess(Object value) {
                         ToastUtils.showString("移动成功");

@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.utils.CommonUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -109,6 +110,7 @@ public class MainActivity extends BaseActivity {
             shiftingMode.setAccessible(true);
             shiftingMode.setBoolean(menuView, false);
             shiftingMode.setAccessible(false);
+            CommonUtils.check();
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
                 item.setShiftingMode(false);

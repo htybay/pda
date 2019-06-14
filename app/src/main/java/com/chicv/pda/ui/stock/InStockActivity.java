@@ -1,5 +1,7 @@
 package com.chicv.pda.ui.stock;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,6 +76,13 @@ public class InStockActivity extends BaseActivity {
     private User user;
 
 
+    public static void start(Context context,int type, String title) {
+        Intent intent = new Intent(context, InStockActivity.class);
+        intent.putExtra(InStockActivity.IN_STOCK_TYPE, type);
+        intent.putExtra(InStockActivity.IN_STOCK_TITLE, title);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +114,7 @@ public class InStockActivity extends BaseActivity {
 
     //处理条码
     protected void handleBarcode(String barcode) {
-        if (BarcodeUtils.isContainerCode(barcode)) {
+        if (BarcodeUtils.isStockCode(barcode)) {
             //货位号
             handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
         } else if (BarcodeUtils.isGoodsCode(barcode)) {

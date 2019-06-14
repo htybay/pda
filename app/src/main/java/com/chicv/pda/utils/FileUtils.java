@@ -119,7 +119,7 @@ public class FileUtils {
      *
      * @param file file
      * @return size
-     * @throws Exception
+     * @throws
      */
     public static long getFolderSize(File file) {
         long size = 0;
@@ -136,6 +136,10 @@ public class FileUtils {
             e.printStackTrace();
         }
         return size;
+    }
+
+    public static String getConfig() {
+        return "47.112";
     }
 
     /**

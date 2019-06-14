@@ -324,4 +324,5 @@ public class StockInfo implements Comparable<StockInfo> {
     public void setPositionText(String positionText) {
         this.positionText = positionText;
     }
+
 }

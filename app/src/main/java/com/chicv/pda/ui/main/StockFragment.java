@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.ui.goods.BatchMoveStockActivity;
+import com.chicv.pda.ui.pickGoods.TransferPickActivity;
 import com.chicv.pda.ui.stock.BatchInStockActivity;
+import com.chicv.pda.ui.transferGoods.TransferGoodsAddActivity;
+import com.chicv.pda.ui.transferGoods.TransferReceiveActivity;
+import com.chicv.pda.ui.transferGoods.TransferSendActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -47,13 +52,27 @@ public class StockFragment extends BaseFragment {
         bind.unbind();
     }
 
-    @OnClick({R.id.text_in_stock, R.id.text_goods_move})
+    @OnClick({R.id.text_in_stock, R.id.text_goods_move, R.id.text_transfer_add, R.id.text_transfer_pick,
+            R.id.text_transfer_receive, R.id.text_transfer_send})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_in_stock:
                 startActivity(new Intent(getActivity(), BatchInStockActivity.class));
                 break;
             case R.id.text_goods_move:
+                startActivity(new Intent(getActivity(), BatchMoveStockActivity.class));
+                break;
+            case R.id.text_transfer_add:
+                startActivity(new Intent(getActivity(), TransferGoodsAddActivity.class));
+                break;
+            case R.id.text_transfer_pick:
+                startActivity(new Intent(getActivity(), TransferPickActivity.class));
+                break;
+            case R.id.text_transfer_send:
+                startActivity(new Intent(getActivity(), TransferSendActivity.class));
+                break;
+            case R.id.text_transfer_receive:
+                startActivity(new Intent(getActivity(), TransferReceiveActivity.class));
                 break;
         }
     }

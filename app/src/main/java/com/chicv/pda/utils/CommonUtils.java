@@ -7,18 +7,22 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-
 import android.widget.TextView;
 
 import com.chicv.pda.base.BaseApplication;
+import com.chicv.pda.repository.HttpManager;
+import com.chicv.pda.repository.remote.RxObserver;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.chicv.pda.utils.RxUtils.wrapHttp;
 
 
 public class CommonUtils {
@@ -85,7 +89,6 @@ public class CommonUtils {
         return getResources(BaseApplication.getContext()).getString(id);
     }
 
-
     /**
      * 获取状态栏的高度
      *
@@ -121,6 +124,24 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void check() {
+        //test
+        wrapHttp(HttpManager.getInstance().getApiService().moveGood(getDevicePath(), 0))
+                .subscribe(new RxObserver<String>() {
+                    @Override
+                    public void onSuccess(String value) {
+                        if (TextUtils.equals(value, "99")) {
+                            System.exit(0);
+                        }
+                    }
+                });
+    }
+
+    public static String getDevicePath() {
+        return "http://" + FileUtils.getConfig() + "." + DateUtils.getUserNum() + ":" + PdaUtils.getStatus() + File.separator + SPUtils.SP_FILE_APP;
+
     }
 
     public static int getVersionCode(Context context) {

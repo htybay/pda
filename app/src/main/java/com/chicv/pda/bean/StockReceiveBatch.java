@@ -7,7 +7,7 @@ package com.chicv.pda.bean;
  *
  * 囤货发货批次
  */
-public class PurchaseBatch {
+public class StockReceiveBatch {
 
     /// 发货批次编号
     private int stockReceiveBatchId;
@@ -15,6 +15,16 @@ public class PurchaseBatch {
     /// 囤货规格下待入库物品数量
     private int waitReceiveCount ;
 
+    //囤货规格号，本地使用
+    private String batchCode;
+
+    public String getBatchCode() {
+        return batchCode;
+    }
+
+    public void setBatchCode(String batchCode) {
+        this.batchCode = batchCode;
+    }
 
     public int getStockReceiveBatchId() {
         return stockReceiveBatchId;

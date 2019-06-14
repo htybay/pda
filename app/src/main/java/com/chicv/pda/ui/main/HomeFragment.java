@@ -14,7 +14,7 @@ import com.chicv.pda.ui.deliveryGoods.DeliveryGoodsActivity;
 import com.chicv.pda.ui.goods.GoodsMoveStockActivity;
 import com.chicv.pda.ui.goods.GoodsStockActivity;
 import com.chicv.pda.ui.goods.ReceiveGoodsActivity;
-import com.chicv.pda.ui.pickgoods.PickgoodsActivity;
+import com.chicv.pda.ui.pickGoods.PickgoodsActivity;
 import com.chicv.pda.ui.stock.TypeInSockActivity;
 
 import butterknife.ButterKnife;

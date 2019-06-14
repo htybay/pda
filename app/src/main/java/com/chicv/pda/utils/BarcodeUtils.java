@@ -12,6 +12,10 @@ public class BarcodeUtils {
      */
     public static final String REGEX_PICK_GOODS = "(?i)^JH-([?<num>\\d+]{9})$";
     /**
+     * 内部拣货单号
+     */
+    public static final String REGEX_PICK_INTERNAL_GOODS = "(?i)^JHIN-([?<num>\\d+]{9})$";
+    /**
      * 货位编号
      */
     public static final String REGEX_CONTAINER = "(?i)^HW-([?<num>\\d+]{9})$";
@@ -26,16 +30,38 @@ public class BarcodeUtils {
     public static final String REGEX_GOODS_RULE = "(?i)^[0-9A-Z]+/([?<num>\\d+]{9})$";
 
     /**
+     * 囤货发货批次
+     */
+    public static final String REGEX_BATCH_RULE = "(?i)^FH-([?<num>\\d+]{9})$";
+
+    /**
      * 物流编号
      */
     public static final String REGEX_EXPRESS = "(?i)^(?<num>[0-9a-zA-Z]{9,})$";
+
+    /**
+     * 盘货编号
+     */
+    public static final String REGEX_CHECK_GOODS = "(?i)^PH-([?<num>\\d+]{9})$";
+    /**
+     * 调拨单号
+     */
+    public static final String REGEX_TRANSFER_CODE = "(?i)^DB-([?<num>\\d+]{9})$";
 
 
     public static boolean isPickCode(String username) {
         return Pattern.matches(REGEX_PICK_GOODS, username);
     }
 
-    public static boolean isContainerCode(String username) {
+    public static boolean isTransferCode(String username) {
+        return Pattern.matches(REGEX_TRANSFER_CODE, username);
+    }
+
+    public static boolean isPickInternalCode(String username) {
+        return Pattern.matches(REGEX_PICK_INTERNAL_GOODS, username);
+    }
+
+    public static boolean isStockCode(String username) {
         return Pattern.matches(REGEX_CONTAINER, username);
     }
 
@@ -45,6 +71,10 @@ public class BarcodeUtils {
 
     public static boolean isGoodsRuleCode(String username) {
         return Pattern.matches(REGEX_GOODS_RULE, username);
+    }
+
+    public static boolean isBatchRule(String username) {
+        return Pattern.matches(REGEX_BATCH_RULE, username);
     }
 
     public static boolean isExpressCode(String username) {
@@ -81,7 +111,16 @@ public class BarcodeUtils {
      */
     public static String generateJHBarcode(long pickId) {
         return String.format(Locale.CHINA, "JH-%09d", pickId);
+    }
 
+    /**
+     * 生成内部拣货单条码 JHIN-000000001
+     *
+     * @param pickId 拣货单ID
+     * @return
+     */
+    public static String generateJHINBarcode(long pickId) {
+        return String.format(Locale.CHINA, "JHIN-%09d", pickId);
     }
 
     /**
@@ -92,7 +131,6 @@ public class BarcodeUtils {
      */
     public static String generateWPBarcode(long pickId) {
         return String.format(Locale.CHINA, "WP-%09d", pickId);
-
     }
 
     /**
@@ -103,7 +141,16 @@ public class BarcodeUtils {
      */
     public static String generateHWBarcode(long stockId) {
         return String.format(Locale.CHINA, "HW-%09d", stockId);
+    }
 
+    /**
+     * 生成调拨条码 WP-000000001
+     *
+     * @param dbID 货位ID
+     * @return
+     */
+    public static String generateDBBarcode(long dbID) {
+        return String.format(Locale.CHINA, "DB-%09d", dbID);
     }
 
     /**

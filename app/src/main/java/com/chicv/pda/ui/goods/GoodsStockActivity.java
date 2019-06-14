@@ -60,7 +60,7 @@ public class GoodsStockActivity extends BaseActivity {
     @Override
     protected void onReceiveBarcode(String barcode) {
         textCode.setText(barcode);
-        if (BarcodeUtils.isContainerCode(barcode)) {
+        if (BarcodeUtils.isStockCode(barcode)) {
             //货位单号
             handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
         } else if (BarcodeUtils.isGoodsCode(barcode)) {

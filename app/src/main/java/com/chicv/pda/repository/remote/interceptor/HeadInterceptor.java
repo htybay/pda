@@ -32,6 +32,7 @@ public class HeadInterceptor implements Interceptor {
                 .addHeader("Content-Type", "application/json; charset=UTF-8")
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Accept", "application/json")
+                .addHeader("X-Requested-With", "X-Requested-With")
                 .addHeader("OperateId", operateId)
                 .addHeader("OperateName", operateName)
                 .build();

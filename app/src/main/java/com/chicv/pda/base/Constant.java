@@ -12,7 +12,7 @@ public class Constant {
      */
     public static final int FAST_STOCK_TAG = 152;
 
-    public static final String TOAST_PREFIX = "服务器";
+    public static final String TOAST_PREFIX = "服务器：";
 
 
     //------------------------------------------SP KEY--------------------------------------------------

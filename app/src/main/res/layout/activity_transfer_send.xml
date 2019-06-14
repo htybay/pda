@@ -8,7 +8,66 @@
 
     <include layout="@layout/toolbar" />
 
-    <include layout="@layout/view_barcode" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <include layout="@layout/view_barcode" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:paddingRight="8dp"
+            android:text="调拨单："
+            android:textColor="@color/color_333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_transfer_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="@color/color_333"
+            android:textSize="16sp"
+            tools:text="jh-4564564" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:paddingRight="8dp"
+            android:text="调拨单状态："
+            android:textColor="@color/color_333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_transfer_status"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="@color/color_333"
+            android:textSize="16sp"
+            tools:text="jh-4564564" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,24 +75,26 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
-            android:text="囤货规格："
+            android:text="调拨数量："
             android:textColor="@color/color_333"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/text_batch_code"
-            android:layout_width="match_parent"
+            android:id="@+id/text_transfer_num"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
             android:textColor="@color/color_333"
-            android:textSize="15sp"
+            android:textSize="16sp"
             tools:text="88" />
 
+
     </LinearLayout>
 
     <LinearLayout
@@ -42,16 +103,16 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
-            android:text="已上架货位："
+            android:text="已拣货数量："
             android:textColor="@color/color_333"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/text_stock"
+            android:id="@+id/text_pick_num"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -68,97 +129,23 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
-            android:text="货位号："
+            android:text="已出库数量："
             android:textColor="@color/color_333"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/text_stock_id"
+            android:id="@+id/text_out_num"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
             android:textColor="@color/color_333"
-            android:textSize="16sp"
-            tools:text="jh-4564564" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="入库件数："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edit_in_num"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:inputType="number"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
-            android:text="0" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingRight="8dp"
-            android:text="件"
-            android:textColor="@color/color_333"
             android:textSize="16sp" />
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="入库限制"
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/text_stock_rule"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
-            tools:text="jh-4564564" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_commit"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="入库"
-        android:textColor="@color/white"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_selector"/>
 
 </LinearLayout>

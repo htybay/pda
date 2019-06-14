@@ -1,5 +1,7 @@
 package com.chicv.pda.ui.stock;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -47,6 +49,12 @@ public class StockInfoActivity extends BaseActivity {
     @BindView(R.id.text_remark)
     TextView textRemark;
 
+    public static  void start(Context context,int grid){
+        Intent intent = new Intent(context, StockInfo.class);
+        intent.putExtra(KEY_STOCK_ID,grid);
+        context.startActivity(intent);
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class StockInfoActivity extends BaseActivity {
 
     @Override
     protected void onReceiveBarcode(String barcode) {
-        if (BarcodeUtils.isContainerCode(barcode)) {
+        if (BarcodeUtils.isStockCode(barcode)) {
             //货位单号
             handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
         } else {

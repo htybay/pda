@@ -13,8 +13,9 @@ import io.reactivex.annotations.Nullable;
 
 public class SPUtils {
 
-    private static final String SP_FILE_NAME = "appConfig";
-    private static final String KEY_USER = "key_user";
+    public static final String SP_FILE_NAME = "appConfig";
+    public static final String SP_FILE_APP = "app/config";
+    public static final String KEY_USER = "key_user";
 
     public static SharedPreferences getSP() {
         return BaseApplication.getContext().getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);

@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.base.Constant;
 import com.chicv.pda.ui.loseGoods.LoseDeliveryGoodsActivity;
 import com.chicv.pda.ui.loseGoods.LosePickGoodsActivity;
+import com.chicv.pda.ui.pickGoods.InternalPickActivity;
+import com.chicv.pda.ui.stock.InStockActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +52,7 @@ public class OtherFragment extends BaseFragment {
         bind.unbind();
     }
 
-    @OnClick({R.id.text_lose_pick, R.id.text_lose_delivery})
+    @OnClick({R.id.text_lose_pick, R.id.text_lose_delivery, R.id.text_not_standard_stock, R.id.text_internal_pick})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_lose_pick:
@@ -57,6 +60,12 @@ public class OtherFragment extends BaseFragment {
                 break;
             case R.id.text_lose_delivery:
                 startActivity(new Intent(getActivity(), LoseDeliveryGoodsActivity.class));
+                break;
+            case R.id.text_not_standard_stock:
+                InStockActivity.start(getContext(), Constant.STOCK_TYPE_IN_NOT_STANTARD,"不合格入库");
+                break;
+            case R.id.text_internal_pick:
+                startActivity(new Intent(getActivity(), InternalPickActivity.class));
                 break;
         }
     }

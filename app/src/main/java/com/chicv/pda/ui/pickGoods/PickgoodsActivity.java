@@ -1,4 +1,4 @@
-package com.chicv.pda.ui.pickgoods;
+package com.chicv.pda.ui.pickGoods;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,12 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chicv.pda.R;
@@ -25,7 +22,6 @@ import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
-import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.PdaUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
@@ -53,8 +49,6 @@ public class PickgoodsActivity extends BaseActivity {
 
     @BindView(R.id.rlv_pick_goods)
     RecyclerView rlvPickGoods;
-    @BindView(R.id.edit_barcode)
-    EditText editBarcode;
     @BindView(R.id.text_pick_num)
     TextView textPickNum;
     @BindView(R.id.text_stock_current)
@@ -91,21 +85,6 @@ public class PickgoodsActivity extends BaseActivity {
         rlvPickGoods.setLayoutManager(layoutManager);
         mPickGoodsAdapter = new PickGoodsAdapter();
         rlvPickGoods.setAdapter(mPickGoodsAdapter);
-        editBarcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String content = CommonUtils.getString(editBarcode);
-                    if (TextUtils.isEmpty(content)) {
-                        ToastUtils.showString("条码不能为空");
-                    } else {
-                        showKeyboard(false);
-                        handleBarcode(content);
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     private void initData() {
@@ -131,7 +110,7 @@ public class PickgoodsActivity extends BaseActivity {
         if (BarcodeUtils.isPickCode(barcode)) {
             //捡货单号
             getPickGoodsInfo(String.valueOf(BarcodeUtils.getBarcodeId(barcode)));
-        } else if (BarcodeUtils.isContainerCode(barcode)) {
+        } else if (BarcodeUtils.isStockCode(barcode)) {
             //货位单号
             handleStockBarcode(BarcodeUtils.getBarcodeId(barcode));
         } else if (BarcodeUtils.isGoodsCode(barcode)) {

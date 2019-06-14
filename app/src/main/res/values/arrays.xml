@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="stock_type">
+        <item> 广州仓库</item>
+        <item> 广州2号仓</item>
+        <item> 金源仓</item>
+    </string-array>
+</resources>

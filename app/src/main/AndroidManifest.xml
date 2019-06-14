@@ -35,7 +35,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ui.pickgoods.PickgoodsActivity"
+            android:name=".ui.pickGoods.PickgoodsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -82,6 +82,12 @@
         <activity android:name=".ui.goods.GoodsMoveStockActivity" />
         <activity android:name=".ui.stock.StockInfoActivity" />
         <activity android:name=".ui.stock.BatchInStockActivity" />
+        <activity android:name=".ui.goods.BatchMoveStockActivity" />
+        <activity android:name=".ui.pickGoods.InternalPickActivity" />
+        <activity android:name=".ui.transferGoods.TransferGoodsAddActivity" />
+        <activity android:name=".ui.pickGoods.TransferPickActivity" />
+        <activity android:name=".ui.transferGoods.TransferSendActivity" />
+        <activity android:name=".ui.transferGoods.TransferReceiveActivity" />
     </application>
 
 </manifest>

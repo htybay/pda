@@ -23,6 +23,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/text_not_standard_stock"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -31,7 +32,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="不合格入库"
-            android:textColor="@color/color_999"
+            android:textColor="@color/color_333"
             android:textSize="18sp" />
 
         <TextView
@@ -49,6 +50,7 @@
 
 
         <TextView
+            android:id="@+id/text_internal_pick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -57,7 +59,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="内部拣货单"
-            android:textColor="@color/color_999"
+            android:textColor="@color/color_333"
             android:textSize="18sp" />
 
     </LinearLayout>
