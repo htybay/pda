@@ -2,9 +2,7 @@ package com.chicv.pda.ui.stock;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +11,7 @@ import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.AddedStockListBean;
 import com.chicv.pda.bean.StockLimit;
-import com.chicv.pda.bean.StockMoveBean;
+import com.chicv.pda.bean.StockPositionBean;
 import com.chicv.pda.bean.StockReceiveBatch;
 import com.chicv.pda.bean.param.BatchInStockParam;
 import com.chicv.pda.repository.remote.RxObserver;
@@ -50,7 +48,7 @@ public class BatchInStockActivity extends BaseActivity {
     @BindView(R.id.text_stock_rule)
     TextView textStockRule;
 
-    private StockMoveBean mStockMoveBean;
+    private StockPositionBean mStockPositionBean;
     private StockReceiveBatch mPurchaseReceiveBatch;
     private List<AddedStockListBean.AddedStock> mAddedStockList;
     private StockLimit mStockLimit;
@@ -65,35 +63,35 @@ public class BatchInStockActivity extends BaseActivity {
     }
 
     private void initView() {
-        editInNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && mStockLimit != null) {
-                    try {
-                        int i = Integer.parseInt(s.toString());
-                        if (mStockLimit.getType() == 1 && i < mStockLimit.getNum()) {
-                            ToastUtils.showString("最少入" + mStockLimit.getNum());
-                        }
-                        if (mStockLimit.getType() == 2 && i > mStockLimit.getNum()) {
-                            ToastUtils.showString("最多入" + mStockLimit.getNum());
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+//        editInNum.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (!TextUtils.isEmpty(s) && mStockLimit != null) {
+//                    try {
+//                        int i = Integer.parseInt(s.toString());
+//                        if (mStockLimit.getType() == 1 && i < mStockLimit.getNum()) {
+//                            ToastUtils.showString("最少入" + mStockLimit.getNum());
+//                        }
+//                        if (mStockLimit.getType() == 2 && i > mStockLimit.getNum()) {
+//                            ToastUtils.showString("最多入" + mStockLimit.getNum());
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -171,20 +169,20 @@ public class BatchInStockActivity extends BaseActivity {
             ToastUtils.showString("请先扫描囤货规格");
             return;
         }
-        wrapHttp(apiService.getStockMoveInfoByGridId(stockId))
-                .compose(this.<StockMoveBean>bindToLifecycle())
-                .subscribe(new RxObserver<StockMoveBean>(true, this) {
+        wrapHttp(apiService.getPositionByGridId(stockId))
+                .compose(this.<StockPositionBean>bindToLifecycle())
+                .subscribe(new RxObserver<StockPositionBean>(true, this) {
                     @Override
-                    public void onSuccess(StockMoveBean value) {
-                        mStockMoveBean = value;
-                        mStockMoveBean.setId(stockId);
-                        textStockId.setText(BarcodeUtils.generateHWBarcode(stockId));
+                    public void onSuccess(StockPositionBean value) {
+                        mStockPositionBean = value;
+                        mStockPositionBean.setId(stockId);
+                        textStockId.setText(value.getPosition());
                         getInStockLimit();
                     }
 
                     @Override
                     public void onFailure(String msg) {
-                        mStockMoveBean =null;
+                        mStockPositionBean =null;
                         textStockId.setText("");
                         SoundUtils.playError();
                     }
@@ -193,7 +191,7 @@ public class BatchInStockActivity extends BaseActivity {
 
     //获取入库件数的最大最小限定
     private void getInStockLimit() {
-        wrapHttp(apiService.getStockLimit(mStockMoveBean.getId(), mPurchaseReceiveBatch.getBatchCode()))
+        wrapHttp(apiService.getStockLimit(mStockPositionBean.getId(), mPurchaseReceiveBatch.getBatchCode()))
                 .compose(this.<StockLimit>bindToLifecycle())
                 .subscribe(new RxObserver<StockLimit>(true) {
                     @Override
@@ -226,7 +224,7 @@ public class BatchInStockActivity extends BaseActivity {
             ToastUtils.showString("当前扫描囤货规格待入库物品数量有误");
             return;
         }
-        if (mStockMoveBean == null || mStockLimit == null) {
+        if (mStockPositionBean == null || mStockLimit == null) {
             ToastUtils.showString("请扫描货位");
             return;
         }
@@ -259,7 +257,7 @@ public class BatchInStockActivity extends BaseActivity {
 
     private void commit() {
         BatchInStockParam param = new BatchInStockParam();
-        param.setGridId(mStockMoveBean.getId());
+        param.setGridId(mStockPositionBean.getId());
         param.setStockReceiveBatchId(mPurchaseReceiveBatch.getStockReceiveBatchId());
         param.setStockNums(Integer.parseInt(CommonUtils.getString(editInNum)));
         param.setOperateUserId(SPUtils.getUser().getId());
@@ -277,7 +275,7 @@ public class BatchInStockActivity extends BaseActivity {
     private void clearData() {
         mPurchaseReceiveBatch = null;
         mStockLimit = null;
-        mStockMoveBean = null;
+        mStockPositionBean = null;
         mAddedStockList = null;
         textBatchCode.setText("");
         textStock.setText("");

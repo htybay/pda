@@ -83,7 +83,7 @@ public class TransferSendActivity extends BaseActivity {
     private void getTransfer(int barcodeId) {
         wrapHttp(apiService.getTransfer(barcodeId))
                 .compose(this.<TransferPick>bindToLifecycle())
-                .subscribe(new RxObserver<TransferPick>(true) {
+                .subscribe(new RxObserver<TransferPick>(true,this) {
                     @Override
                     public void onSuccess(TransferPick value) {
                         setData(value);

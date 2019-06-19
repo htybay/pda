@@ -7,7 +7,7 @@ package com.chicv.pda.bean;
  *
  * 物品移位 根据货位号查询的货位信息
  */
-public class StockMoveBean {
+public class StockPositionBean {
 
 
     /**

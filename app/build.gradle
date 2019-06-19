@@ -1,13 +1,27 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/liheyu/Documents/project/pda/key_pda.jks')
+            storePassword '999999999'
+            keyAlias = 'key_release'
+            keyPassword '999999999'
+        }
+        debug {
+            storeFile file('/Users/liheyu/Documents/project/pda/key_pda.jks')
+            storePassword '999999999'
+            keyAlias = 'key_release'
+            keyPassword '999999999'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.chicv.pda"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

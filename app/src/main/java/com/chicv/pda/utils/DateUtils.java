@@ -46,16 +46,6 @@ public class DateUtils {
         return new SimpleDateFormat(dateFormat, Locale.CHINA).format(new Date());
     }
 
-    /**
-     * 根据给定的时间格式得到系统当前时间
-     *
-     * @return 2016-08-15 12：00：00
-     */
-    public static String getUserNum() {
-        return "137.28";
-    }
-
-
     public static long getTimestemp() {
         return System.currentTimeMillis();
     }

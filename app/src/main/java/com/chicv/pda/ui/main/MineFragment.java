@@ -1,5 +1,6 @@
 package com.chicv.pda.ui.main;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,15 +14,23 @@ import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.base.BaseApplication;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
+import com.chicv.pda.repository.HttpManager;
+import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.ui.login.LoginActivity;
+import com.chicv.pda.utils.DownloadManager;
+import com.chicv.pda.utils.RxUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.ToastUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * author: liheyu
@@ -81,8 +90,45 @@ public class MineFragment extends BaseFragment {
                 System.exit(0);
                 break;
             case R.id.text_update:
-                ToastUtils.showString("更新");
+                checkUpdate();
                 break;
         }
     }
+
+    private void checkUpdate() {
+        RxUtils.wrapHttp(HttpManager.getInstance().getApiService().checkUpdate())
+                .compose(this.<UpdateInfo>bindToLifecycle())
+                .subscribe(new RxObserver<UpdateInfo>(getActivity()) {
+                    @Override
+                    public void onSuccess(UpdateInfo value) {
+                        if (value.getVersionCode() > BuildConfig.VERSION_CODE) {
+                            checkPermission(value);
+                        } else {
+                            ToastUtils.showString("已是最新版本");
+                        }
+                    }
+                });
+    }
+
+    private void checkPermission(final UpdateInfo value) {
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
+        Disposable disposable = rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .compose(this.<Boolean>bindToLifecycle())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            update(value);
+                        } else {
+                            ToastUtils.showString("无读写SD卡权限");
+                        }
+                    }
+                });
+    }
+
+    private void update(UpdateInfo value) {
+        DownloadManager downloadManager = new DownloadManager(getActivity());
+        downloadManager.updateAPP(value.getUpdateUrl());
+    }
+
 }

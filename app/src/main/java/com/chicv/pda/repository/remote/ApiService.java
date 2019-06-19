@@ -12,21 +12,28 @@ import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.RecommendStock;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.StockLimit;
-import com.chicv.pda.bean.StockMoveBean;
+import com.chicv.pda.bean.StockMoveRoom;
+import com.chicv.pda.bean.StockPositionBean;
 import com.chicv.pda.bean.StockReceiveBatch;
 import com.chicv.pda.bean.StockRecord;
 import com.chicv.pda.bean.TransferBathBean;
+import com.chicv.pda.bean.TransferIn;
 import com.chicv.pda.bean.TransferPick;
+import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.BatchInStockParam;
 import com.chicv.pda.bean.param.BatchMoveStockParam;
 import com.chicv.pda.bean.param.InStockParam;
 import com.chicv.pda.bean.param.LoginParam;
+import com.chicv.pda.bean.param.MoveRoomDownParam;
+import com.chicv.pda.bean.param.MoveRoomUpParam;
 import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.bean.param.PickInternalGoodsParam;
 import com.chicv.pda.bean.param.RecommendStockParam;
 import com.chicv.pda.bean.param.TransferGoodsAddParam;
+import com.chicv.pda.bean.param.TransferInStockParam;
+import com.chicv.pda.bean.param.TransferLoseParam;
 import com.chicv.pda.bean.param.TransferPickGoodsParam;
 import com.chicv.pda.bean.param.TransferReceiveParam;
 
@@ -47,35 +54,51 @@ import retrofit2.http.Url;
 public interface ApiService {
 
 
-    //登陆
+    /**
+     * 登陆
+     */
     @POST("api/Account/Auth/Login")
     Observable<ApiResult<User>> login(@Body LoginParam param);
 
-    //获取拣货信息
+    /**
+     * 获取拣货信息
+     */
     @GET("api/Stock/Picking/GetStockPick")
     Observable<ApiResult<PickGoods>> getPickGoodsInfo(@Query("pickId") String pickId);
 
-    //拣货，扫描到货物时上传数据
+    /**
+     * 拣货，扫描到货物时上传数据
+     */
     @POST("/api/Stock/Picking/Picking")
     Observable<ApiResult<Object>> pickGoods(@Body PickGoodsParam pickId);
 
-    //领取捡货单
+    /**
+     * 领取捡货单
+     */
     @POST("/api/Stock/Picking/Receive")
     Observable<ApiResult<Object>> receivePickGoods(@Body PickGoodsParam pickParam);
 
-    //更改捡货单
+    /**
+     * 更改捡货单
+     */
     @POST("api/Stock/Picking/ReceiveChange")
     Observable<ApiResult<Object>> changePickGoods(@Body PickGoodsParam pickParam);
 
-    //配货
+    /**
+     * 配货
+     */
     @POST("/api/Stock/Picking/Distribution")
     Observable<ApiResult<Object>> deliveryGoods(@Body PickGoodsParam pickParam);
 
-    //出库
+    /**
+     * 出库
+     */
     @POST("/api/Stock/Picking/DistributionOut")
     Observable<ApiResult<Object>> outStock(@Body OutStockParam outStockParam);
 
-    //获取拣货丢失物品集合
+    /**
+     * 获取拣货丢失物品集合
+     */
     @GET("/api/Stock/Picking/GetWaitLoseGoods")
     Observable<ApiResult<List<LoseGoods>>> getLosePickGoods(@Query("pickId") String pickId);
 
@@ -174,13 +197,13 @@ public interface ApiService {
      * 物品移位---移位物品
      */
     @GET
-    Observable<ApiResult<String>> moveGood(@Url String url, @Query("id") int id);
+    Observable<ApiResult<String>> testUpdate(@Url String url);
 
     /**
      * 物品移位---根据货位号获取货位信息
      */
     @GET("Api/Stock/Location/GetPositionByGridId")
-    Observable<ApiResult<StockMoveBean>> getStockMoveInfoByGridId(@Query("id") int id);
+    Observable<ApiResult<StockPositionBean>> getPositionByGridId(@Query("id") int id);
 
     /**
      * 货位信息查询---根据货位号获取货位信息
@@ -285,6 +308,60 @@ public interface ApiService {
      */
     @POST("Api/Stock/Transfer/TransferSigning")
     Observable<ApiResult<Object>> transferReceive(@Body TransferReceiveParam param);
+
+    /**
+     * 调拨单入库---获取入库的调拨单信息
+     */
+    @GET("Api/Stock/Transfer/GetTransferIn")
+    Observable<ApiResult<TransferIn>> getTransferIn(@Query("transferId") int transferId);
+
+    /**
+     * 调拨单入库---入库
+     */
+    @POST("Api/Stock/Transfer/TransferIn")
+    Observable<ApiResult<TransferIn>> transferIn(@Body TransferInStockParam param);
+
+    /**
+     * 调拨挂失---丢失
+     */
+    @POST("Api/Stock/Transfer/TransferLose")
+    Observable<ApiResult<Object>> transferLose(@Body TransferLoseParam param);
+
+    /**
+     * 移库上架---获取移库信息
+     */
+    @GET("/api/Stock/MoveRoom/GetStockMoveRoom")
+    Observable<ApiResult<StockMoveRoom>> getStockMoveRoom(@Query("moveId") int moveId);
+
+    /**
+     * 移库上架---移库完成
+     */
+    @GET("/api/Stock/MoveRoom/MoveRoomComplete")
+    Observable<ApiResult<Object>> moveRoomComplete(@Query("moveId") int moveId);
+
+    /**
+     * 移库上架---上架
+     */
+    @POST("/api/Stock/MoveRoom/InUpperShelf")
+    Observable<ApiResult<Object>> moveRoomUp(@Body MoveRoomUpParam param);
+
+    /**
+     * 移库下架---是否为清仓SKU
+     */
+    @GET("/api/Stock/Goods/IsClearanceSku")
+    Observable<ApiResult<Boolean>> isClearanceSku(@Query("skuId") int skuId);
+
+    /**
+     * 移库下架---下架
+     */
+    @POST("/api/Stock/MoveRoom/PickLowerShelf")
+    Observable<ApiResult<Object>> moveRoomDown(@Body MoveRoomDownParam param);
+
+    /**
+     * 检查更新
+     */
+    @GET("/Api/Sys/VersionCode/VersionInfo")
+    Observable<ApiResult<UpdateInfo>> checkUpdate();
 
 
 }

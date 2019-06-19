@@ -1,5 +1,6 @@
 package com.chicv.pda.ui.login;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,21 +13,26 @@ import com.chicv.pda.BuildConfig;
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.base.Constant;
+import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.LoginParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.ui.main.MainActivity;
 import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.DownloadManager;
 import com.chicv.pda.utils.RxUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends BaseActivity {
 
@@ -57,16 +63,50 @@ public class LoginActivity extends BaseActivity {
             editAccount.setText(user.getLoginAccount());
             editPwd.setText(user.getPwd());
         }
-
-//        editAccount.setText("liheyu");
-//        editPwd.setText("LHYlhy123");
     }
 
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
         if (checkData()) {
-            login();
+//            login();
+            checkUpdate();
         }
+    }
+
+    private void checkUpdate() {
+        RxUtils.wrapHttp(apiService.checkUpdate())
+                .compose(this.<UpdateInfo>bindToLifecycle())
+                .subscribe(new RxObserver<UpdateInfo>(this) {
+                    @Override
+                    public void onSuccess(UpdateInfo value) {
+                        if (value.getVersionCode() > BuildConfig.VERSION_CODE) {
+                            checkPermission(value);
+                        } else {
+                            login();
+                        }
+                    }
+                });
+    }
+
+    private void checkPermission(final UpdateInfo value) {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        Disposable disposable = rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .compose(this.<Boolean>bindToLifecycle())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            update(value);
+                        } else {
+                            ToastUtils.showString("无读写SD卡权限");
+                        }
+                    }
+                });
+    }
+
+    private void update(UpdateInfo value) {
+        DownloadManager downloadManager = new DownloadManager(LoginActivity.this);
+        downloadManager.updateAPP(value.getUpdateUrl());
     }
 
     private void login() {

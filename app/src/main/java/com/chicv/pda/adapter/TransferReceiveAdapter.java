@@ -28,11 +28,14 @@ public class TransferReceiveAdapter extends BaseQuickAdapter<TransferPickGoods, 
             helper.setText(R.id.text_product, wpCode);
             helper.setText(R.id.text_total, String.valueOf(1));
             helper.setText(R.id.text_scan, item.isIsSign() ? String.valueOf(1) : String.valueOf(0));
+            helper.setBackgroundRes(R.id.ll_root, item.isIsSign() ? R.color.blue_light : R.color.white);
+
         } else {
             helper.setText(R.id.text_product, item.getBatchCode());
             helper.setText(R.id.text_total, String.valueOf(item.getLocalTotalCount()));
             helper.setText(R.id.text_scan, String.valueOf(item.getLocalScanCount()));
+            helper.setBackgroundRes(R.id.ll_root, item.getLocalTotalCount() == item.getLocalScanCount() ? R.color.blue_light : R.color.white);
+
         }
-        helper.setBackgroundRes(R.id.ll_root, item.isIsPick() ? R.color.blue_light : R.color.white);
     }
 }

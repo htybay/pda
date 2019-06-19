@@ -38,6 +38,8 @@ public class TransferPickGoods implements Comparable<TransferPickGoods> {
     private boolean IsPick;
     private boolean IsOut;
     private boolean IsIn;
+    private boolean IsSign;
+    private boolean IsDelete;
     private int GridId;
     private String GridName;
     private StockInfo StockGrid;
@@ -46,8 +48,14 @@ public class TransferPickGoods implements Comparable<TransferPickGoods> {
     //本地使用，用于收货，记录相同规格下的总件数，已扫件数
     private int localTotalCount;
     private int localScanCount;
-    private boolean IsSign;
 
+    public boolean isIsDelete() {
+        return IsDelete;
+    }
+
+    public void setIsDelete(boolean delete) {
+        IsDelete = delete;
+    }
 
     public boolean isIsSign() {
         return IsSign;
@@ -189,6 +197,13 @@ public class TransferPickGoods implements Comparable<TransferPickGoods> {
     public int compareTo(@NonNull TransferPickGoods o) {
         if (isIsPick() != o.isIsPick()) {
             if (isIsPick()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+        if (isIsSign() != o.isIsSign()) {
+            if (isIsSign()) {
                 return 1;
             } else {
                 return -1;

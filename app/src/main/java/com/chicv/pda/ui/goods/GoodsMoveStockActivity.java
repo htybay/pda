@@ -11,7 +11,7 @@ import com.chicv.pda.R;
 import com.chicv.pda.adapter.GoodsMoveStockAdapter;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.GoodsMoveBean;
-import com.chicv.pda.bean.StockMoveBean;
+import com.chicv.pda.bean.StockPositionBean;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.ui.stock.StockInfoActivity;
 import com.chicv.pda.utils.BarcodeUtils;
@@ -40,7 +40,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
     TextView textStock;
 
     private GoodsMoveStockAdapter mAdapter;
-    private StockMoveBean mStockMoveBean;
+    private StockPositionBean mStockPositionBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,19 +90,21 @@ public class GoodsMoveStockActivity extends BaseActivity {
     }
 
     private void handleStockBarcode(final int gridId) {
-        wrapHttp(apiService.getStockMoveInfoByGridId(gridId))
-                .compose(this.<StockMoveBean>bindToLifecycle())
-                .subscribe(new RxObserver<StockMoveBean>(true, this) {
+        wrapHttp(apiService.getPositionByGridId(gridId))
+                .compose(this.<StockPositionBean>bindToLifecycle())
+                .subscribe(new RxObserver<StockPositionBean>(true, this) {
                     @Override
-                    public void onSuccess(StockMoveBean value) {
-                        mStockMoveBean = value;
-                        mStockMoveBean.setId(gridId);
-                        textStock.setText(mStockMoveBean.getPosition());
+                    public void onSuccess(StockPositionBean value) {
+                        mStockPositionBean = value;
+                        mStockPositionBean.setId(gridId);
+                        textStock.setText(mStockPositionBean.getPosition());
                         SoundUtils.playSuccess();
                     }
 
                     @Override
                     public void onFailure(String msg) {
+                        mStockPositionBean = null;
+                        textStock.setText("");
                         SoundUtils.playError();
                     }
                 });
@@ -114,10 +116,10 @@ public class GoodsMoveStockActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_stock:
-                if (mStockMoveBean == null) {
+                if (mStockPositionBean == null) {
                     return;
                 }
-                StockInfoActivity.start(this, mStockMoveBean.getId());
+                StockInfoActivity.start(this, mStockPositionBean.getId());
                 break;
             case R.id.btn_remove:
                 remove();
@@ -126,7 +128,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
     }
 
     private void remove() {
-        if (mStockMoveBean == null) {
+        if (mStockPositionBean == null) {
             ToastUtils.showString("请扫描货位!");
             return;
         }
@@ -137,7 +139,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
 
         List<GoodsMoveBean> data = mAdapter.getData();
         for (GoodsMoveBean item : data) {
-            item.setGridId(mStockMoveBean.getId());
+            item.setGridId(mStockPositionBean.getId());
         }
         wrapHttp(apiService.moveGoods(data))
                 .compose(bindToLifecycle())
@@ -151,7 +153,7 @@ public class GoodsMoveStockActivity extends BaseActivity {
     }
 
     private void clearData() {
-        mStockMoveBean = null;
+        mStockPositionBean = null;
         mAdapter.setNewData(null);
         textStock.setText("");
     }

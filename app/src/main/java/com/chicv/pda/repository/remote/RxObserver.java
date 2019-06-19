@@ -38,7 +38,7 @@ public abstract class RxObserver<T> implements Observer<T> {
     private Disposable mDisposable;
     private String dialogMsg = "正在加载...";
     private boolean isUserCancel;
-    private boolean isShowToast;
+    private boolean isShowToast = true;
 
     public RxObserver() {
     }
@@ -47,7 +47,11 @@ public abstract class RxObserver<T> implements Observer<T> {
         this.isShowToast = isShowToast;
     }
 
-    public RxObserver(boolean isShowToast,Activity mActivity) {
+    public RxObserver(Activity mActivity) {
+        this.mActivity = mActivity;
+    }
+
+    public RxObserver(boolean isShowToast, Activity mActivity) {
         this.isShowToast = isShowToast;
         this.mActivity = mActivity;
     }
@@ -82,9 +86,9 @@ public abstract class RxObserver<T> implements Observer<T> {
             errorMsg = "连接错误，请检查网络";
         } else if (e instanceof JsonParseException) {
             errorMsg = "数据解析失败";
-        }  else if (e instanceof SQLiteException) {
+        } else if (e instanceof SQLiteException) {
             errorMsg = "数据操作失败";
-        }else if (e instanceof HttpException) {
+        } else if (e instanceof HttpException) {
             errorMsg = "连接失败";
         } else if (e instanceof IOException) {
             errorMsg = "网络错误";
@@ -141,7 +145,7 @@ public abstract class RxObserver<T> implements Observer<T> {
         }
     }
 
-    public  abstract void onSuccess(T value);
+    public abstract void onSuccess(T value);
 
     public void onFailure(Throwable e) {
     }

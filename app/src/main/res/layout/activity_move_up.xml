@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
-            android:text="调拨单："
+            android:text="移库单："
             android:textColor="@color/color_333"
             android:textSize="16sp" />
 
@@ -46,12 +46,12 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|right"
             android:paddingRight="8dp"
-            android:text="总调拨数量："
+            android:text="货位号："
             android:textColor="@color/color_333"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/text_total"
+            android:id="@+id/text_stock_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -63,6 +63,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:paddingRight="8dp"
+            android:text="总数量："
+            android:textColor="@color/color_333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_total"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="@color/color_333"
+            android:textSize="15sp"
+            tools:text="88" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:paddingRight="8dp"
+            android:text="差异数："
+            android:textColor="@color/color_333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/text_diff"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textColor="@color/color_333"
+            android:textSize="15sp"
+            tools:text="88" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorAccent"
         android:orientation="horizontal">
@@ -70,7 +117,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="规格/物品"
             android:textColor="@color/white"
@@ -83,21 +130,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="调拨数量"
+            android:text="数量"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
 
-        <include layout="@layout/view_line_vertical_white" />
+        <!--<include layout="@layout/view_line_vertical_white" />-->
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="扫描数量"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="物品号"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="14sp" />-->
     </LinearLayout>
 
 
@@ -107,25 +154,36 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/btn_commit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/btn_selector"
-        android:text="入库"
-        android:textColor="@color/white" />
+        android:orientation="horizontal">
 
-    <!--<TextView-->
-    <!--android:id="@+id/text_count"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="40dp"-->
-    <!--android:background="@color/white"-->
-    <!--android:gravity="center"-->
-    <!--android:textColor="@color/color_333"-->
-    <!--android:textSize="16sp"-->
-    <!--tools:text="总件数:20 已扫：3 未扫:2  异常:3" />-->
+        <Button
+            android:id="@+id/btn_over"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_selector"
+            android:text="移库完成"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_up"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_selector"
+            android:text="移库上架"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

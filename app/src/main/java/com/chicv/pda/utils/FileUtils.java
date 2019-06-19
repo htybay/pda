@@ -138,9 +138,6 @@ public class FileUtils {
         return size;
     }
 
-    public static String getConfig() {
-        return "47.112";
-    }
 
     /**
      * 删除指定目录下的文件，这里用于缓存的删除

@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -45,6 +47,12 @@ public class ExampleUnitTest {
         for (StockInfo stockInfo : list) {
             System.out.println(stockInfo.getAreaSort() + "-" + stockInfo.getColumnId() + "-" + stockInfo.getShelfId() + "-" + stockInfo.getRowsId());
         }
+    }
+
+    @Test
+    public void sortTest2() {
+        Map<String,Object> map = new HashMap<>();
+       System.out.println(map.values().size());
     }
 
 

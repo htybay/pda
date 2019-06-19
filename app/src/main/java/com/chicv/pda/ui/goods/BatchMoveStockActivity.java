@@ -2,9 +2,7 @@ package com.chicv.pda.ui.goods;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,35 +77,35 @@ public class BatchMoveStockActivity extends BaseActivity {
 
     private void initView() {
         initToolbar("囤货物品移位");
-        editInNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s) && mStockLimit != null) {
-                    try {
-                        int i = Integer.parseInt(s.toString());
-                        if (mStockLimit.getType() == 1 && i < mStockLimit.getNum()) {
-                            ToastUtils.showString("最少入" + mStockLimit.getNum());
-                        }
-                        if (mStockLimit.getType() == 2 && i > mStockLimit.getNum()) {
-                            ToastUtils.showString("最多入" + mStockLimit.getNum());
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+//        editInNum.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (!TextUtils.isEmpty(s) && mStockLimit != null) {
+//                    try {
+//                        int i = Integer.parseInt(s.toString());
+//                        if (mStockLimit.getType() == 1 && i < mStockLimit.getNum()) {
+//                            ToastUtils.showString("最少入" + mStockLimit.getNum());
+//                        }
+//                        if (mStockLimit.getType() == 2 && i > mStockLimit.getNum()) {
+//                            ToastUtils.showString("最多入" + mStockLimit.getNum());
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -179,7 +177,7 @@ public class BatchMoveStockActivity extends BaseActivity {
 
         wrapHttp(apiService.getStockLimit(stockId, mBatchCode))
                 .compose(this.<StockLimit>bindToLifecycle())
-                .subscribe(new RxObserver<StockLimit>(true) {
+                .subscribe(new RxObserver<StockLimit>(true,this) {
                     @Override
                     public void onSuccess(StockLimit value) {
                         SoundUtils.playSuccess();

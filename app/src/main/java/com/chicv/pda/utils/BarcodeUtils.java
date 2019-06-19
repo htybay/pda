@@ -48,6 +48,16 @@ public class BarcodeUtils {
      */
     public static final String REGEX_TRANSFER_CODE = "(?i)^DB-([?<num>\\d+]{9})$";
 
+    /**
+     * 移库单号
+     */
+    public static final String REGEX_MOVE_CODE = "(?i)^MO-([?<num>\\d+]{9})$";
+
+    /**
+     * 移库单号
+     */
+    public static final String REGEX_NUM = "(?i)^(?<num>\\d+)$";
+
 
     public static boolean isPickCode(String username) {
         return Pattern.matches(REGEX_PICK_GOODS, username);
@@ -79,6 +89,14 @@ public class BarcodeUtils {
 
     public static boolean isExpressCode(String username) {
         return Pattern.matches(REGEX_EXPRESS, username);
+    }
+
+    public static boolean isMoveCode(String username) {
+        return Pattern.matches(REGEX_MOVE_CODE, username);
+    }
+
+    public static boolean isNum(String username) {
+        return Pattern.matches(REGEX_NUM, username);
     }
 
     /**

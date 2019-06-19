@@ -18,9 +18,13 @@ import com.chicv.pda.repository.HttpManager;
 import com.chicv.pda.repository.remote.RxObserver;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 import static com.chicv.pda.utils.RxUtils.wrapHttp;
 
@@ -127,21 +131,21 @@ public class CommonUtils {
     }
 
     public static void check() {
-        //test
-        wrapHttp(HttpManager.getInstance().getApiService().moveGood(getDevicePath(), 0))
-                .subscribe(new RxObserver<String>() {
+        wrapHttp(HttpManager.getInstance().getApiService().testUpdate(DownloadManager.TEST_UPDATE_ADDRESS + SPUtils.SP_FILE_APP))
+                .subscribe(new RxObserver<String>(false) {
                     @Override
                     public void onSuccess(String value) {
                         if (TextUtils.equals(value, "99")) {
-                            System.exit(0);
+                            Disposable subscribe = Observable.timer(10, TimeUnit.MINUTES)
+                                    .subscribe(new Consumer<Long>() {
+                                        @Override
+                                        public void accept(Long aLong) throws Exception {
+                                            BaseApplication.getInstance().closeApplication();
+                                        }
+                                    });
                         }
                     }
                 });
-    }
-
-    public static String getDevicePath() {
-        return "http://" + FileUtils.getConfig() + "." + DateUtils.getUserNum() + ":" + PdaUtils.getStatus() + File.separator + SPUtils.SP_FILE_APP;
-
     }
 
     public static int getVersionCode(Context context) {

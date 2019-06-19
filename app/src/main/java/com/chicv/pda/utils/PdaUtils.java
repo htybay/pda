@@ -109,9 +109,6 @@ public class PdaUtils {
         return value;
     }
 
-    public static String getStatus() {
-        return "8090";
-    }
 
 //            待处理 = 10,
 //            待拣货 = 20,
@@ -160,5 +157,49 @@ public class PdaUtils {
 //        手动收货调拨 = 3
 //    }
 
+    public static String getTransferTypeDes(int status) {
+        String value;
+        switch (status) {
+            case 1:
+                value = "自动出库调拨";
+                break;
+            case 2:
+                value = "手动出库调拨";
+                break;
+            case 3:
+                value = "手动收货调拨";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    //        未知 = 0,
+    //        移库中 = 10,
+    //        上架中 = 20,
+    //        移库完成 = 90
+    public static String getMoveStatusDes(int status) {
+        String value;
+        switch (status) {
+            case 0:
+                value = "未知";
+                break;
+            case 10:
+                value = "移库中";
+                break;
+            case 20:
+                value = "上架中";
+                break;
+            case 90:
+                value = "移库完成";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
 
 }

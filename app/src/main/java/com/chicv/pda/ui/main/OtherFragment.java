@@ -12,8 +12,11 @@ import com.chicv.pda.base.BaseFragment;
 import com.chicv.pda.base.Constant;
 import com.chicv.pda.ui.loseGoods.LoseDeliveryGoodsActivity;
 import com.chicv.pda.ui.loseGoods.LosePickGoodsActivity;
+import com.chicv.pda.ui.moveRoom.MoveRoomDownActivity;
+import com.chicv.pda.ui.moveRoom.MoveRoomUpActivity;
 import com.chicv.pda.ui.pickGoods.InternalPickActivity;
 import com.chicv.pda.ui.stock.InStockActivity;
+import com.chicv.pda.ui.transferGoods.TransferLoseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,7 +55,8 @@ public class OtherFragment extends BaseFragment {
         bind.unbind();
     }
 
-    @OnClick({R.id.text_lose_pick, R.id.text_lose_delivery, R.id.text_not_standard_stock, R.id.text_internal_pick})
+    @OnClick({R.id.text_lose_pick, R.id.text_lose_delivery, R.id.text_not_standard_stock, R.id.text_internal_pick,
+            R.id.text_transfer_lose, R.id.text_move_up, R.id.text_move_down})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_lose_pick:
@@ -62,10 +66,19 @@ public class OtherFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), LoseDeliveryGoodsActivity.class));
                 break;
             case R.id.text_not_standard_stock:
-                InStockActivity.start(getContext(), Constant.STOCK_TYPE_IN_NOT_STANTARD,"不合格入库");
+                InStockActivity.start(getContext(), Constant.STOCK_TYPE_IN_NOT_STANTARD, "不合格入库");
                 break;
             case R.id.text_internal_pick:
                 startActivity(new Intent(getActivity(), InternalPickActivity.class));
+                break;
+            case R.id.text_transfer_lose:
+                startActivity(new Intent(getActivity(), TransferLoseActivity.class));
+                break;
+            case R.id.text_move_up:
+                startActivity(new Intent(getActivity(), MoveRoomUpActivity.class));
+                break;
+            case R.id.text_move_down:
+                startActivity(new Intent(getActivity(), MoveRoomDownActivity.class));
                 break;
         }
     }

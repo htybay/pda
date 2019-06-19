@@ -240,4 +240,19 @@ public class Constant {
     public static final int STOCK_OUT_TYPE_ZHIJIAN = 6;
     public static final int STOCK_OUT_TYPE_HUANKUAN = 7;
 
+    //            待处理 = 10,
+    //            待拣货 = 20,
+    //            待出库 = 30,
+    //            待配送 = 40,
+    //            待签收 = 50,
+    //            待入库 = 60,
+    //            已完成 = 70
+    public static final int TRANSFER_STATUS_UN_HANDLE = 10;
+    public static final int TRANSFER_STATUS_UN_PICK = 20;
+    public static final int TRANSFER_STATUS_UN_OUT = 30;
+    public static final int TRANSFER_STATUS_UN_DELIVERY = 40;
+    public static final int TRANSFER_STATUS_UN_SIGN = 50;
+    public static final int TRANSFER_STATUS_UN_IN = 60;
+    public static final int TRANSFER_STATUS_OVER = 70;
+
 }
