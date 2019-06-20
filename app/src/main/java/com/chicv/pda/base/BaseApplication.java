@@ -14,6 +14,8 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class BaseApplication extends Application {
         AppCrashException.init();
         initLeank();
         initLogger();
+        initUMConfig();
     }
 
     private void initLeank() {
@@ -64,6 +67,12 @@ public class BaseApplication extends Application {
                 return BuildConfig.DEBUG;
             }
         });
+    }
+
+    private void initUMConfig() {
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.MANUAL);
+        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
     }
 
     public BaseActivity getCurrentActivity() {

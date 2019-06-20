@@ -24,6 +24,7 @@ import com.chicv.pda.repository.remote.ApiService;
 import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created  on 2019/1/18 10:48
@@ -164,6 +165,7 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         if (mReceiver == null) {
             mReceiver = new ScannerReceiver();
             mfilter = new IntentFilter(ScanManager.ACTION_DECODE);
@@ -174,6 +176,7 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
         if (mReceiver != null) {
             unregisterReceiver(mReceiver);
         }

@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
     <application
@@ -32,7 +35,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.pickGoods.PickgoodsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -77,20 +80,76 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.goods.GoodsStockActivity" />
-        <activity android:name=".ui.goods.GoodsMoveStockActivity" />
-        <activity android:name=".ui.stock.StockInfoActivity" />
-        <activity android:name=".ui.stock.BatchInStockActivity" />
-        <activity android:name=".ui.goods.BatchMoveStockActivity" />
-        <activity android:name=".ui.pickGoods.InternalPickActivity" />
-        <activity android:name=".ui.transferGoods.TransferGoodsAddActivity" />
-        <activity android:name=".ui.pickGoods.TransferPickActivity" />
-        <activity android:name=".ui.transferGoods.TransferSendActivity" />
-        <activity android:name=".ui.transferGoods.TransferReceiveActivity" />
-        <activity android:name=".ui.transferGoods.TransferInStockActivity" />
-        <activity android:name=".ui.transferGoods.TransferLoseActivity" />
-        <activity android:name=".ui.moveRoom.MoveRoomUpActivity" />
-        <activity android:name=".ui.moveRoom.MoveRoomDownActivity" />
+        <activity android:name=".ui.goods.GoodsStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.goods.GoodsMoveStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.stock.StockInfoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.stock.BatchInStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.goods.BatchMoveStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.pickGoods.InternalPickActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.transferGoods.TransferGoodsAddActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.pickGoods.TransferPickActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.transferGoods.TransferSendActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.transferGoods.TransferReceiveActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.transferGoods.TransferInStockActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.transferGoods.TransferLoseActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.moveRoom.MoveRoomUpActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ui.moveRoom.MoveRoomDownActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- 安装包自动跳转 -->
         <provider
@@ -102,6 +161,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <!--Umeng-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5d0af685570df344e900035c"/>
     </application>
 
 </manifest>

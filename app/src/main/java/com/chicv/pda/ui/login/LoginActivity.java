@@ -95,11 +95,17 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
+                        Logger.d(aBoolean);
                         if (aBoolean) {
                             update(value);
                         } else {
                             ToastUtils.showString("无读写SD卡权限");
                         }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
                     }
                 });
     }

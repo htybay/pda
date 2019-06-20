@@ -2,12 +2,11 @@ package com.chicv.pda.ui.main;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -26,6 +25,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
+    public static final String[] TABS = {"home", "stock", "other", "mine"};
+
     @BindView(R.id.fl_content)
     FrameLayout flContent;
     @BindView(R.id.bottom_view)
@@ -38,16 +39,39 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initFragments();
+        initFragments(savedInstanceState);
         initView();
     }
 
-    private void initFragments() {
+    private void initFragments(Bundle savedInstanceState) {
         mFragments = new ArrayList<>();
-        mFragments.add(HomeFragment.newInstance());
-        mFragments.add(StockFragment.newInstance());
-        mFragments.add(OtherFragment.newInstance());
-        mFragments.add(MineFragment.newInstance());
+        HomeFragment homeFragment = null;
+        StockFragment stockFragment = null;
+        OtherFragment otherFragment = null;
+        MineFragment mineFragment = null;
+        if (savedInstanceState != null) {
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            homeFragment = (HomeFragment) supportFragmentManager.findFragmentByTag(TABS[0]);
+            stockFragment = (StockFragment) supportFragmentManager.findFragmentByTag(TABS[1]);
+            otherFragment = (OtherFragment) supportFragmentManager.findFragmentByTag(TABS[2]);
+            mineFragment = (MineFragment) supportFragmentManager.findFragmentByTag(TABS[3]);
+        }
+        if (homeFragment == null) {
+            homeFragment = HomeFragment.newInstance();
+        }
+        if (stockFragment == null) {
+            stockFragment = StockFragment.newInstance();
+        }
+        if (otherFragment == null) {
+            otherFragment = OtherFragment.newInstance();
+        }
+        if (mineFragment == null) {
+            mineFragment = MineFragment.newInstance();
+        }
+        mFragments.add(homeFragment);
+        mFragments.add(stockFragment);
+        mFragments.add(otherFragment);
+        mFragments.add(mineFragment);
     }
 
     private void initView() {
@@ -74,32 +98,32 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
-
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_content, mFragments.get(0)).commit();
-    }
-
-
-    private int mCurrentItemPostion = 0;
-
-    private void navigationFragment(int position) {
-        if (mCurrentItemPostion != position) {
-            Fragment fragment = mFragments.get(position);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.hide(mFragments.get(mCurrentItemPostion));
-            if (fragment.isAdded()) {
-                fragmentTransaction.show(fragment);
-            } else {
-                fragmentTransaction.add(R.id.fl_content, fragment);
-            }
-            fragmentTransaction.commit();
-            mCurrentItemPostion = position;
+        if (getSupportFragmentManager().getFragments().size() == 0) {
+            navigationFragment(0);
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    private void navigationFragment(int position) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        for (int i = 0; i < mFragments.size(); i++) {
+            BaseFragment fragment = mFragments.get(i);
+            if (fragment.isAdded()) {
+                fragmentTransaction.hide(fragment);
+            }
+            if (i == position) {
+                if (fragment.isAdded()) {
+                    fragmentTransaction.show(fragment);
+                } else {
+                    fragmentTransaction.add(R.id.fl_content, fragment, TABS[position]);
+                }
+            }
+        }
+        fragmentTransaction.commit();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @SuppressLint("RestrictedApi")

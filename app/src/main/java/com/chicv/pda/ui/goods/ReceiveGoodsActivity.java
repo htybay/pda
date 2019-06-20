@@ -67,9 +67,9 @@ public class ReceiveGoodsActivity extends BaseActivity {
     @Override
     protected void onReceiveBarcode(String barcode) {
         //物流单号，扫到什么就是什么
-        if(BarcodeUtils.isExpressCode(barcode)){
+        if (BarcodeUtils.isExpressCode(barcode)) {
             getExpressInfo(barcode);
-        }else {
+        } else {
             ToastUtils.showString("无效的条码！");
             SoundUtils.playError();
         }
@@ -81,7 +81,7 @@ public class ReceiveGoodsActivity extends BaseActivity {
                 .subscribe(new RxObserver<List<ExpressBean>>(true, this) {
                     @Override
                     public void onSuccess(List<ExpressBean> value) {
-                        if (value.size() == 0) {
+                        if (value.size() != 1) {
                             ToastUtils.showString("数据异常！");
                             SoundUtils.playError();
                             clearViewData();
