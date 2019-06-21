@@ -51,9 +51,9 @@ public class TransferLoseActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lose_pick_goods);
+        setContentView(R.layout.activity_transfer_lose);
         ButterKnife.bind(this);
-        initToolbar("拣货丢失");
+        initToolbar("调拨丢失");
         initView();
     }
 
