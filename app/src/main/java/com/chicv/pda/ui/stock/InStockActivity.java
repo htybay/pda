@@ -1,15 +1,19 @@
 package com.chicv.pda.ui.stock;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chicv.pda.R;
 import com.chicv.pda.adapter.InStockAdapter;
 import com.chicv.pda.base.BaseActivity;
@@ -24,6 +28,7 @@ import com.chicv.pda.bean.param.RecommendStockParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.PdaUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
@@ -41,7 +46,7 @@ import static com.chicv.pda.utils.RxUtils.wrapHttp;
  * author: liheyu
  * date: 2019-06-04
  * email: liheyu999@163.com
- *
+ * <p>
  * 分类入库
  */
 public class InStockActivity extends BaseActivity {
@@ -76,7 +81,7 @@ public class InStockActivity extends BaseActivity {
     private User user;
 
 
-    public static void start(Context context,int type, String title) {
+    public static void start(Context context, int type, String title) {
         Intent intent = new Intent(context, InStockActivity.class);
         intent.putExtra(InStockActivity.IN_STOCK_TYPE, type);
         intent.putExtra(InStockActivity.IN_STOCK_TITLE, title);
@@ -104,6 +109,26 @@ public class InStockActivity extends BaseActivity {
         rlvGoods.setLayoutManager(layoutManager);
         mAdapter = new InStockAdapter();
         rlvGoods.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                showDeleteDialog(position);
+            }
+        });
+    }
+
+    private void showDeleteDialog(final int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("是否删除此条数据？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAdapter.remove(position);
+                        textCount.setText(String.valueOf(mAdapter.getData().size()));
+                    }
+                }).setNegativeButton("取消", null)
+                .show();
     }
 
 
@@ -205,8 +230,6 @@ public class InStockActivity extends BaseActivity {
                     @Override
                     public void onSuccess(RecommendStock value) {
                         checkGoods(value);
-                        SoundUtils.playSuccess();
-                        textRecommendStock.setText(value.getLocationRecommend() == null ? "" : value.getLocationRecommend().getAreaName());
                     }
 
                     @Override
@@ -221,26 +244,33 @@ public class InStockActivity extends BaseActivity {
         PurchaseGoods goods = value.getPurchaseGoods();
         if (goods == null) {
             ToastUtils.showString("物品不存在!");
+            SoundUtils.playError();
             return;
         }
         if (goods.getStatus() == Constant.GOODS_STATUS_DELETE) {
             ToastUtils.showString("物品已删除，无法入库");
+            SoundUtils.playError();
             return;
         }
-        if (goods.getStockStatus() == Constant.GOODS_STOCK_STATUS_READY_IN) {
-            ToastUtils.showString("物品当前的仓储状态为【待入库】，不符合入库条件");
+        if (goods.getStockStatus() != PdaUtils.GOODS_STOCK_STATUS_READY_IN) {
+            ToastUtils.showString(String.format("物品当前的仓储状态为【%s】，不符合入库条件", PdaUtils.getGoodsStockStatusDes(goods.getStockStatus())));
+            SoundUtils.playError();
             return;
         }
-        if (goods.getPurchaseStatus() == Constant.GOODS_PUCHASE_STATUS_OVER) {
-            ToastUtils.showString("物品当前的采购状态为【已完成】，不符合入库条件");
+        if (goods.getPurchaseStatus() != PdaUtils.GOODS_PUCHASE_STATUS_OVER) {
+            ToastUtils.showString(String.format("物品当前的采购状态为【%s】，不符合入库条件", PdaUtils.getGoodsPurchaseStatusDes(goods.getPurchaseStatus())));
+            SoundUtils.playError();
             return;
         }
+
+        textRecommendStock.setText(value.getLocationRecommend() == null ? "" : value.getLocationRecommend().getAreaName());
 
         switch (mInStockType) {
             case Constant.STOCK_TYPE_IN_BUY:
                 //采购入库
                 if (goods.getGoodsSource() != Constant.GOODS_SOURCE_BUY || goods.isIsReturn()) {
                     ToastUtils.showString("物品不是采购物品");
+                    SoundUtils.playError();
                 } else {
                     getInRecord(goods);
                 }
@@ -249,6 +279,7 @@ public class InStockActivity extends BaseActivity {
                 //客户退货
                 if (!goods.isIsReturn()) {
                     ToastUtils.showString("物品不是退货物品");
+                    SoundUtils.playError();
                 } else {
                     getOutRecord(goods);
                 }
@@ -261,24 +292,30 @@ public class InStockActivity extends BaseActivity {
                 //不合格入库
                 if (goods.getQCStatus() != Constant.QC_STATUS_FAIL) {
                     ToastUtils.showString("物品不是不合格品");
+                    SoundUtils.playError();
                 } else {
                     updateView(goods);
+                    SoundUtils.playSuccess();
                 }
                 break;
             case Constant.STOCK_TYPE_IN_CHANGE_GOODS:
                 //换款入库
                 if (goods.getGoodsSource() != Constant.GOODS_SOURCE_EXCHANGE) {
                     ToastUtils.showString("物品不是换款物品");
+                    SoundUtils.playError();
                 } else {
                     updateView(goods);
+                    SoundUtils.playSuccess();
                 }
                 break;
             case Constant.STOCK_TYPE_IN_CHECK_EXTRA:
                 //盘盈入库
                 if (goods.getGoodsSource() != Constant.GOODS_SOURCE_CHECK) {
                     ToastUtils.showString("物品不是盘盈物品");
+                    SoundUtils.playError();
                 } else {
                     updateView(goods);
+                    SoundUtils.playSuccess();
                 }
                 break;
         }
@@ -292,10 +329,15 @@ public class InStockActivity extends BaseActivity {
 
     private void getInRecord(final PurchaseGoods goods) {
         wrapHttp(apiService.getInRecord(goods.getId())).compose(this.<List<StockRecord>>bindToLifecycle())
-                .subscribe(new RxObserver<List<StockRecord>>(true) {
+                .subscribe(new RxObserver<List<StockRecord>>(true, this) {
                     @Override
                     public void onSuccess(List<StockRecord> value) {
                         checkStockRecord(value, goods);
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        SoundUtils.playError();
                     }
                 });
     }
@@ -303,10 +345,15 @@ public class InStockActivity extends BaseActivity {
 
     private void getOutRecord(final PurchaseGoods goods) {
         wrapHttp(apiService.getOutRecord(goods.getId())).compose(this.<List<StockRecord>>bindToLifecycle())
-                .subscribe(new RxObserver<List<StockRecord>>(true) {
+                .subscribe(new RxObserver<List<StockRecord>>(true, this) {
                     @Override
                     public void onSuccess(List<StockRecord> value) {
                         checkStockRecord(value, goods);
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        SoundUtils.playError();
                     }
                 });
     }
@@ -316,8 +363,9 @@ public class InStockActivity extends BaseActivity {
         boolean success = true;
         switch (mInStockType) {
             case Constant.STOCK_TYPE_IN_BUY:
-                if (value.size() == 0) {
+                if (value.size() > 0) {
                     ToastUtils.showString("物品不是采购物品");
+                    SoundUtils.playError();
                     success = false;
                 }
                 break;
@@ -326,6 +374,7 @@ public class InStockActivity extends BaseActivity {
                 if (value.size() == 0
                         || value.get(0).getOutStockType() != Constant.STOCK_OUT_TYPE_XIAOSOU) {
                     ToastUtils.showString("物品不是退货物品");
+                    SoundUtils.playError();
                     success = false;
                 }
                 break;
@@ -334,11 +383,13 @@ public class InStockActivity extends BaseActivity {
                 if (value.size() == 0
                         || value.get(0).getOutStockType() != Constant.STOCK_OUT_TYPE_ZHIJIAN) {
                     ToastUtils.showString("物品不能质检入库");
+                    SoundUtils.playError();
                     success = false;
                 }
                 break;
         }
         if (success) {
+            SoundUtils.playSuccess();
             updateView(goods);
         }
 
@@ -378,6 +429,7 @@ public class InStockActivity extends BaseActivity {
                 .subscribe(new RxObserver<Object>(true, this) {
                     @Override
                     public void onSuccess(Object value) {
+                        ToastUtils.showString("操作成功！");
                         mAdapter.setNewData(null);
                         mLocationGoods = null;
                         textRecommendStock.setText("");

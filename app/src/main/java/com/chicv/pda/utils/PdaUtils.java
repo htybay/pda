@@ -202,4 +202,95 @@ public class PdaUtils {
         return value;
     }
 
+    /// GoodsStockStatus 物品仓储状态
+    //    待入库 = 0,
+    //    已入库 = 1,
+    //    已出库 = 2,
+    //    不入库 = 3
+    public static final int GOODS_STOCK_STATUS_READY_IN = 0;
+    public static final int GOODS_STOCK_STATUS_IN = 1;
+    public static final int GOODS_STOCK_STATUS_OUT = 2;
+    public static final int GOODS_STOCK_STATUS_NOT_IN = 3;
+
+    public static String getGoodsStockStatusDes(int status) {
+        String value;
+        switch (status) {
+            case GOODS_STOCK_STATUS_READY_IN:
+                value = "待入库";
+                break;
+            case GOODS_STOCK_STATUS_IN:
+                value = "已入库";
+                break;
+            case GOODS_STOCK_STATUS_OUT:
+                value = "已出库";
+                break;
+            case GOODS_STOCK_STATUS_NOT_IN:
+                value = "不入库";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    /// 物品采购状态
+    //GoodsPurchaseStatus
+    //    待采购 = 0,
+    //    询价中 = 1,
+    //    待确认 = 2,
+    //    待发货 = 3,
+    //    待收货 = 4,
+    //    待质检 = 5,
+    //    不合格待处理 = 7,
+    //    待称重 = 6,
+    //    已完成 = 10
+
+    public static final int GOODS_PUCHASE_STATUS_READY_BUY = 0;
+    public static final int GOODS_PUCHASE_STATUS_IN_PRICE = 1;
+    public static final int GOODS_PUCHASE_STATUS_READY_CONFIRM = 2;
+    public static final int GOODS_PUCHASE_STATUS_READY_SEND = 3;
+    public static final int GOODS_PUCHASE_STATUS_READY_RECEIVE = 4;
+    public static final int GOODS_PUCHASE_STATUS_READY_CHECK = 5;
+    public static final int GOODS_PUCHASE_STATUS_READY_WEIGHT = 6;
+    public static final int GOODS_PUCHASE_STATUS_READY_HANDLE = 7;
+    public static final int GOODS_PUCHASE_STATUS_OVER = 10;
+
+    public static String getGoodsPurchaseStatusDes(int status) {
+        String value;
+        switch (status) {
+            case GOODS_PUCHASE_STATUS_READY_BUY:
+                value = "待采购";
+                break;
+            case GOODS_PUCHASE_STATUS_IN_PRICE:
+                value = "询价中";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_CONFIRM:
+                value = "待确认";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_SEND:
+                value = "待发货";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_RECEIVE:
+                value = "待收货";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_CHECK:
+                value = "待质检";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_WEIGHT:
+                value = "不合格待处理";
+                break;
+            case GOODS_PUCHASE_STATUS_READY_HANDLE:
+                value = "待称重";
+                break;
+            case GOODS_PUCHASE_STATUS_OVER:
+                value = "已完成";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
 }

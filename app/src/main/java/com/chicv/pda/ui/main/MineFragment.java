@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.chicv.pda.BuildConfig;
 import com.chicv.pda.R;
-import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.base.BaseApplication;
 import com.chicv.pda.base.BaseFragment;
 import com.chicv.pda.bean.UpdateInfo;
@@ -81,10 +80,8 @@ public class MineFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_change_user:
-                BaseActivity activity = (BaseActivity) getActivity();
-                BaseApplication.getInstance().finishOtherActivity(activity.getClass());
-                startActivity(new Intent(activity, LoginActivity.class));
-                activity.finish();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                BaseApplication.getInstance().finishOtherActivity(LoginActivity.class);
             case R.id.text_login_out:
                 BaseApplication.getInstance().closeActivity();
                 System.exit(0);

@@ -142,14 +142,14 @@ public interface ApiService {
      * 分类入库---获取库存记录
      */
     @GET("/Api/Stock/Goods/GetInRecord")
-    Observable<ApiResult<List<StockRecord>>> getInRecord(@Query("gridId") long gridId);
+    Observable<ApiResult<List<StockRecord>>> getInRecord(@Query("goodsId") long gridId);
 
 
     /**
      * 分类入库---获取库存记录
      */
     @GET("/Api/Stock/Goods/GetOutRecord")
-    Observable<ApiResult<List<StockRecord>>> getOutRecord(@Query("gridId") long gridId);
+    Observable<ApiResult<List<StockRecord>>> getOutRecord(@Query("goodsId") long gridId);
 
     /**
      * 接货---根据快递单号获取收货信息

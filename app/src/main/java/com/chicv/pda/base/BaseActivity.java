@@ -26,6 +26,8 @@ import com.chicv.pda.utils.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
+import zxing.activity.CaptureActivity;
+
 /**
  * Created  on 2019/1/18 10:48
  * E-Mail ：liheyu999@163.com
@@ -33,6 +35,9 @@ import com.umeng.analytics.MobclickAgent;
  * @author lihy
  */
 public class BaseActivity extends RxAppCompatActivity {
+
+    public static final String PDA_ACTION = "com.qs.scancode";
+    public static final String PDA_KEY = "data";
 
     private static Handler handler;
     protected ApiService apiService;
@@ -45,6 +50,14 @@ public class BaseActivity extends RxAppCompatActivity {
         removeInstanceState(savedInstanceState);
         BaseApplication.getInstance().addActivity(this);
         apiService = HttpManager.getInstance().getApiService();
+        if (mReceiver == null) {
+            mReceiver = new ScannerReceiver();
+            mfilter = new IntentFilter();
+            mfilter.addAction(ScanManager.ACTION_DECODE);
+            mfilter.addAction(CaptureActivity.ZXING_PDA_ACTION);
+            mfilter.addAction(PDA_ACTION);
+        }
+        registerReceiver(mReceiver, mfilter);
     }
 
     private void removeInstanceState(@Nullable Bundle savedInstanceState) {
@@ -54,11 +67,25 @@ public class BaseActivity extends RxAppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         BaseApplication.getInstance().removeActivity(this);
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 
     protected void initToolbar(String title) {
@@ -149,36 +176,22 @@ public class BaseActivity extends RxAppCompatActivity {
         return handler;
     }
 
-
     public class ScannerReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
-            onReceiveBarcode(new String(barcode));
+            if (TextUtils.equals(intent.getAction(), PDA_ACTION)) {
+                String stringExtra = intent.getStringExtra(PDA_KEY);
+                onReceiveBarcode(stringExtra);
+            } else if (TextUtils.equals(intent.getAction(), CaptureActivity.ZXING_PDA_ACTION)) {
+                String stringExtra = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
+                onReceiveBarcode(stringExtra);
+            } else if (TextUtils.equals(intent.getAction(), ScanManager.ACTION_DECODE)) {
+                byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
+                onReceiveBarcode(new String(barcode));
+            }
         }
     }
 
     protected void onReceiveBarcode(String barcode) {
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-        if (mReceiver == null) {
-            mReceiver = new ScannerReceiver();
-            mfilter = new IntentFilter(ScanManager.ACTION_DECODE);
-        }
-        registerReceiver(mReceiver, mfilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
-        if (mReceiver != null) {
-            unregisterReceiver(mReceiver);
-        }
     }
 }
