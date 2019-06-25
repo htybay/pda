@@ -167,6 +167,7 @@ public class BatchInStockActivity extends BaseActivity {
     private void handleStockBarcode(final int stockId) {
         if (mPurchaseReceiveBatch == null) {
             ToastUtils.showString("请先扫描囤货规格");
+            SoundUtils.playError();
             return;
         }
         wrapHttp(apiService.getPositionByGridId(stockId))
@@ -193,7 +194,7 @@ public class BatchInStockActivity extends BaseActivity {
     private void getInStockLimit() {
         wrapHttp(apiService.getStockLimit(mStockPositionBean.getId(), mPurchaseReceiveBatch.getBatchCode()))
                 .compose(this.<StockLimit>bindToLifecycle())
-                .subscribe(new RxObserver<StockLimit>(true) {
+                .subscribe(new RxObserver<StockLimit>(true,this) {
                     @Override
                     public void onSuccess(StockLimit value) {
                         SoundUtils.playSuccess();
@@ -204,6 +205,8 @@ public class BatchInStockActivity extends BaseActivity {
                         if (value.getType() == 2) {
                             textStockRule.setText("最多入" + value.getNum());
                         }
+                        editInNum.setFocusable(true);
+                        editInNum.setFocusableInTouchMode(true);
                     }
 
                     @Override
@@ -267,7 +270,13 @@ public class BatchInStockActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object value) {
                         ToastUtils.showString("入库成功！");
+                        SoundUtils.playSuccess();
                         clearData();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        SoundUtils.playError();
                     }
                 });
     }

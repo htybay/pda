@@ -179,15 +179,16 @@ public class BaseActivity extends RxAppCompatActivity {
     public class ScannerReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String barcode = "";
             if (TextUtils.equals(intent.getAction(), PDA_ACTION)) {
-                String stringExtra = intent.getStringExtra(PDA_KEY);
-                onReceiveBarcode(stringExtra);
+                barcode = intent.getStringExtra(PDA_KEY);
             } else if (TextUtils.equals(intent.getAction(), CaptureActivity.ZXING_PDA_ACTION)) {
-                String stringExtra = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
-                onReceiveBarcode(stringExtra);
+                barcode = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
             } else if (TextUtils.equals(intent.getAction(), ScanManager.ACTION_DECODE)) {
-                byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
-                onReceiveBarcode(new String(barcode));
+                barcode = new String(intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG));
+            }
+            if (!TextUtils.isEmpty(barcode)) {
+                onReceiveBarcode(barcode.trim());
             }
         }
     }

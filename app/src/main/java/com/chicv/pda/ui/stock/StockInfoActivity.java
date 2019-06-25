@@ -50,7 +50,7 @@ public class StockInfoActivity extends BaseActivity {
     TextView textRemark;
 
     public static  void start(Context context,int grid){
-        Intent intent = new Intent(context, StockInfo.class);
+        Intent intent = new Intent(context, StockInfoActivity.class);
         intent.putExtra(KEY_STOCK_ID,grid);
         context.startActivity(intent);
     }
