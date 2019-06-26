@@ -4,34 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <FrameLayout
-            android:id="@+id/fl_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E6E2E2" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E6E2E2" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:background="@color/white"
-            android:id="@+id/bottom_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="top"
-            app:itemIconTint="@color/selector_color_tab"
-            app:itemTextColor="@color/selector_color_tab"
-            app:menu="@menu/menu_nav" />
-    </LinearLayout>
-
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="top"
+        app:itemIconTint="@color/selector_color_tab"
+        app:itemTextColor="@color/selector_color_tab"
+        app:menu="@menu/menu_nav" />
 
 </LinearLayout>

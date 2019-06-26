@@ -4,19 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="@color/black"-->
-        <!--android:gravity="center"-->
-        <!--android:text="登陆"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="18sp" />-->
+    <include layout="@layout/toolbar" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/logo"/>
+        android:background="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:hint="请输入账号"
             android:textColor="@color/color_333" />
     </LinearLayout>
 
@@ -64,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:hint="请输入密码"
             android:inputType="textPassword"
             android:textColor="@color/color_333" />
     </LinearLayout>
@@ -103,6 +98,4 @@
         android:gravity="center"
         android:text="软件版本：V1.0.0"
         android:textSize="15sp" />
-
-
 </LinearLayout>

@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initToolbar("细刻科技",false);
         ButterKnife.bind(this);
         initFragments(savedInstanceState);
         initView();

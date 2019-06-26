@@ -22,6 +22,7 @@ import com.chicv.pda.R;
 import com.chicv.pda.repository.HttpManager;
 import com.chicv.pda.repository.remote.ApiService;
 import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.StatusBarUtil;
 import com.chicv.pda.utils.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
@@ -89,14 +90,24 @@ public class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void initToolbar(String title) {
+        initToolbarConfig(title, true);
+    }
+
+    protected void initToolbar(String title, boolean showHomeUp) {
+        initToolbarConfig(title, showHomeUp);
+    }
+
+    private void initToolbarConfig(String title, boolean showHomeUp) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar == null) {
             return;
         }
-        toolbar.setTitle(title);
+        TextView textTitle = findViewById(R.id.text_title);
+        textTitle.setText(title);
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeUp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,9 +153,14 @@ public class BaseActivity extends RxAppCompatActivity {
         });
     }
 
+    public void setStatusBar() {
+        StatusBarUtil.setTransparentForImageView(this, null);
+    }
+
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        setStatusBar();
         initEditBarcode();
     }
 
