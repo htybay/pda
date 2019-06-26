@@ -22,7 +22,6 @@ import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.DownloadManager;
 import com.chicv.pda.utils.RxUtils;
 import com.chicv.pda.utils.SPUtils;
-import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -51,7 +50,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initView();
-        SoundUtils.init(getApplicationContext());
     }
 
     private void initView() {

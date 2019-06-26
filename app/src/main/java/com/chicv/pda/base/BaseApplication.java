@@ -9,6 +9,7 @@ import android.text.TextUtils;
 
 import com.chicv.pda.BuildConfig;
 import com.chicv.pda.repository.remote.exception.AppCrashException;
+import com.chicv.pda.utils.SoundUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -40,6 +41,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         instance = this;
         context = getApplicationContext();
+        SoundUtils.init(getApplicationContext());
         AppCrashException.init();
         initLeank();
         initLogger();

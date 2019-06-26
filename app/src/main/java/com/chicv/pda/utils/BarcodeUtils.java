@@ -37,7 +37,7 @@ public class BarcodeUtils {
     /**
      * 物流编号
      */
-    public static final String REGEX_EXPRESS = "(?i)^(?<num>[0-9a-zA-Z]{9,})$";
+    public static final String REGEX_EXPRESS = "(?i)^([0-9a-zA-Z]{9,})$";
 
     /**
      * 盘货编号
@@ -56,7 +56,7 @@ public class BarcodeUtils {
     /**
      * 移库单号
      */
-    public static final String REGEX_NUM = "(?i)^(?<num>\\d+)$";
+    public static final String REGEX_NUM = "(?i)^(\\d+)$";
 
 
     public static boolean isPickCode(String username) {

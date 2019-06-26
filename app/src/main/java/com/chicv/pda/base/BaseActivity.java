@@ -185,8 +185,9 @@ public class BaseActivity extends RxAppCompatActivity {
             } else if (TextUtils.equals(intent.getAction(), CaptureActivity.ZXING_PDA_ACTION)) {
                 barcode = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
             } else if (TextUtils.equals(intent.getAction(), ScanManager.ACTION_DECODE)) {
-                barcode = new String(intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG));
+                barcode = intent.getStringExtra(ScanManager.BARCODE_STRING_TAG);
             }
+
             if (!TextUtils.isEmpty(barcode)) {
                 onReceiveBarcode(barcode.trim());
             }

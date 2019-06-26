@@ -20,10 +20,14 @@ public class SoundUtils {
     }
 
     public static void playSuccess() {
-        soundPool.play(soundArray.get(0), 1, 1, 0, 0, 1);
+        if (soundPool != null && soundArray != null) {
+            soundPool.play(soundArray.get(0), 1, 1, 0, 0, 1);
+        }
     }
 
     public static void playError() {
-        soundPool.play(soundArray.get(1), 1, 1, 0, 0, 1);
+        if (soundPool != null && soundArray != null ) {
+            soundPool.play(soundArray.get(1), 1, 1, 0, 0, 1);
+        }
     }
 }

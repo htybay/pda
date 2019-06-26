@@ -230,7 +230,7 @@ public class TransferInStockActivity extends BaseActivity {
     private void getTransferIn(int barcodeId) {
         wrapHttp(apiService.getTransferIn(barcodeId))
                 .compose(this.<TransferIn>bindToLifecycle())
-                .subscribe(new RxObserver<TransferIn>(true,this) {
+                .subscribe(new RxObserver<TransferIn>(true, this) {
                     @Override
                     public void onSuccess(TransferIn value) {
                         if (value.getStatus() != Constant.TRANSFER_STATUS_UN_IN) {
@@ -305,7 +305,7 @@ public class TransferInStockActivity extends BaseActivity {
                 .subscribe(new RxObserver<Object>(true, this) {
                     @Override
                     public void onSuccess(Object value) {
-                        ToastUtils.showString("入库完成");
+                        ToastUtils.showString("操作成功");
                         clearData();
                     }
                 });
@@ -330,7 +330,7 @@ public class TransferInStockActivity extends BaseActivity {
         String msg = "";
         if (isScanOver()) {
             msg = "您还未提交，是否确认退出？";
-        }else {
+        } else {
             msg = "存在未扫描的物品，是否确认退出？";
         }
         new AlertDialog.Builder(this)
