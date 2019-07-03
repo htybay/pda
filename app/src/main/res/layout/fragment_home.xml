@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/black"
-        android:gravity="center"
-        android:text="细刻科技"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -24,43 +15,22 @@
 
         <TextView
             android:id="@+id/text_receive_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/TextTab"
             android:drawableTop="@drawable/icon_receive"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="收货"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            android:text="签收" />
 
 
         <TextView
             android:id="@+id/text_in_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="分类入库"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_type_in"
+            android:text="分类入库" />
 
         <TextView
             android:id="@+id/text_pick_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/TextTab"
             android:drawableTop="@drawable/icon_pick_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="拣货"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:text="拣货" />
 
     </LinearLayout>
 
@@ -71,42 +41,22 @@
 
         <TextView
             android:id="@+id/text_delivery_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_delivery_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="配货"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_delivery"
+            android:text="配货" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_back_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_back_goos_out"
             android:text="退货出库"
-            android:textColor="@color/color_999"
-            android:textSize="18sp" />
+            android:textColor="@color/color_999" />
 
 
         <TextView
             android:id="@+id/text_goods_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_pick_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="物品货位"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_goods_stock"
+            android:text="物品货位" />
 
     </LinearLayout>
 
@@ -117,16 +67,9 @@
 
         <TextView
             android:id="@+id/text_goods_change_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_remove"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="物品移位"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_goods_move"
+            android:text="物品移位" />
 
         <TextView
             android:layout_width="0dp"

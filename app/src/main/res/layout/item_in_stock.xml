@@ -1,52 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40.5dp">
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
 
-    <LinearLayout
-        android:id="@+id/ll_root"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:contentPadding="5dp">
 
-        <include layout="@layout/view_line_vertical_gray" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_sku"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_666"
-            tools:text="SKU" />
+            <TextView
+                android:id="@+id/text_product_des"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="产品编号:"
+                android:textColor="@color/color_333"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_product_num"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_666"
-            tools:text="产品编号" />
+            <TextView
+                android:id="@+id/text_product_num"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_666"
+                app:layout_constraintLeft_toRightOf="@id/text_product_des"
+                app:layout_constraintTop_toTopOf="@id/text_product_des"
+                tools:text="43329483209480239" />
 
-        <include layout="@layout/view_line_vertical_gray" />
+            <TextView
+                android:id="@+id/text_sku_des"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="SKU:"
+                android:textColor="@color/color_333"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_product_des" />
 
-        <TextView
-            android:id="@+id/text_size"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_666"
-            tools:text="规格描述" />
+            <TextView
+                android:id="@+id/text_sku"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_666"
+                app:layout_constraintLeft_toRightOf="@id/text_sku_des"
+                app:layout_constraintTop_toTopOf="@id/text_sku_des"
+                tools:text="fsdfdsf" />
 
-    </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_gravity="bottom"
-        android:background="@color/gray" />
+            <TextView
+                android:id="@+id/text_size_des"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="规格描述:"
+                android:textColor="@color/color_333"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_sku_des" />
+
+            <TextView
+                android:id="@+id/text_size"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_666"
+                app:layout_constraintLeft_toRightOf="@id/text_size_des"
+                app:layout_constraintTop_toTopOf="@id/text_size_des"
+                tools:text="规格描述" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 </FrameLayout>

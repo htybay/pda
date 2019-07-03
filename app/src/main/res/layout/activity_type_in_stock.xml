@@ -14,43 +14,22 @@
 
         <TextView
             android:id="@+id/text_buy"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_receive"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="采购"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_purchase"
+            android:text="采购" />
 
 
         <TextView
             android:id="@+id/text_not_standard"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="不合格"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_not_standard"
+            android:text="不合格" />
 
         <TextView
             android:id="@+id/text_back_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_pick_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="退货"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_return_goods"
+            android:text="退货" />
 
     </LinearLayout>
 
@@ -61,43 +40,22 @@
 
         <TextView
             android:id="@+id/text_change_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_delivery_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="换款"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_change"
+            android:text="换款" />
 
         <TextView
             android:id="@+id/text_check_extra"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_back_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="盘盈"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_check_extra"
+            android:text="盘盈" />
 
 
         <TextView
             android:id="@+id/text_retry_check"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_pick_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="重新质检"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_retry_check"
+            android:text="重新质检" />
 
     </LinearLayout>
 

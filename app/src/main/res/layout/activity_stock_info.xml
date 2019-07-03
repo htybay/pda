@@ -10,241 +10,112 @@
 
     <include layout="@layout/view_barcode" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="货位编号："
-            android:textColor="@color/color_333"
-            android:textSize="15sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="货位编号：" />
 
         <TextView
             android:id="@+id/text_stock_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="15sp"
+            style="@style/TextViewCommonRight"
             tools:text="88" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="货位名称："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="货位名称：" />
 
         <TextView
             android:id="@+id/text_stock_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="详细位置："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="详细位置：" />
 
         <TextView
             android:id="@+id/text_position"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="创建时间："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="创建时间：" />
 
         <TextView
             android:id="@+id/text_create_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="更新时间："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="更新时间：" />
 
         <TextView
             android:id="@+id/text_update_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="创建人："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="创建人：" />
 
         <TextView
             android:id="@+id/text_create_person"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="更新人："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="更新人：" />
 
         <TextView
             android:id="@+id/text_update_person"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingRight="15dp">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="是否启用："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="是否启用：" />
 
         <TextView
             android:id="@+id/text_enable"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="备注："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="备注：" />
 
         <TextView
             android:id="@+id/text_remark"
-            android:layout_width="0dp"
-            android:layout_height="38dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="jh-4564564" />
     </LinearLayout>
 

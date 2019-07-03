@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chicv.pda.R;
@@ -13,10 +12,10 @@ import com.chicv.pda.bean.StockLimit;
 import com.chicv.pda.bean.param.BatchMoveStockParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
-import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
+import com.chicv.pda.view.NumView;
 
 import java.util.Locale;
 
@@ -41,8 +40,8 @@ public class BatchMoveStockActivity extends BaseActivity {
     TextView textBatchCode;
     @BindView(R.id.text_stock_id)
     TextView textStockId;
-    @BindView(R.id.edit_in_num)
-    EditText editInNum;
+    @BindView(R.id.num_view)
+    NumView numView;
     @BindView(R.id.text_total)
     TextView textTotal;
     @BindView(R.id.text_limit)
@@ -77,35 +76,6 @@ public class BatchMoveStockActivity extends BaseActivity {
 
     private void initView() {
         initToolbar("囤货物品移位");
-//        editInNum.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (!TextUtils.isEmpty(s) && mStockLimit != null) {
-//                    try {
-//                        int i = Integer.parseInt(s.toString());
-//                        if (mStockLimit.getType() == 1 && i < mStockLimit.getNum()) {
-//                            ToastUtils.showString("最少入" + mStockLimit.getNum());
-//                        }
-//                        if (mStockLimit.getType() == 2 && i > mStockLimit.getNum()) {
-//                            ToastUtils.showString("最多入" + mStockLimit.getNum());
-//                        }
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -214,18 +184,7 @@ public class BatchMoveStockActivity extends BaseActivity {
             ToastUtils.showString("请扫描囤货规格");
             return;
         }
-        String num = CommonUtils.getString(editInNum);
-        if (TextUtils.isEmpty(num)) {
-            ToastUtils.showString("请输入移位数量!");
-            return;
-        }
-        int i = 0;
-        try {
-            i = Integer.parseInt(num);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        int i  = numView.getNumValue();
         if (i == 0) {
             ToastUtils.showString("请输入移位数量!");
             return;
@@ -250,7 +209,7 @@ public class BatchMoveStockActivity extends BaseActivity {
         param.setOldGridId(mOldStockId);
         param.setNewGridId(mNewStockId);
         param.setBatchCode(mBatchCode);
-        param.setQuantity(Integer.parseInt(CommonUtils.getString(editInNum)));
+        param.setQuantity(numView.getNumValue());
         param.setOperateUserId(SPUtils.getUser().getId());
         wrapHttp(apiService.batchMoveStock(param))
                 .compose(bindToLifecycle())
@@ -275,6 +234,6 @@ public class BatchMoveStockActivity extends BaseActivity {
         textStockId.setText("");
         textLimit.setText("");
         textTotal.setText("0");
-        editInNum.setText("0");
+        numView.setText("0");
     }
 }

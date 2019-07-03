@@ -1,7 +1,6 @@
 package com.chicv.pda.adapter;
 
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -44,8 +43,6 @@ public class InStockAdapter extends BaseQuickAdapter<PurchaseGoods, InStockAdapt
         TextView textProductNum;
         @BindView(R.id.text_size)
         TextView textSize;
-        @BindView(R.id.ll_root)
-        LinearLayout llRoot;
 
         public MyHolderHolder(View view) {
             super(view);

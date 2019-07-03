@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/black</color>
-    <color name="colorPrimaryDark">@color/black</color>
-    <color name="colorAccent">@color/red_dark</color>
+    <color name="colorPrimary">#438CFF</color>
+    <color name="colorPrimaryDark">#438CFF</color>
+    <color name="colorAccent">#438CFF</color>
     <color name="black_dark">#0e161e</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
@@ -10,12 +10,16 @@
     <color name="color_666">#666666</color>
     <color name="color_999">#999999</color>
     <color name="red">#AE0000</color>
-    <color name="red_dark">#bb1f30</color>
+    <color name="red_dark">#DE4A4A</color>
     <color name="red_light">#e19098</color>
     <color name="yellow_gray">#ffffe9af</color>
     <color name="gray">#b7acac</color>
     <color name="blue_light">#a2a2e9</color>
     <color name="blue_dark">#8080EC</color>
     <color name="green_light">#ff99cc00</color>
+    <color name="app_color_dark">#438CFF</color>
+    <color name="app_color_light">#20C0F4</color>
+
+
 
 </resources>

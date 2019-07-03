@@ -42,7 +42,7 @@ public class UpdateDialog extends Dialog {
         WindowManager.LayoutParams attributes = window.getAttributes();
         Display defaultDisplay = windowManager.getDefaultDisplay();
         attributes.width = (int) (defaultDisplay.getWidth() * 0.8);
-        window.setBackgroundDrawableResource(R.drawable.shape_circle_corner_white);
+        window.setBackgroundDrawableResource(R.drawable.shape_corner_white);
         window.setAttributes(attributes);
     }
 
