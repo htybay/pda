@@ -2,7 +2,6 @@ package com.chicv.pda.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -32,7 +31,6 @@ public class LosePickGoodsAdapter extends BaseQuickAdapter<LoseGoods, LosePickGo
     @Override
     protected void convert(MyHolderHolder helper, LoseGoods item) {
         String wpCode = BarcodeUtils.generateWPBarcode(item.getGoodsId());
-//        helper.textProductNum.setText(TextUtils.isEmpty(item.getBatchCode()) ? wpCode : item.getBatchCode());
         helper.textProductNum.setText(wpCode);
         helper.textRule.setText(item.getBatchCode());
         helper.textStock.setText(item.getGridName());
@@ -48,9 +46,6 @@ public class LosePickGoodsAdapter extends BaseQuickAdapter<LoseGoods, LosePickGo
 
     public static class MyHolderHolder extends BaseViewHolder {
 
-
-        @BindView(R.id.ll_root)
-        LinearLayout llRoot;
         //产品编号
         @BindView(R.id.text_product_num)
         TextView textProductNum;

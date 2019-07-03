@@ -10,29 +10,18 @@
 
     <include layout="@layout/view_barcode" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="拣货单："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="拣货单：" />
 
         <TextView
             android:id="@+id/text_pick_num"
+            style="@style/TextViewCommonRight"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
             tools:text="jh-4564564" />
 
         <Button
@@ -47,30 +36,19 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="配货位："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="配货位：" />
 
         <TextView
             android:id="@+id/text_delivery_num"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
-            tools:text="4564564" />
+            style="@style/TextViewCommonRight"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/red_dark"
+            tools:text="12" />
     </LinearLayout>
 
     <LinearLayout

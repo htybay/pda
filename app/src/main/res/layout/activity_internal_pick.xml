@@ -10,29 +10,18 @@
 
     <include layout="@layout/view_barcode" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="拣货单："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="拣货单：" />
 
         <TextView
             android:id="@+id/text_pick_id"
+            style="@style/TextViewCommonRight"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
             tools:text="jh-4564564" />
 
         <Button
@@ -47,78 +36,39 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="类型："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="类型：" />
 
         <TextView
             android:id="@+id/text_type"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="当前货位："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="当前货位：" />
 
         <TextView
             android:id="@+id/text_stock_current"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="8dp"
-            android:text="下一货位："
-            android:textColor="@color/color_333"
-            android:textSize="16sp" />
+            style="@style/TextViewCommonLeft"
+            android:text="下一货位：" />
 
         <TextView
             android:id="@+id/text_stock_next"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_333"
-            android:textSize="16sp"
+            style="@style/TextViewCommonRight"
             tools:text="4564564" />
     </LinearLayout>
 

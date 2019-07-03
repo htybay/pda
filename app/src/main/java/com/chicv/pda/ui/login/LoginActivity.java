@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        initToolbar("登陆",false);
+        initToolbar("登录",false);
         initView();
         SoundUtils.init(getApplicationContext());
     }

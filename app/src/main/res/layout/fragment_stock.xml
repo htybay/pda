@@ -15,42 +15,22 @@
 
         <TextView
             android:id="@+id/text_in_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_receive"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="入库"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_in_stock"
+            android:text="入库" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_delivery_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_out_stock"
             android:text="出库"
-            android:textColor="@color/color_999"
-            android:textSize="18sp" />
+            android:textColor="@color/color_999" />
 
 
         <TextView
             android:id="@+id/text_goods_move"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_remove"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="物品移位"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_batch_move"
+            android:text="物品移位" />
 
     </LinearLayout>
 
@@ -60,43 +40,23 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_batch_check"
             android:text="囤货盘点"
-            android:textColor="@color/color_999"
-            android:textSize="18sp" />
+            android:textColor="@color/color_999" />
 
         <TextView
             android:id="@+id/text_transfer_add"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_back_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="调拨添加"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_transfer_add"
+            android:text="调拨添加" />
 
 
         <TextView
             android:id="@+id/text_transfer_pick"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_back_stock"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="调拨拣货"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_transfer_pick"
+            android:text="调拨拣货" />
 
     </LinearLayout>
 
@@ -107,43 +67,22 @@
 
         <TextView
             android:id="@+id/text_transfer_send"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_delivery_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="调拨发货"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_transfer_send"
+            android:text="调拨发货" />
 
         <TextView
             android:id="@+id/text_transfer_receive"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_lose"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="调拨收货"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_transfer_receive"
+            android:text="调拨收货" />
 
 
         <TextView
             android:id="@+id/text_transfer_in_stock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/icon_pick_goods"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="调拨入库"
-            android:textColor="@color/color_333"
-            android:textSize="18sp" />
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_transfer_in"
+            android:text="调拨入库" />
 
     </LinearLayout>
 

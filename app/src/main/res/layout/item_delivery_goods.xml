@@ -58,3 +58,103 @@
         android:layout_gravity="bottom"
         android:background="@color/gray" />
 </FrameLayout>
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content">-->
+
+<!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:foreground="?android:attr/selectableItemBackground"-->
+    <!--app:cardBackgroundColor="@color/white"-->
+    <!--app:cardCornerRadius="5dp"-->
+    <!--app:contentPadding="5dp">-->
+
+    <!--<android.support.constraint.ConstraintLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_product_des"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="产品编号:"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_product_num"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_666"-->
+            <!--app:layout_constraintLeft_toRightOf="@id/text_product_des"-->
+            <!--app:layout_constraintTop_toTopOf="@id/text_product_des"-->
+            <!--tools:text="43329483209480239" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_size_des"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="颜色尺寸:"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/text_product_des" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_color_size"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_666"-->
+            <!--app:layout_constraintLeft_toRightOf="@id/text_size_des"-->
+            <!--app:layout_constraintTop_toTopOf="@id/text_size_des"-->
+            <!--tools:text="颜色尺寸" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_delivery_des"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="配货位:"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/text_size_des" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_delivery_num"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:textColor="@color/color_666"-->
+            <!--app:layout_constraintLeft_toRightOf="@id/text_delivery_des"-->
+            <!--app:layout_constraintTop_toTopOf="@id/text_delivery_des"-->
+            <!--tools:text="配货位" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_status"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center"-->
+            <!--tools:text="状态"-->
+            <!--android:textColor="@color/color_666"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--</android.support.constraint.ConstraintLayout>-->
+<!--</android.support.v7.widget.CardView>-->
+<!--</FrameLayout>-->

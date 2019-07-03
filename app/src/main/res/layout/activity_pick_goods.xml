@@ -10,10 +10,7 @@
 
     <include layout="@layout/view_barcode" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
             android:layout_width="100dp"
@@ -47,10 +44,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
             android:layout_width="100dp"
@@ -72,10 +66,7 @@
             tools:text="4564564" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
             android:layout_width="100dp"
@@ -178,6 +169,7 @@
                     android:text="包裹号"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
+
                 <include layout="@layout/view_line_vertical_white" />
 
                 <TextView
