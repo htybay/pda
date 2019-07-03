@@ -18,13 +18,11 @@
 
         <TextView
             android:id="@+id/text_send_num"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_666"
-            android:textSize="15sp"
+            style="@style/TextViewCommonRight"
             tools:text="88" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LinearLayoutCommon">
 
         <TextView
             style="@style/TextViewCommonLeft"
@@ -32,13 +30,7 @@
 
         <TextView
             android:id="@+id/text_weight"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:textColor="@color/color_666"
-            android:textSize="15sp"
+            style="@style/TextViewCommonRight"
             tools:text="88" />
     </LinearLayout>
 

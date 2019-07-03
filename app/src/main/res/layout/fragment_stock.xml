@@ -49,6 +49,8 @@
             android:id="@+id/text_transfer_add"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_transfer_add"
+            android:enabled="false"
+            android:textColor="@color/color_999"
             android:text="调拨添加" />
 
 
