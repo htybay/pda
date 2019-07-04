@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.chicv.pda.R;
 import com.chicv.pda.repository.HttpManager;
 import com.chicv.pda.repository.remote.ApiService;
+import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.StatusBarUtil;
 import com.chicv.pda.utils.ToastUtils;
@@ -145,7 +146,7 @@ public class BaseActivity extends RxAppCompatActivity {
                         ToastUtils.showString("条码不能为空");
                     } else {
                         showKeyboard(false);
-                        onReceiveBarcode(content);
+                        onReceivedCode(content);
                     }
                 }
                 return false;
@@ -205,9 +206,17 @@ public class BaseActivity extends RxAppCompatActivity {
             }
 
             if (!TextUtils.isEmpty(barcode)) {
-                onReceiveBarcode(barcode.trim());
+                onReceivedCode(barcode.trim());
             }
         }
+    }
+
+    private void onReceivedCode(String barcode){
+        if (BarcodeUtils.isQRCode(barcode)) {
+            // 如果扫到的是二维码，提取出物品号或囤货规格
+            barcode = BarcodeUtils.getWpOrBatchCodeFromQr(barcode);
+        }
+        onReceiveBarcode(barcode);
     }
 
     protected void onReceiveBarcode(String barcode) {

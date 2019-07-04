@@ -182,6 +182,14 @@ public class InStockActivity extends BaseActivity {
 
     //第一次扫物品获取推荐货位号再次扫物品前必须要先扫货位号
     private void handleGoodsBarcode(long goodId) {
+        List<PurchaseGoods> data = mAdapter.getData();
+        for (PurchaseGoods datum : data) {
+            if (datum.getId() == goodId) {
+                ToastUtils.showString("物品已扫描！");
+                SoundUtils.playError();
+                return;
+            }
+        }
         if (TextUtils.isEmpty(CommonUtils.getString(textRecommendStock))) {
             // 第一次扫物品
             getRecommendStock(goodId);

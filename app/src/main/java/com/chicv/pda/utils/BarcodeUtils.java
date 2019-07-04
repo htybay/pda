@@ -3,9 +3,16 @@ package com.chicv.pda.utils;
 import android.text.TextUtils;
 
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BarcodeUtils {
+
+
+    /**
+     * 通用二维码
+     */
+    public static final String REGEX_QR_CODE = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
 
     /**
      * 捡货单号
@@ -95,6 +102,10 @@ public class BarcodeUtils {
         return Pattern.matches(REGEX_MOVE_CODE, username);
     }
 
+    public static boolean isQRCode(String username) {
+        return Pattern.matches(REGEX_QR_CODE, username);
+    }
+
     public static boolean isNum(String username) {
         return Pattern.matches(REGEX_NUM, username);
     }
@@ -181,6 +192,17 @@ public class BarcodeUtils {
 
     public static String generateChicvBarcode(long id, String prefix) {
         return String.format(Locale.CHINA, prefix + "-%09d", id);
+    }
 
+    public static String getWpOrBatchCodeFromQr(String code) {
+        String result = "";
+        Pattern compile = Pattern.compile(REGEX_QR_CODE);
+        Matcher matcher = compile.matcher(code);
+        if (matcher.find()) {
+            if (matcher.groupCount() > 2) {
+                result = matcher.group(2);
+            }
+        }
+        return result;
     }
 }
