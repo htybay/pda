@@ -281,7 +281,7 @@ public class StockInfo implements Comparable<StockInfo> {
         return isEnable;
     }
 
-    public void setEnable(boolean enable) {
+    public void setIsEnable(boolean enable) {
         isEnable = enable;
     }
 

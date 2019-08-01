@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
@@ -59,9 +60,8 @@ public class ExampleUnitTest {
 
     @Test
     public void wpRegTest() {
-        String code = "000000000_WP-000000001_20190702123534515";
+        String code = "000000000_WP-000000001_20190702123534515_YYB_TYTUY756756756_123456789";
         String code2 = "003732672_61DG/003732672_2019062412415709111";
-
 
         String reg = "(?i)^(WP-\\d{9}|[0-9A-Z]+/\\d{9})_(\\d{9})_([0-9A-Z]+)$";
         String reg2 = "(?i)^/(\\d{9})_((?:WP-\\d{9})|(?:[A-Za-z0-9]+/\\d{9}))_([A-Za-z0-9]+)/$";
@@ -69,11 +69,15 @@ public class ExampleUnitTest {
         String reg3 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
         String reg4 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
 
+       String reg5 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)_(YYB_[0-9A-Z]+)_(\\d{9})$";
+
+
 
         System.out.println(Pattern.matches(reg,code));
         System.out.println(Pattern.matches(reg2,code));
         System.out.println(Pattern.matches(reg3,code));
         System.out.println(Pattern.matches(reg4,code));
+        System.out.println(Pattern.matches(reg5,code));
 
         String barcode = code;
         if (BarcodeUtils.isQRCode(barcode)) {
@@ -82,17 +86,17 @@ public class ExampleUnitTest {
         }
             System.out.println(barcode);
 
-//
-//        Pattern compile = Pattern.compile(reg3);
-//        Matcher matcher = compile.matcher(code);
-//        if(matcher.find()){
-//            if(matcher.groupCount()>2){
-//                System.out.println(2+":"+matcher.group(2));
-//            }
-////            for(int i=0; i<=matcher.groupCount(); i++){
-////                System.out.println(i+":"+matcher.group(i));
-////            }
-//        }
+
+        Pattern compile = Pattern.compile(BarcodeUtils.REGEX_QR_CODE_NEW);
+        Matcher matcher = compile.matcher(code);
+        if(matcher.find()){
+            if(matcher.groupCount()>2){
+                System.out.println(2+":"+matcher.group(2));
+            }
+            for(int i=0; i<=matcher.groupCount(); i++){
+                System.out.println(i+":"+matcher.group(i));
+            }
+        }
     }
 
 

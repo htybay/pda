@@ -109,7 +109,7 @@ public class LoseGoods implements Comparable<LoseGoods> {
         return isLose;
     }
 
-    public void setLose(boolean lose) {
+    public void setIsLose(boolean lose) {
         isLose = lose;
     }
 

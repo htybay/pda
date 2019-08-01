@@ -215,6 +215,8 @@ public class BaseActivity extends RxAppCompatActivity {
         if (BarcodeUtils.isQRCode(barcode)) {
             // 如果扫到的是二维码，提取出物品号或囤货规格
             barcode = BarcodeUtils.getWpOrBatchCodeFromQr(barcode);
+        }else if (BarcodeUtils.isQRNewCode(barcode)){
+            barcode = BarcodeUtils.getWpOrBatchCodeFromNewQr(barcode);
         }
         onReceiveBarcode(barcode);
     }

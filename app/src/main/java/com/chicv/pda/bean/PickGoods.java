@@ -455,7 +455,7 @@ public class PickGoods {
             return isOut;
         }
 
-        public void setOut(boolean out) {
+        public void setIsOut(boolean out) {
             isOut = out;
         }
 
@@ -463,7 +463,7 @@ public class PickGoods {
             return isPick;
         }
 
-        public void setPick(boolean pick) {
+        public void setIsPick(boolean pick) {
             isPick = pick;
         }
 

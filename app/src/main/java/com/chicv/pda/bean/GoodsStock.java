@@ -57,7 +57,7 @@ public class GoodsStock implements Comparable<GoodsStock> {
         return isReturn;
     }
 
-    public void setReturn(boolean aReturn) {
+    public void setIsReturn(boolean aReturn) {
         isReturn = aReturn;
     }
 

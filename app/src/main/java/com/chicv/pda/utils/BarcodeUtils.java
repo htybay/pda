@@ -10,9 +10,15 @@ public class BarcodeUtils {
 
 
     /**
-     * 通用二维码
+     * 通用二维码 旧
      */
     public static final String REGEX_QR_CODE = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
+
+    /**
+     * 通用二维码 新
+     */
+    public static final String REGEX_QR_CODE_NEW = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)_(YYB_[0-9A-Z]+)_(\\d{9})$";
+    ;
 
     /**
      * 捡货单号
@@ -66,48 +72,52 @@ public class BarcodeUtils {
     public static final String REGEX_NUM = "(?i)^(\\d+)$";
 
 
-    public static boolean isPickCode(String username) {
-        return Pattern.matches(REGEX_PICK_GOODS, username);
+    public static boolean isPickCode(String barcode) {
+        return Pattern.matches(REGEX_PICK_GOODS, barcode);
     }
 
-    public static boolean isTransferCode(String username) {
-        return Pattern.matches(REGEX_TRANSFER_CODE, username);
+    public static boolean isTransferCode(String barcode) {
+        return Pattern.matches(REGEX_TRANSFER_CODE, barcode);
     }
 
-    public static boolean isPickInternalCode(String username) {
-        return Pattern.matches(REGEX_PICK_INTERNAL_GOODS, username);
+    public static boolean isPickInternalCode(String barcode) {
+        return Pattern.matches(REGEX_PICK_INTERNAL_GOODS, barcode);
     }
 
-    public static boolean isStockCode(String username) {
-        return Pattern.matches(REGEX_CONTAINER, username);
+    public static boolean isStockCode(String barcode) {
+        return Pattern.matches(REGEX_CONTAINER, barcode);
     }
 
-    public static boolean isGoodsCode(String username) {
-        return Pattern.matches(REGEX_GOODS, username);
+    public static boolean isGoodsCode(String barcode) {
+        return Pattern.matches(REGEX_GOODS, barcode);
     }
 
-    public static boolean isGoodsRuleCode(String username) {
-        return Pattern.matches(REGEX_GOODS_RULE, username);
+    public static boolean isGoodsRuleCode(String barcode) {
+        return Pattern.matches(REGEX_GOODS_RULE, barcode);
     }
 
-    public static boolean isBatchRule(String username) {
-        return Pattern.matches(REGEX_BATCH_RULE, username);
+    public static boolean isBatchRule(String barcode) {
+        return Pattern.matches(REGEX_BATCH_RULE, barcode);
     }
 
-    public static boolean isExpressCode(String username) {
-        return Pattern.matches(REGEX_EXPRESS, username);
+    public static boolean isExpressCode(String barcode) {
+        return Pattern.matches(REGEX_EXPRESS, barcode);
     }
 
-    public static boolean isMoveCode(String username) {
-        return Pattern.matches(REGEX_MOVE_CODE, username);
+    public static boolean isMoveCode(String barcode) {
+        return Pattern.matches(REGEX_MOVE_CODE, barcode);
     }
 
-    public static boolean isQRCode(String username) {
-        return Pattern.matches(REGEX_QR_CODE, username);
+    public static boolean isQRCode(String barcode) {
+        return Pattern.matches(REGEX_QR_CODE, barcode);
     }
 
-    public static boolean isNum(String username) {
-        return Pattern.matches(REGEX_NUM, username);
+    public static boolean isQRNewCode(String barcode) {
+        return Pattern.matches(REGEX_QR_CODE_NEW, barcode);
+    }
+
+    public static boolean isNum(String barcode) {
+        return Pattern.matches(REGEX_NUM, barcode);
     }
 
     /**
@@ -197,6 +207,18 @@ public class BarcodeUtils {
     public static String getWpOrBatchCodeFromQr(String code) {
         String result = "";
         Pattern compile = Pattern.compile(REGEX_QR_CODE);
+        Matcher matcher = compile.matcher(code);
+        if (matcher.find()) {
+            if (matcher.groupCount() > 2) {
+                result = matcher.group(2);
+            }
+        }
+        return result;
+    }
+
+    public static String getWpOrBatchCodeFromNewQr(String code) {
+        String result = "";
+        Pattern compile = Pattern.compile(REGEX_QR_CODE_NEW);
         Matcher matcher = compile.matcher(code);
         if (matcher.find()) {
             if (matcher.groupCount() > 2) {

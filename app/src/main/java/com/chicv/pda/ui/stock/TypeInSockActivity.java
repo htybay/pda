@@ -1,5 +1,6 @@
 package com.chicv.pda.ui.stock;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -32,7 +33,8 @@ public class TypeInSockActivity extends BaseActivity {
         InStockActivity.start(this, type, title);
     }
 
-    @OnClick({R.id.text_buy, R.id.text_not_standard, R.id.text_back_goods, R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check})
+    @OnClick({R.id.text_buy, R.id.text_not_standard, R.id.text_back_goods,
+            R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check, R.id.text_sample_in})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_buy:
@@ -53,18 +55,9 @@ public class TypeInSockActivity extends BaseActivity {
             case R.id.text_retry_check:
                 startActivity(Constant.STOCK_TYPE_IN_RETRY_CHECK, "重新质检入库");
                 break;
+            case R.id.text_sample_in:
+                startActivity(new Intent(this, SampleInStockActivity.class));
+                break;
         }
     }
-
-//    @OnClick({R.id.text_buy, R.id.text_not_standard})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.text_buy:
-//                startActivity(Constant.STOCK_TYPE_IN_BUY);
-//                break;
-//            case R.id.text_not_standard:
-//                startActivity(Constant.STOCK_TYPE_IN_NOT_STANTARD);
-//                break;
-//        }
-//    }
 }

@@ -31,6 +31,7 @@ import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.bean.param.PickInternalGoodsParam;
 import com.chicv.pda.bean.param.RecommendStockParam;
+import com.chicv.pda.bean.param.SampleInStockParam;
 import com.chicv.pda.bean.param.TransferGoodsAddParam;
 import com.chicv.pda.bean.param.TransferInStockParam;
 import com.chicv.pda.bean.param.TransferLoseParam;
@@ -363,5 +364,15 @@ public interface ApiService {
     @GET("/Api/Sys/VersionCode/VersionInfo")
     Observable<ApiResult<UpdateInfo>> checkUpdate();
 
+    /**
+     * 样品入库---根据货位号获取货位信息
+     */
+    @GET("Api/Stock/Location/GetViewGrid")
+    Observable<ApiResult<StockInfo>> getViewGrid(@Query("gridId") int id);
 
+    /**
+     * 样品入库---提交
+     */
+    @POST("Api/Stock/Goods/SampleGoodsIn")
+    Observable<ApiResult<Object>> sampleInStock(@Body List<SampleInStockParam> param);
 }
