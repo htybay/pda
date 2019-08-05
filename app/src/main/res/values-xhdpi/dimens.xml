@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="side_letter_bar_width">36dp</dimen>
-    <dimen name="city_text_size">16sp</dimen>
-    <dimen name="side_letter_bar_letter_size">12sp</dimen>
-
-    <!--status bar-->
-    <dimen name="status_bar_height">0dp</dimen>
-
     <!--login-->
     <dimen name="login_edit_height">55dp</dimen>
     <dimen name="login_button_height">55dp</dimen>
     <dimen name="login_img_margin">35dp</dimen>
     <dimen name="login_button_padding">35dp</dimen>
-
 </resources>
