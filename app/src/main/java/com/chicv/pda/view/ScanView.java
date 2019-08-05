@@ -80,7 +80,7 @@ public class ScanView extends LinearLayout implements View.OnClickListener {
 
     private void openZxing(Activity activity) {
         Intent intent = new Intent(activity, CaptureActivity.class);
-        intent.putExtra(CaptureActivity.START_ACTIVITY_NAME,activity.getLocalClassName());
+        intent.putExtra(CaptureActivity.START_ACTIVITY_NAME,activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 

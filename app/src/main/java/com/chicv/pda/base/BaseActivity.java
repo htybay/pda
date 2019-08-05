@@ -25,6 +25,7 @@ import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.CommonUtils;
 import com.chicv.pda.utils.StatusBarUtil;
 import com.chicv.pda.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -45,6 +46,8 @@ public class BaseActivity extends RxAppCompatActivity {
     protected ApiService apiService;
     private ScannerReceiver mReceiver;
     private IntentFilter mfilter;
+    private ZxingReceiver mZxingReceiver;
+    private IntentFilter mZxingFilter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,14 +55,11 @@ public class BaseActivity extends RxAppCompatActivity {
         removeInstanceState(savedInstanceState);
         BaseApplication.getInstance().addActivity(this);
         apiService = HttpManager.getInstance().getApiService();
-        if (mReceiver == null) {
-            mReceiver = new ScannerReceiver();
-            mfilter = new IntentFilter();
-            mfilter.addAction(ScanManager.ACTION_DECODE);
-            mfilter.addAction(CaptureActivity.ZXING_PDA_ACTION);
-            mfilter.addAction(PDA_ACTION);
+        if (mZxingReceiver == null) {
+            mZxingReceiver = new ZxingReceiver();
+            mZxingFilter = new IntentFilter(CaptureActivity.ZXING_PDA_ACTION);
         }
-        registerReceiver(mReceiver, mfilter);
+        registerReceiver(mZxingReceiver, mZxingFilter);
     }
 
     private void removeInstanceState(@Nullable Bundle savedInstanceState) {
@@ -73,20 +73,30 @@ public class BaseActivity extends RxAppCompatActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        if (mReceiver == null) {
+            mReceiver = new ScannerReceiver();
+            mfilter = new IntentFilter();
+            mfilter.addAction(ScanManager.ACTION_DECODE);
+            mfilter.addAction(PDA_ACTION);
+        }
+        registerReceiver(mReceiver, mfilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         BaseApplication.getInstance().removeActivity(this);
-        if (mReceiver != null) {
-            unregisterReceiver(mReceiver);
+        if (mZxingReceiver != null) {
+           unregisterReceiver(mZxingReceiver);
         }
     }
 
@@ -199,8 +209,6 @@ public class BaseActivity extends RxAppCompatActivity {
             String barcode = "";
             if (TextUtils.equals(intent.getAction(), PDA_ACTION)) {
                 barcode = intent.getStringExtra(PDA_KEY);
-            } else if (TextUtils.equals(intent.getAction(), CaptureActivity.ZXING_PDA_ACTION)) {
-                barcode = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
             } else if (TextUtils.equals(intent.getAction(), ScanManager.ACTION_DECODE)) {
                 barcode = intent.getStringExtra(ScanManager.BARCODE_STRING_TAG);
             }
@@ -211,7 +219,19 @@ public class BaseActivity extends RxAppCompatActivity {
         }
     }
 
+    public class ZxingReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String stringExtra = intent.getStringExtra(CaptureActivity.ZXING_PDA_DATA_KEY);
+            String activityName = intent.getStringExtra(CaptureActivity.START_ACTIVITY_NAME);
+            if(TextUtils.equals(activityName,BaseActivity.this.getClass().getSimpleName())){
+                onReceivedCode(stringExtra);
+            }
+        }
+    }
+
     private void onReceivedCode(String barcode){
+        Logger.d("onReceivedCode："+barcode);
         if (BarcodeUtils.isQRCode(barcode)) {
             // 如果扫到的是二维码，提取出物品号或囤货规格
             barcode = BarcodeUtils.getWpOrBatchCodeFromQr(barcode);
