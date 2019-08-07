@@ -34,6 +34,7 @@ import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -368,6 +369,11 @@ public class InStockActivity extends BaseActivity {
 
 
     private void checkStockRecord(List<StockRecord> value, PurchaseGoods goods) {
+        if (value == null) {
+            value = new ArrayList<>();
+        }
+        Collections.sort(value);
+
         boolean success = true;
         switch (mInStockType) {
             case Constant.STOCK_TYPE_IN_BUY:

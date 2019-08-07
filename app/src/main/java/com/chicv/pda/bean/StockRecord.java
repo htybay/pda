@@ -1,11 +1,15 @@
 package com.chicv.pda.bean;
 
+import android.support.annotation.NonNull;
+
+import com.chicv.pda.utils.DateUtils;
+
 /**
  * author: liheyu
  * date: 2019-06-06
  * email: liheyu999@163.com
  */
-public class StockRecord {
+public class StockRecord implements Comparable<StockRecord> {
 
     /**
      * GoodsId : 8029933
@@ -191,5 +195,14 @@ public class StockRecord {
 
     public void setInRoomId(int inRoomId) {
         InRoomId = inRoomId;
+    }
+
+    @Override
+    public int compareTo(@NonNull StockRecord o) {
+        //按时间降序排列
+        if (getCreateTime() == null || o.getCreateTime() == null) {
+            return 0;
+        }
+        return DateUtils.getDate(o.getCreateTime()).compareTo(DateUtils.getDate(this.getCreateTime()));
     }
 }

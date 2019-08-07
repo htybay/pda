@@ -1,15 +1,14 @@
 package com.chicv.pda;
 
 import com.chicv.pda.bean.StockInfo;
+import com.chicv.pda.bean.StockRecord;
 import com.chicv.pda.utils.BarcodeUtils;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,8 +53,21 @@ public class ExampleUnitTest {
 
     @Test
     public void sortTest2() {
-        Map<String, Object> map = new HashMap<>();
-        System.out.println(map.values().size());
+        List<StockRecord> list = new ArrayList<>();
+        StockRecord record1 = new StockRecord();
+        record1.setCreateTime("2019-01-24T09:29:25.063");
+        StockRecord record2 = new StockRecord();
+        record2.setCreateTime("2019-01-24T09:41:25.063");
+        StockRecord record3 = new StockRecord();
+        record3.setCreateTime("2019-01-24T09:28:25.063");
+        list.add(record1);
+        list.add(record2);
+        list.add(record3);
+        Collections.sort(list);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getCreateTime());
+        }
+
     }
 
     @Test
@@ -69,32 +81,31 @@ public class ExampleUnitTest {
         String reg3 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
         String reg4 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)$";
 
-       String reg5 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)_(YYB_[0-9A-Z]+)_(\\d{9})$";
+        String reg5 = "(?i)^(\\d{9})_(WP-\\d{9}|[0-9A-Z]+/\\d{9})_([A-Z0-9]+)_(YYB_[0-9A-Z]+)_(\\d{9})$";
 
 
-
-        System.out.println(Pattern.matches(reg,code));
-        System.out.println(Pattern.matches(reg2,code));
-        System.out.println(Pattern.matches(reg3,code));
-        System.out.println(Pattern.matches(reg4,code));
-        System.out.println(Pattern.matches(reg5,code));
+        System.out.println(Pattern.matches(reg, code));
+        System.out.println(Pattern.matches(reg2, code));
+        System.out.println(Pattern.matches(reg3, code));
+        System.out.println(Pattern.matches(reg4, code));
+        System.out.println(Pattern.matches(reg5, code));
 
         String barcode = code;
         if (BarcodeUtils.isQRCode(barcode)) {
             // 如果扫到的是二维码，提取出物品号或囤货规格
             barcode = BarcodeUtils.getWpOrBatchCodeFromQr(barcode);
         }
-            System.out.println(barcode);
+        System.out.println(barcode);
 
 
         Pattern compile = Pattern.compile(BarcodeUtils.REGEX_QR_CODE_NEW);
         Matcher matcher = compile.matcher(code);
-        if(matcher.find()){
-            if(matcher.groupCount()>2){
-                System.out.println(2+":"+matcher.group(2));
+        if (matcher.find()) {
+            if (matcher.groupCount() > 2) {
+                System.out.println(2 + ":" + matcher.group(2));
             }
-            for(int i=0; i<=matcher.groupCount(); i++){
-                System.out.println(i+":"+matcher.group(i));
+            for (int i = 0; i <= matcher.groupCount(); i++) {
+                System.out.println(i + ":" + matcher.group(i));
             }
         }
     }

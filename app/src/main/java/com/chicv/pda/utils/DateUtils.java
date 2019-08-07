@@ -91,4 +91,19 @@ public class DateUtils {
         SimpleDateFormat format = new SimpleDateFormat(PDA_TIME_FORMAT, Locale.CHINA);
         return format.format(new Date());
     }
+
+    //pda后台返回的时间都是 2019-03-19T11:28:20.86
+    public static Date getDate(String time) {
+        SimpleDateFormat format = new SimpleDateFormat(PDA_TIME_FORMAT, Locale.CHINA);
+        Date date = new Date();
+        if (time != null) {
+            try {
+                date = format.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
+
 }

@@ -416,7 +416,7 @@ public class PickgoodsActivity extends BaseActivity {
 
         boolean result = false;
         for (PickGoods.PickGoodsDetail pickGoodsDetail : list) {
-            if (pickGoodsDetail.getPickStatus() == 30) {
+            if (pickGoodsDetail.getPickStatus() == Constant.PICK_STATUS_UNPICK) {
                 result = true;
                 break;
             }

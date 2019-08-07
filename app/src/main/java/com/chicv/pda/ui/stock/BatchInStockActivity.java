@@ -169,6 +169,8 @@ public class BatchInStockActivity extends BaseActivity {
                         }
                         if (value.getType() == 2) {
                             textStockRule.setText("最多入" + value.getNum());
+                        }else {
+                            textStockRule.setText("");
                         }
                         numView.setFocusable(true);
                         numView.setFocusableInTouchMode(true);
