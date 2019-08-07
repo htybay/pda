@@ -341,8 +341,17 @@ public class PickgoodsActivity extends BaseActivity {
         textPickNum.setText(mBarcode);
         List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
         mPickGoodsAdapter.setNewData(details);
-        if (mStockInfos.size() > 0) {
-            textStockNext.setText(mStockInfos.get(0).getDescription());
+
+        StockInfo stockInfo = null;
+        for (StockInfo item : mStockInfos) {
+            boolean existNotScanGoods = isExistNotScanGoods(item);
+            if (existNotScanGoods) {
+                stockInfo = item;
+                break;
+            }
+        }
+        if (stockInfo != null) {
+            textStockNext.setText(stockInfo.getDescription());
         }
     }
 
