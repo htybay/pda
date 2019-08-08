@@ -81,9 +81,9 @@ public abstract class RxObserver<T> implements Observer<T> {
 
         String errorMsg;
         if (e instanceof SocketTimeoutException) {
-            errorMsg = "连接超时，请稍候再试";
+            errorMsg = "网络连接超时，请稍候再试";
         } else if (e instanceof ConnectException) {
-            errorMsg = "连接错误，请检查网络";
+            errorMsg = "网络连接错误，请检查网络";
         } else if (e instanceof JsonParseException) {
             errorMsg = "数据解析失败";
         } else if (e instanceof SQLiteException) {

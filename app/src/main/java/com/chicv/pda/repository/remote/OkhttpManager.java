@@ -21,8 +21,8 @@ public class OkhttpManager {
     private static OkhttpManager instance = new OkhttpManager();
     private final OkHttpClient.Builder mOkHttpBuilder;
 
-    private static final int CONNECTIMEOUT = 20000;
-    private static final int READTIMEOUT = 20000;
+    private static final int CONNECTIMEOUT = 3000;
+    private static final int READTIMEOUT = 3000;
 
     private OkhttpManager() {
 
