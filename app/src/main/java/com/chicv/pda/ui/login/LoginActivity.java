@@ -128,6 +128,7 @@ public class LoginActivity extends BaseActivity {
                 SPUtils.saveUser(value);
                 Logger.d(new Gson().toJson(SPUtils.getUser()));
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
             }
         });
     }

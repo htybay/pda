@@ -8,13 +8,16 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
+import com.chicv.pda.base.BaseApplication;
 import com.chicv.pda.base.BaseFragment;
 import com.chicv.pda.utils.CommonUtils;
+import com.chicv.pda.utils.ToastUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -147,4 +150,22 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                ToastUtils.showString("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                BaseApplication.getInstance().closeApplication();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
