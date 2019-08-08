@@ -281,6 +281,8 @@ public class PickgoodsActivity extends BaseActivity {
 
     //扫描到拣货单条码 ，根据拣货单ID查找拣货信息
     private void getPickGoodsInfo(String pickId) {
+        clearPickData();
+        clearViewData();
         wrapHttp(apiService.getPickGoodsInfo(pickId))
                 .compose(this.<PickGoods>bindToLifecycle())
                 .subscribe(new RxObserver<PickGoods>(true, this) {
@@ -296,7 +298,6 @@ public class PickgoodsActivity extends BaseActivity {
                             SoundUtils.playError();
                             return;
                         }
-                        clearPickData();
                         handleData(value);
                         setViewData();
                         refreshCountText();
@@ -305,8 +306,6 @@ public class PickgoodsActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(String msg) {
-                        clearPickData();
-                        clearViewData();
                         SoundUtils.playError();
                     }
                 });
