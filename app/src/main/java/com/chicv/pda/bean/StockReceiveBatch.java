@@ -26,6 +26,16 @@ public class StockReceiveBatch {
     // 囤货单类型
     private boolean isSampleOrder;
 
+    private int canMoveCount;
+
+    public int getCanMoveCount() {
+        return canMoveCount;
+    }
+
+    public void setCanMoveCount(int canMoveCount) {
+        this.canMoveCount = canMoveCount;
+    }
+
     public String getSkuAttribute() {
         return skuAttribute;
     }

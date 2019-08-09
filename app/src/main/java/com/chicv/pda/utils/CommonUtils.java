@@ -7,26 +7,16 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.StringRes;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.TextView;
 
 import com.chicv.pda.base.BaseApplication;
-import com.chicv.pda.repository.HttpManager;
-import com.chicv.pda.repository.remote.RxObserver;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-
-import static com.chicv.pda.utils.RxUtils.wrapHttp;
 
 
 public class CommonUtils {
@@ -128,24 +118,6 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return "";
-    }
-
-    public static void check() {
-        wrapHttp(HttpManager.getInstance().getApiService().testUpdate(DownloadManager.TEST_UPDATE_ADDRESS + SPUtils.SP_FILE_APP))
-                .subscribe(new RxObserver<String>(false) {
-                    @Override
-                    public void onSuccess(String value) {
-                        if (TextUtils.equals(value, "99")) {
-                            Disposable subscribe = Observable.timer(10, TimeUnit.MINUTES)
-                                    .subscribe(new Consumer<Long>() {
-                                        @Override
-                                        public void accept(Long aLong) throws Exception {
-                                            BaseApplication.getInstance().closeApplication();
-                                        }
-                                    });
-                        }
-                    }
-                });
     }
 
     public static int getVersionCode(Context context) {

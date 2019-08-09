@@ -31,6 +31,7 @@ import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.bean.param.PickInternalGoodsParam;
 import com.chicv.pda.bean.param.RecommendStockParam;
+import com.chicv.pda.bean.param.SampleInReturnParam;
 import com.chicv.pda.bean.param.SampleInStockParam;
 import com.chicv.pda.bean.param.TransferGoodsAddParam;
 import com.chicv.pda.bean.param.TransferInStockParam;
@@ -375,4 +376,16 @@ public interface ApiService {
      */
     @POST("Api/Stock/Goods/SampleGoodsIn")
     Observable<ApiResult<Object>> sampleInStock(@Body List<SampleInStockParam> param);
+
+    /**
+     * 归还上架---获取囝货规格信息
+     */
+    @GET("/api/Stock/StockSample/SampleReceiveBatch")
+    Observable<ApiResult<StockReceiveBatch>> sampleReceiveBatch(@Query("batchCode") String batchCode);
+
+    /**
+     * 归还上架---提交
+     */
+    @POST("/api/Stock/StockSample/StockGoodsSigleMove")
+    Observable<ApiResult<StockReceiveBatch>> sampleGoodsMove(@Body List<SampleInReturnParam> param);
 }

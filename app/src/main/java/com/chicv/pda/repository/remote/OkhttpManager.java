@@ -21,19 +21,17 @@ public class OkhttpManager {
     private static OkhttpManager instance = new OkhttpManager();
     private final OkHttpClient.Builder mOkHttpBuilder;
 
-    private static final int CONNECTIMEOUT = 3000;
-    private static final int READTIMEOUT = 5000;
+    private static final int CONNECT_TIME_OUT = 3000;
+    private static final int READ_TIME_OUT = 30000;
 
     private OkhttpManager() {
-
         mOkHttpBuilder = new OkHttpClient.Builder()
-                .connectTimeout(CONNECTIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(READTIMEOUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
+                .readTimeout(READ_TIME_OUT, TimeUnit.MILLISECONDS)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(new HeadInterceptor())
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE))
                 .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS));
-
     }
 
     public static OkhttpManager getInstance() {

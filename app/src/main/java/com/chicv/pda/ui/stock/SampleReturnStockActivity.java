@@ -16,7 +16,7 @@ import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.StockReceiveBatch;
 import com.chicv.pda.bean.User;
-import com.chicv.pda.bean.param.SampleInStockParam;
+import com.chicv.pda.bean.param.SampleInReturnParam;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.SPUtils;
@@ -37,9 +37,9 @@ import static com.chicv.pda.utils.RxUtils.wrapHttp;
  * date: 2019-07-29
  * email: liheyu999@163.com
  * <p>
- * 样品入库
+ * 归还上架
  */
-public class SampleInStockActivity extends BaseActivity {
+public class SampleReturnStockActivity extends BaseActivity {
 
     @BindView(R.id.rlv_goods)
     RecyclerView rlvGoods;
@@ -59,7 +59,7 @@ public class SampleInStockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_in);
         ButterKnife.bind(this);
-        initToolbar("样品上架");
+        initToolbar("归还上架");
         initView();
     }
 
@@ -116,7 +116,7 @@ public class SampleInStockActivity extends BaseActivity {
             return;
         }
         StockReceiveBatch stockReceiveBatch = mAdapter.getData().get(position);
-        if (stockReceiveBatch.getScanCount() >= stockReceiveBatch.getWaitReceiveCount()) {
+        if (stockReceiveBatch.getScanCount() >= stockReceiveBatch.getCanMoveCount()) {
             ToastUtils.showString("此囤货规格已扫完,不需要再扫了！");
             SoundUtils.playError();
         } else {
@@ -155,13 +155,19 @@ public class SampleInStockActivity extends BaseActivity {
     }
 
     private void getReceiveBatch(final String barcode) {
-        wrapHttp(apiService.getReceiveBatch(barcode))
+        wrapHttp(apiService.sampleReceiveBatch(barcode))
                 .compose(this.<StockReceiveBatch>bindToLifecycle())
                 .subscribe(new RxObserver<StockReceiveBatch>(this) {
                     @Override
                     public void onSuccess(StockReceiveBatch value) {
                         if (!value.isSampleOrder()) {
                             ToastUtils.showString("物品不属于样衣物品");
+                            textBatch.setText("");
+                            SoundUtils.playError();
+                            return;
+                        }
+                        if (value.getCanMoveCount()<=0) {
+                            ToastUtils.showString("没有待上架的调样物品");
                             textBatch.setText("");
                             SoundUtils.playError();
                             return;
@@ -212,7 +218,7 @@ public class SampleInStockActivity extends BaseActivity {
             ToastUtils.showString("请扫描上架货位");
             return;
         }
-        wrapHttp(apiService.sampleInStock(getSampleInStockParam()))
+        wrapHttp(apiService.sampleGoodsMove(getSampleReturnStockParam()))
                 .compose(bindToLifecycle())
                 .subscribe(new RxObserver<Object>(this) {
                     @Override
@@ -223,16 +229,16 @@ public class SampleInStockActivity extends BaseActivity {
                 });
     }
 
-    private List<SampleInStockParam> getSampleInStockParam() {
+    private List<SampleInReturnParam> getSampleReturnStockParam() {
         User user = SPUtils.getUser();
-        List<SampleInStockParam> list = new ArrayList<>();
+        List<SampleInReturnParam> list = new ArrayList<>();
         for (StockReceiveBatch item : mAdapter.getData()) {
-            SampleInStockParam sample = new SampleInStockParam();
+            SampleInReturnParam sample = new SampleInReturnParam();
             sample.setStockReceiveBatchId(item.getStockReceiveBatchId());
             sample.setBatchCode(item.getBatchCode());
-            sample.setStockNums(item.getScanCount());
+            sample.setQuantity(item.getScanCount());
             sample.setOperateUserId(user.getId());
-            sample.setGridId(String.valueOf(mStockInfo.getId()));
+            sample.setNewGridId(String.valueOf(mStockInfo.getId()));
             list.add(sample);
         }
         return list;

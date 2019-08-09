@@ -69,11 +69,14 @@
             android:id="@+id/text_sample_in"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_purchase"
-            android:text="调样入库" />
+            android:text="样品上架" />
 
 
         <TextView
-            style="@style/TextTab" />
+            android:id="@+id/text_return_in"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_purchase"
+            android:text="归还上架" />
 
         <TextView
             style="@style/TextTab" />

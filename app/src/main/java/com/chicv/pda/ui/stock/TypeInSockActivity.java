@@ -34,7 +34,8 @@ public class TypeInSockActivity extends BaseActivity {
     }
 
     @OnClick({R.id.text_buy, R.id.text_not_standard, R.id.text_back_goods,
-            R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check, R.id.text_sample_in})
+            R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check,
+            R.id.text_sample_in, R.id.text_return_in})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_buy:
@@ -57,6 +58,9 @@ public class TypeInSockActivity extends BaseActivity {
                 break;
             case R.id.text_sample_in:
                 startActivity(new Intent(this, SampleInStockActivity.class));
+                break;
+            case R.id.text_return_in:
+                startActivity(new Intent(this, SampleReturnStockActivity.class));
                 break;
         }
     }

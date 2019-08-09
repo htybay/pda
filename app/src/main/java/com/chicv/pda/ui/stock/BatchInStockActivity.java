@@ -45,6 +45,8 @@ public class BatchInStockActivity extends BaseActivity {
     NumView numView;
     @BindView(R.id.text_stock_rule)
     TextView textStockRule;
+    @BindView(R.id.text_wait_receive)
+    TextView textWaitReceive;
 
     private StockPositionBean mStockPositionBean;
     private StockReceiveBatch mPurchaseReceiveBatch;
@@ -117,6 +119,7 @@ public class BatchInStockActivity extends BaseActivity {
                         mPurchaseReceiveBatch = value;
                         mPurchaseReceiveBatch.setBatchCode(barcode);
                         textBatchCode.setText(barcode);
+                        textWaitReceive.setText(String.valueOf(value.getWaitReceiveCount()));
                         SoundUtils.playSuccess();
                     }
 
@@ -169,7 +172,7 @@ public class BatchInStockActivity extends BaseActivity {
                         }
                         if (value.getType() == 2) {
                             textStockRule.setText("最多入" + value.getNum());
-                        }else {
+                        } else {
                             textStockRule.setText("");
                         }
                         numView.setFocusable(true);

@@ -81,7 +81,7 @@ public abstract class RxObserver<T> implements Observer<T> {
 
         String errorMsg;
         if (e instanceof SocketTimeoutException) {
-            errorMsg = "服务器连接超时，请稍候再试";
+            errorMsg = "服务器响应超时，请稍候再试";
         } else if (e instanceof ConnectException) {
             errorMsg = "网络连接错误，请检查网络";
         } else if (e instanceof JsonParseException) {
@@ -89,9 +89,9 @@ public abstract class RxObserver<T> implements Observer<T> {
         } else if (e instanceof SQLiteException) {
             errorMsg = "数据操作失败";
         } else if (e instanceof HttpException) {
-            errorMsg = "连接失败";
+            errorMsg = "连接失败："+ e.getMessage();
         } else if (e instanceof IOException) {
-            errorMsg = "网络错误";
+            errorMsg = "请求失败: "+e.getMessage();
         } else if (e instanceof ApiException) {
             errorMsg = e.getMessage();
         } else {
@@ -126,6 +126,7 @@ public abstract class RxObserver<T> implements Observer<T> {
             progressDialog = new ProgressDialog(mActivity);
             progressDialog.setMessage(dialogMsg);
             progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
             progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {

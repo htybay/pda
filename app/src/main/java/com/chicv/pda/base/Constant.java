@@ -3,10 +3,11 @@ package com.chicv.pda.base;
 public class Constant {
 
 
-    public static final String API_ADDRESS = "http://121.42.253.121:8081/";
+//    public static final String API_ADDRESS = "http://121.42.253.121:8081/";
 //    public static final String API_ADDRESS = "http://erp.chicv.com:8081/";
-//    public static final String API_ADDRESS = "http://beta.erp.chicv.com:8081/";
+    public static final String API_ADDRESS = "http://beta.erp.chicv.com:8081/";
 //    public static final String API_ADDRESS = "http://192.168.191.177:8832/";
+//    public static final String API_ADDRESS = "http://172.17.0.170:8091/";
 
     /**
      * areaId = 152就是快发区,只能装12件货
