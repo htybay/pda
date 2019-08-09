@@ -22,7 +22,7 @@ public class OkhttpManager {
     private final OkHttpClient.Builder mOkHttpBuilder;
 
     private static final int CONNECTIMEOUT = 3000;
-    private static final int READTIMEOUT = 3000;
+    private static final int READTIMEOUT = 5000;
 
     private OkhttpManager() {
 
