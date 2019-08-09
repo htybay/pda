@@ -128,6 +128,7 @@ public class BatchInStockActivity extends BaseActivity {
                         SoundUtils.playError();
                         mPurchaseReceiveBatch = null;
                         textBatchCode.setText("");
+                        textWaitReceive.setText("");
                     }
                 });
     }
@@ -250,6 +251,7 @@ public class BatchInStockActivity extends BaseActivity {
         textStockId.setText("");
         textStockRule.setText("");
         numView.setText("0");
+        textWaitReceive.setText("");
     }
 
     @OnClick({R.id.text_stock, R.id.btn_commit})
