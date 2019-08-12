@@ -83,6 +83,7 @@
             android:id="@+id/text_move_lose"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_move_lose"
+            android:textColor="@color/color_999"
             android:text="移库丢失" />
 
 

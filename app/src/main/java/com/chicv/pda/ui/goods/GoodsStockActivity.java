@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,8 +17,11 @@ import com.chicv.pda.utils.BarcodeUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -146,8 +150,9 @@ public class GoodsStockActivity extends BaseActivity {
     }
 
     private void setViewData(List<GoodsStock> list) {
-        Collections.sort(list);
-        mAdapter.setNewData(list);
+        List<GoodsStock> goodsStocks = handleSampleGoods(list);
+        Collections.sort(goodsStocks);
+        mAdapter.setNewData(goodsStocks);
         textContent.setText("");
         textContent.setVisibility(View.GONE);
     }
@@ -157,6 +162,28 @@ public class GoodsStockActivity extends BaseActivity {
         textContent.setText("");
         textCode.setText("");
         textContent.setVisibility(View.GONE);
+    }
+
+
+    private List<GoodsStock> handleSampleGoods(List<GoodsStock> list) {
+        if (list == null) return new ArrayList<>();
+        Map<String, GoodsStock> batchCodes = new HashMap<>();
+        List<GoodsStock> copyStocks = new ArrayList<>();
+        for (GoodsStock item : list) {
+            if (TextUtils.isEmpty(item.getBatchCode()) || !TextUtils.isEmpty(item.getBatchCode()) && item.isReturn()) {
+                copyStocks.add(item);
+            } else {
+                if (batchCodes.containsKey(item.getBatchCode())) {
+                    GoodsStock goodsStock = batchCodes.get(item.getBatchCode());
+                    goodsStock.setCount(goodsStock.getCount() + 1);
+                } else {
+                    item.setCount(1);
+                    batchCodes.put(item.getBatchCode(), item);
+                    copyStocks.add(item);
+                }
+            }
+        }
+        return copyStocks;
     }
 
 

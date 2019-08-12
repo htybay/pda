@@ -37,7 +37,7 @@ public class GoodsStockAdapter extends BaseQuickAdapter<GoodsStock, GoodsStockAd
             if (TextUtils.isEmpty(item.getBatchCode()) || !TextUtils.isEmpty(item.getBatchCode()) && item.isReturn()) {
                 text = BarcodeUtils.generateWPBarcode(item.getGoodsId()) + "  1  " + item.getSpecification();
             } else {
-                text = item.getBatchCode() + "  " + getSampileGoodsNum(item.getBatchCode()) + "  " + item.getSpecification();
+                text = item.getBatchCode() + "  " + item.getCount() + "  " + item.getSpecification();
             }
         }
         helper.textDes.setText(text);

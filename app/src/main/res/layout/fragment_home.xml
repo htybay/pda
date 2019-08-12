@@ -72,15 +72,12 @@
             android:text="物品移位" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:id="@+id/text_handle_stock"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_goods_move"
+            android:textColor="@color/color_999"
+            android:enabled="false"
+            android:text="理库" />
 
 
         <TextView

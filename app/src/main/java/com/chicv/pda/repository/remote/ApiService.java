@@ -10,6 +10,7 @@ import com.chicv.pda.bean.LocationGoods;
 import com.chicv.pda.bean.LoseGoods;
 import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.RecommendStock;
+import com.chicv.pda.bean.StockCardingBean;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.StockLimit;
 import com.chicv.pda.bean.StockMoveRoom;
@@ -388,4 +389,10 @@ public interface ApiService {
      */
     @POST("/api/Stock/StockSample/StockGoodsSigleMove")
     Observable<ApiResult<StockReceiveBatch>> sampleGoodsMove(@Body List<SampleInReturnParam> param);
+
+    /**
+     * 理库任务
+     */
+    @GET("/api/Stock/Carding/GetCardingList")
+    Observable<ApiResult<List<StockCardingBean>>> getCardingList();
 }

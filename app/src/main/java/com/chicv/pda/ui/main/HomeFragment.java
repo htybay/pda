@@ -15,6 +15,7 @@ import com.chicv.pda.ui.goods.GoodsMoveStockActivity;
 import com.chicv.pda.ui.goods.GoodsStockActivity;
 import com.chicv.pda.ui.goods.ReceiveGoodsActivity;
 import com.chicv.pda.ui.pickGoods.PickgoodsActivity;
+import com.chicv.pda.ui.stock.HandleStockActivity;
 import com.chicv.pda.ui.stock.TypeInSockActivity;
 
 import butterknife.ButterKnife;
@@ -54,7 +55,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @OnClick({R.id.text_receive_goods, R.id.text_pick_goods, R.id.text_delivery_goods, R.id.text_in_stock,
-            R.id.text_goods_stock, R.id.text_goods_change_stock})
+            R.id.text_goods_stock, R.id.text_goods_change_stock, R.id.text_handle_stock})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_receive_goods:
@@ -74,6 +75,9 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.text_goods_change_stock:
                 startActivity(new Intent(getActivity(), GoodsMoveStockActivity.class));
+                break;
+            case R.id.text_handle_stock:
+                startActivity(new Intent(getActivity(), HandleStockActivity.class));
                 break;
         }
     }

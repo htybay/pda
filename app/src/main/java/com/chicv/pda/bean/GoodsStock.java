@@ -18,8 +18,18 @@ public class GoodsStock implements Comparable<GoodsStock> {
     private String specification;
     private String notOutNum;
 
+    //本地使用，相同囤货规格的件数
+    private int count;
     //本地使用 扫描的是否是囤货规格
     private boolean isGoodsRule;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public boolean isGoodsRule() {
         return isGoodsRule;
