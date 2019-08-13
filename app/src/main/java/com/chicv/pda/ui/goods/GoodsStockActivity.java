@@ -137,7 +137,7 @@ public class GoodsStockActivity extends BaseActivity {
                             clearViewData();
                             return;
                         }
-                        setViewData(value);
+                        setViewData(handleSampleGoods(value));
                         SoundUtils.playSuccess();
                     }
 
@@ -150,9 +150,8 @@ public class GoodsStockActivity extends BaseActivity {
     }
 
     private void setViewData(List<GoodsStock> list) {
-        List<GoodsStock> goodsStocks = handleSampleGoods(list);
-        Collections.sort(goodsStocks);
-        mAdapter.setNewData(goodsStocks);
+        Collections.sort(list);
+        mAdapter.setNewData(list);
         textContent.setText("");
         textContent.setVisibility(View.GONE);
     }
