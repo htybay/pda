@@ -241,8 +241,9 @@ public class TransferInStockActivity extends BaseActivity {
                         }
                         mTransferIn = value;
                         List<TransferIn.DetailsBean> details = mTransferIn.getDetails();
-                        Collections.sort(filterHaveInStock(details));
-                        mAdapter.setNewData(details);
+                        List<TransferIn.DetailsBean> list = filterIsInStock(details);
+                        Collections.sort(list);
+                        mAdapter.setNewData(list);
                         textPickId.setText(mBarcode);
                     }
 
@@ -255,7 +256,7 @@ public class TransferInStockActivity extends BaseActivity {
     }
 
     //获取调拨单数据后过滤掉已扫描的
-    private List<TransferIn.DetailsBean> filterHaveInStock(List<TransferIn.DetailsBean> details) {
+    private List<TransferIn.DetailsBean> filterIsInStock(List<TransferIn.DetailsBean> details) {
         List<TransferIn.DetailsBean> list = new ArrayList<>();
         if (details != null) {
             for (TransferIn.DetailsBean detail : details) {
