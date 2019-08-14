@@ -288,10 +288,16 @@ public class TransferInStockActivity extends BaseActivity {
         }
         List<TransferInStockParam.DetailBean> list = new ArrayList<>();
         for (TransferIn.DetailsBean item : mAdapter.getData()) {
-            TransferInStockParam.DetailBean detailBean = new TransferInStockParam.DetailBean();
-            detailBean.setGoodsId(item.getGoodsId());
-            detailBean.setTransferDetailId(item.getDetailId());
-            list.add(detailBean);
+            if (item.isIsIn()) {
+                TransferInStockParam.DetailBean detailBean = new TransferInStockParam.DetailBean();
+                detailBean.setGoodsId(item.getGoodsId());
+                detailBean.setTransferDetailId(item.getDetailId());
+                list.add(detailBean);
+            }
+        }
+        if (list.size() == 0) {
+            ToastUtils.showString("没有扫描的物品！");
+            return;
         }
         TransferInStockParam param = new TransferInStockParam();
         param.setGridId(mStockPositionBean.getId());
