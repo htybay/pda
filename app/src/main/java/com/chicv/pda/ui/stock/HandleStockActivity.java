@@ -1,13 +1,15 @@
 package com.chicv.pda.ui.stock;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseActivity;
-import com.chicv.pda.repository.remote.RxObserver;
 
-import static com.chicv.pda.utils.RxUtils.wrapHttp;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * author: liheyu
@@ -19,18 +21,23 @@ public class HandleStockActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hadnle_stock);
-//        test();
+        setContentView(R.layout.activity_handle_stock);
+        ButterKnife.bind(this);
+        initToolbar("理库=");
     }
 
-    private void test() {
-        wrapHttp(apiService.getCardingList()).compose(bindToLifecycle()).subscribe(new RxObserver<Object>(this) {
-            @Override
-            public void onSuccess(Object value) {
-
-            }
-        });
-
-
+    @OnClick({R.id.text_handle_list, R.id.text_handle_num, R.id.text_handle_manual})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.text_handle_list:
+                startActivity(new Intent(this,HandleListActivity.class));
+                break;
+            case R.id.text_handle_num:
+                startActivity(new Intent(this,HandleStockCountActivity.class));
+                break;
+            case R.id.text_handle_manual:
+                startActivity(new Intent(this, HandleStockManualActivity.class));
+                break;
+        }
     }
 }

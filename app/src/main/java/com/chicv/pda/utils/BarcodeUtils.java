@@ -193,6 +193,16 @@ public class BarcodeUtils {
     }
 
     /**
+     * 生成理库条码 LK-000000001
+     *
+     * @param id 货位ID
+     * @return
+     */
+    public static String generateLKBarcode(long id) {
+        return String.format(Locale.CHINA, "LK-%09d", id);
+    }
+
+    /**
      * 生成条码
      *
      * @param id     id

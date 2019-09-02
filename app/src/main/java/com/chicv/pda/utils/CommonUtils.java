@@ -76,7 +76,7 @@ public class CommonUtils {
     }
 
     public static String getString(TextView v) {
-        return v.getText().toString().trim();
+        return v.getText() == null ? "" : v.getText().toString().trim();
     }
 
     public static String getString(@StringRes int id) {

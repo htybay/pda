@@ -3,12 +3,14 @@ package com.chicv.pda.repository.remote;
 import com.chicv.pda.bean.AddedStockListBean;
 import com.chicv.pda.bean.ApiResult;
 import com.chicv.pda.bean.ExpressBean;
+import com.chicv.pda.bean.GoodsBatchCode;
 import com.chicv.pda.bean.GoodsMoveBean;
 import com.chicv.pda.bean.GoodsStock;
 import com.chicv.pda.bean.InternalPick;
 import com.chicv.pda.bean.LocationGoods;
 import com.chicv.pda.bean.LoseGoods;
 import com.chicv.pda.bean.PickGoods;
+import com.chicv.pda.bean.PositionGoods;
 import com.chicv.pda.bean.RecommendStock;
 import com.chicv.pda.bean.StockCardingBean;
 import com.chicv.pda.bean.StockInfo;
@@ -24,6 +26,7 @@ import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.BatchInStockParam;
 import com.chicv.pda.bean.param.BatchMoveStockParam;
+import com.chicv.pda.bean.param.HandleStockParam;
 import com.chicv.pda.bean.param.InStockParam;
 import com.chicv.pda.bean.param.LoginParam;
 import com.chicv.pda.bean.param.MoveRoomDownParam;
@@ -395,4 +398,34 @@ public interface ApiService {
      */
     @GET("/api/Stock/Carding/GetCardingList")
     Observable<ApiResult<List<StockCardingBean>>> getCardingList();
+
+    /**
+     * 理库操作
+     */
+    @GET("/api/Stock/Carding/GetGridCardingScaneGoods")
+    Observable<ApiResult<List<GoodsBatchCode>>> getGridGoods(@Query("gridId") int gridId, @Query("lkId") int lkId);
+
+    /**
+     * 理库操作 上传数据
+     */
+    @POST("/api/Stock/Carding/StockCardingMove")
+    Observable<ApiResult<Object>> stockCardingMove(@Body HandleStockParam param);
+
+    /**
+     * 理库点数 获取货位下的囤货规格
+     */
+    @GET("api/Stock/Carding/StockCardingHandleGridInfo")
+    Observable<ApiResult<List<PositionGoods>>> stockCardingHandleGridInfo(@Query("gridId") int id);
+
+    /**
+     * 理库点数 上传数据
+     */
+    @POST("/api/Stock/Carding/StockCardingHandleCount")
+    Observable<ApiResult<Object>> stockCardingHandleCount(@Body HandleStockParam param);
+
+    /**
+     * 手动理库 上传数据
+     */
+    @POST("/api/Stock/Carding/StockCardingHandleMove")
+    Observable<ApiResult<Object>> stockCardingHandleMove(@Body HandleStockParam param);
 }

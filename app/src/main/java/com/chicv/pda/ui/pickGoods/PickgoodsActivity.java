@@ -489,7 +489,7 @@ public class PickgoodsActivity extends BaseActivity {
     }
 
     private void doBack() {
-        if (mNormalReadyPickCount == 0 || mPickGoods == null) {
+        if (mPickGoods == null || mNormalReadyPickCount == 0) {
             SPUtils.putString(Constant.KEY_PICK_GOODS_ID, "");
             finish();
             return;
