@@ -34,7 +34,7 @@ public class HandleListActivity extends BaseActivity {
     @BindView(R.id.rlv_goods)
     RecyclerView rlvGoods;
 
-    private BaseQuickAdapter<StockCardingBean,BaseViewHolder> mAdapter;
+    private BaseQuickAdapter<StockCardingBean, BaseViewHolder> mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public class HandleListActivity extends BaseActivity {
             @Override
             protected void convert(BaseViewHolder helper, StockCardingBean item) {
                 helper.setText(R.id.text_product, BarcodeUtils.generateLKBarcode(item.getId()));
-                helper.setText(R.id.text_stock,item.getLocation());
-                helper.setText(R.id.text_status,"理库中");
+                helper.setText(R.id.text_stock, item.getLocation());
+                helper.setText(R.id.text_status, "理库中");
             }
         };
         rlvGoods.setAdapter(mAdapter);
@@ -62,7 +62,7 @@ public class HandleListActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 StockCardingBean item = (StockCardingBean) adapter.getItem(position);
-                startActivity(new Intent(HandleListActivity.this,HandleStockDetailActivity.class).putExtra(KEY_LK,item));
+                startActivity(new Intent(HandleListActivity.this, HandleStockDetailActivity.class).putExtra(KEY_LK, item));
             }
         });
     }
@@ -72,7 +72,7 @@ public class HandleListActivity extends BaseActivity {
                 .subscribe(new RxObserver<List<StockCardingBean>>(this) {
                     @Override
                     public void onSuccess(List<StockCardingBean> value) {
-                    mAdapter.setNewData(value);
+                        mAdapter.setNewData(value);
                     }
                 });
     }
