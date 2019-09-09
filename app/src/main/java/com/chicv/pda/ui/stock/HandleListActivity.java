@@ -14,6 +14,7 @@ import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.bean.StockCardingBean;
 import com.chicv.pda.repository.remote.RxObserver;
 import com.chicv.pda.utils.BarcodeUtils;
+import com.chicv.pda.utils.ToastUtils;
 
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class HandleListActivity extends BaseActivity {
                     @Override
                     public void onSuccess(List<StockCardingBean> value) {
                         mAdapter.setNewData(value);
+                        if (mAdapter.getData().size() == 0) {
+                            ToastUtils.showString("没有理库任务");
+                        }
                     }
                 });
     }

@@ -23,7 +23,7 @@ public class HandleStockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handle_stock);
         ButterKnife.bind(this);
-        initToolbar("理库=");
+        initToolbar("理库");
     }
 
     @OnClick({R.id.text_handle_list, R.id.text_handle_num, R.id.text_handle_manual})
