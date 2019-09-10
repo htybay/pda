@@ -1,5 +1,7 @@
 package com.chicv.pda.bean.param;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * author: liheyu
  * date: 2019-08-28
@@ -9,6 +11,8 @@ public class GoodsBatchParam {
 
     private int goodsId;
     private String batchCode;
+
+    @JSONField(name = "IsMoveDown")
     private boolean isMoveDown;
 
     public int getGoodsId() {

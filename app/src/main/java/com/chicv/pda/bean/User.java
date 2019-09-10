@@ -8,6 +8,7 @@ public class User {
     private String id;
     private String email;
     private String pwd;
+    private String accessToken;
 
     public String getName() {
         return name;
@@ -47,5 +48,13 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

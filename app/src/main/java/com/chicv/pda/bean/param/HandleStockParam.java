@@ -1,5 +1,7 @@
 package com.chicv.pda.bean.param;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,7 @@ public class HandleStockParam {
     private int cardingId;
     private int oldGrid;
     private int newGrid;
+    @JSONField(name = "IsFinish")
     private boolean isFinish;
     private List<GoodsBatchParam> goodsBatchList;
 

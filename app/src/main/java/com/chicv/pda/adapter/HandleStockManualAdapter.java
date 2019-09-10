@@ -1,7 +1,5 @@
 package com.chicv.pda.adapter;
 
-import android.text.TextUtils;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chicv.pda.R;
@@ -31,7 +29,7 @@ public class HandleStockManualAdapter extends BaseQuickAdapter<PositionGoods, Ba
 
     public void setScanBatch(String batchCode) {
         for (PositionGoods item : mData) {
-            if (TextUtils.equals(item.getBatchCode().toLowerCase(), batchCode.toLowerCase())) {
+            if (batchCode.equalsIgnoreCase(item.getBatchCode())) {
                 item.setScanCount(item.getScanCount() + 1);
                 break;
             }

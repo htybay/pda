@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -96,7 +95,7 @@ public class HandleStockCountActivity extends BaseActivity {
         boolean isExist = false;
         PositionGoods scanGoods = null;
         for (PositionGoods goodsDetail : mOriginList) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isReturn()) {
                     scanGoods = goodsDetail;

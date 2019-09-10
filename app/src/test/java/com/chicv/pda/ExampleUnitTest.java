@@ -1,7 +1,9 @@
 package com.chicv.pda;
 
+import com.alibaba.fastjson.JSON;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.StockRecord;
+import com.chicv.pda.bean.param.GoodsBatchParam;
 import com.chicv.pda.utils.BarcodeUtils;
 
 import org.junit.Test;
@@ -113,13 +115,15 @@ public class ExampleUnitTest {
 
     @Test
     public void sortTest7() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(6);
-        list.add(2);
-        list.add(3);
 
+        GoodsBatchParam param = new GoodsBatchParam();
+        param.setIsMoveDown(true);
+        param.setGoodsId(89898);
+        System.out.println(JSON.toJSON(param));
+
+        String s = "abc";
+        String d = "abc";
+        System.out.println(s.equalsIgnoreCase(d));
     }
 
 

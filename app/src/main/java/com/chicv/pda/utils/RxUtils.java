@@ -20,7 +20,11 @@ public class RxUtils {
             @Override
             public T apply(ApiResult<T> tApiResult) throws Exception {
                 if (!tApiResult.isSuccess()) {
-                    throw new ApiException(Constant.TOAST_PREFIX + tApiResult.getMessage());
+                    if (tApiResult.getMessage() != null && tApiResult.getMessage().contains("无权访问")) {
+                        throw new ApiException("登陆超时，请重新登陆");
+                    } else {
+                        throw new ApiException(Constant.TOAST_PREFIX + tApiResult.getMessage());
+                    }
                 }
                 if (tApiResult.getData() == null) {
                     tApiResult.setData((T) new Object());
