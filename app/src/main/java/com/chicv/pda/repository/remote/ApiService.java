@@ -415,7 +415,7 @@ public interface ApiService {
      * 理库点数 获取货位下的囤货规格
      */
     @GET("api/Stock/Carding/StockCardingHandleGridInfo")
-    Observable<ApiResult<List<PositionGoods>>> stockCardingHandleGridInfo(@Query("gridId") int id);
+    Observable<ApiResult<List<PositionGoods>>> stockCardingHandleGridInfo(@Query("gridId") int id, @Query("type") int type);
 
     /**
      * 理库点数 上传数据

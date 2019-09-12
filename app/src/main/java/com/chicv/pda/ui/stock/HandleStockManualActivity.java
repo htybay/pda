@@ -226,7 +226,7 @@ public class HandleStockManualActivity extends BaseActivity {
 
 
     private void getBatchGoods(final int barcodeId) {
-        wrapHttp(apiService.stockCardingHandleGridInfo(barcodeId))
+        wrapHttp(apiService.stockCardingHandleGridInfo(barcodeId,0))
                 .compose(this.<List<PositionGoods>>bindToLifecycle())
                 .subscribe(new RxObserver<List<PositionGoods>>(this) {
                     @Override
