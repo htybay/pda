@@ -43,6 +43,7 @@ public class DeliveryGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDe
         helper.textColorSize.setText(item.getSpecification());
         helper.textDeliveryNum.setText(String.valueOf(item.getGroupNo()));
         helper.textStatus.setText(PdaUtils.getPickStatusDes(item.getPickStatus()));
+        helper.textWP.setText(wpCode);
 
         if (item.getStatus() != 1) {
             //非正常数据标红
@@ -98,6 +99,10 @@ public class DeliveryGoodsAdapter extends BaseQuickAdapter<PickGoods.PickGoodsDe
         //状态
         @BindView(R.id.text_status)
         TextView textStatus;
+
+        //物品号
+        @BindView(R.id.text_wp_num)
+        TextView textWP;
 
 
         public PickGoodsHolder(View view) {

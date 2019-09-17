@@ -211,7 +211,7 @@ public class DeliveryGoodsActivity extends BaseActivity {
                     public void onSuccess(PickGoods value) {
                         clearPickData();
                         if (value.getPickStatus() != Constant.PICK_STATUS_UNDELIVERY && value.getPickStatus() != Constant.PICK_STATUS_UNOUT) {
-                            ToastUtils.showString("该拣货单状态不是待配货或待出库！");
+                            ToastUtils.showString(String.format("该拣货单状态为:%s,不能配货", PdaUtils.getPickStatusDes(value.getPickStatus())));
                             SoundUtils.playError();
                             return;
                         }
