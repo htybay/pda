@@ -158,7 +158,7 @@ public class InternalPickActivity extends BaseActivity {
         boolean isExist = false;
         InternalPickGoods scanGoods = null;
         for (InternalPickGoods goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isIsPick()) {
                     scanGoods = goodsDetail;

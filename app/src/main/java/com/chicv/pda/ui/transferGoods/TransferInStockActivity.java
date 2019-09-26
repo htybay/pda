@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -183,7 +182,7 @@ public class TransferInStockActivity extends BaseActivity {
         boolean isExist = false;
         TransferIn.DetailsBean scanGoods = null;
         for (TransferIn.DetailsBean goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isIsIn()) {
                     scanGoods = goodsDetail;

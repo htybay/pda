@@ -195,7 +195,7 @@ public class MoveRoomUpActivity extends BaseActivity {
         StockMoveRoom.DetailsBean scanGoods = null;
         if (batchList != null) {
             for (StockMoveRoom.DetailsBean goodsDetail : batchList) {
-                if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+                if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                     scanGoods = goodsDetail;
                     break;
                 }

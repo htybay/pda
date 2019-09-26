@@ -139,7 +139,7 @@ public class TransferReceiveActivity extends BaseActivity {
 
         TransferPickGoods scanGoods = null;
         for (TransferPickGoods goodsDetail : batchList) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 scanGoods = goodsDetail;
                 break;
             }

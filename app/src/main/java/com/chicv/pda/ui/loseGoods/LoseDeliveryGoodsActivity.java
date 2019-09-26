@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.chicv.pda.R;
@@ -165,7 +164,7 @@ public class LoseDeliveryGoodsActivity extends BaseActivity {
         List<LoseGoods> data = mAdapter.getData();
         LoseGoods scanGoods = null;
         for (LoseGoods goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isScan()) {
                     scanGoods = goodsDetail;

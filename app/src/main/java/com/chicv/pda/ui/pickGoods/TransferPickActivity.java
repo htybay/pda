@@ -154,7 +154,7 @@ public class TransferPickActivity extends BaseActivity {
         boolean isExist = false;
         TransferPickGoods scanGoods = null;
         for (TransferPickGoods goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isIsPick()) {
                     scanGoods = goodsDetail;

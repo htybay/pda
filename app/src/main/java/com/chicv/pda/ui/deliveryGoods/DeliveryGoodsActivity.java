@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,7 +24,6 @@ import com.chicv.pda.utils.SPUtils;
 import com.chicv.pda.utils.SoundUtils;
 import com.chicv.pda.utils.ToastUtils;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -144,7 +142,7 @@ public class DeliveryGoodsActivity extends BaseActivity {
         List<PickGoods.PickGoodsDetail> data = mDeliveryGoodsAdapter.getData();
         PickGoods.PickGoodsDetail scanGoods = null;
         for (PickGoods.PickGoodsDetail goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (goodsDetail.getPickStatus() == Constant.PICK_STATUS_UNDELIVERY) {
                     scanGoods = goodsDetail;
@@ -367,10 +365,8 @@ public class DeliveryGoodsActivity extends BaseActivity {
         param.setPickId(mPickGoods.getId());
         param.setDetails(pickGoodsDetails);
 
-        Logger.d(param);
-
         wrapHttp(apiService.outStock(param)).compose(bindToLifecycle())
-                .subscribe(new RxObserver<Object>(true, this) {
+                .subscribe(new RxObserver<Object>(this) {
                     @Override
                     public void onSuccess(Object value) {
                         ToastUtils.showString("出库完成！");

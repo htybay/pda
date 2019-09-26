@@ -276,7 +276,7 @@ public class MoveRoomDownActivity extends BaseActivity {
         List<LocationGoods.LocationGoodsDetail> locationGoodsList = mLocationGoods.getLocationGoodsList();
         LocationGoods.LocationGoodsDetail scanStockGoods = null;
         for (LocationGoods.LocationGoodsDetail stockGoods : locationGoodsList) {
-            if (TextUtils.equals(stockGoods.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(stockGoods.getBatchCode())) {
                 scanStockGoods = stockGoods;
                 break;
             }

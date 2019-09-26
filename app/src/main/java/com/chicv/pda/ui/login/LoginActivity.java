@@ -62,8 +62,6 @@ public class LoginActivity extends BaseActivity {
             editAccount.setText(user.getLoginAccount());
             editPwd.setText(user.getPwd());
         }
-        editAccount.setText("liheyu");
-        editPwd.setText("LHYlhy123");
     }
 
     @OnClick(R.id.btn_login)

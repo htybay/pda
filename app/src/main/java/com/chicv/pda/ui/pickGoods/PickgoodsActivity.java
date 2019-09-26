@@ -180,7 +180,7 @@ public class PickgoodsActivity extends BaseActivity {
         boolean isExist = false;
         PickGoods.PickGoodsDetail scanGoods = null;
         for (PickGoods.PickGoodsDetail goodsDetail : data) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (goodsDetail.getPickStatus() == Constant.PICK_STATUS_UNPICK) {
                     scanGoods = goodsDetail;

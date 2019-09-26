@@ -116,7 +116,7 @@ public class HandleStockDetailActivity extends BaseActivity {
         boolean isExist = false;
         GoodsBatchCode scanGoods = null;
         for (GoodsBatchCode goodsDetail : mOriginList) {
-            if (TextUtils.equals(goodsDetail.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+            if (barcode.equalsIgnoreCase(goodsDetail.getBatchCode())) {
                 isExist = true;
                 if (!goodsDetail.isMoveDown()) {
                     scanGoods = goodsDetail;

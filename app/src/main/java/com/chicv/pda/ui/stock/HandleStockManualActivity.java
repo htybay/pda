@@ -216,7 +216,7 @@ public class HandleStockManualActivity extends BaseActivity {
         int count = 0;
         if (mOriginList != null) {
             for (PositionGoods item : mOriginList) {
-                if (TextUtils.equals(item.getBatchCode().toLowerCase(), barcode.toLowerCase())) {
+                if (barcode.equalsIgnoreCase(item.getBatchCode())) {
                     count++;
                 }
             }
