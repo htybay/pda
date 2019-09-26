@@ -109,7 +109,6 @@ public class PdaUtils {
         return value;
     }
 
-
 //            待处理 = 10,
 //            待拣货 = 20,
 //            待出库 = 30,
@@ -176,6 +175,10 @@ public class PdaUtils {
         return value;
     }
 
+    public static final int MOVE_STATUS_UNKONW = 0;
+    public static final int MOVE_STATUS_MOVING = 10;
+    public static final int MOVE_STATUS_UPING = 20;
+    public static final int MOVE_STATUS_OVER = 90;
     //        未知 = 0,
     //        移库中 = 10,
     //        上架中 = 20,
@@ -183,16 +186,16 @@ public class PdaUtils {
     public static String getMoveStatusDes(int status) {
         String value;
         switch (status) {
-            case 0:
+            case MOVE_STATUS_UNKONW:
                 value = "未知";
                 break;
-            case 10:
+            case MOVE_STATUS_MOVING:
                 value = "移库中";
                 break;
-            case 20:
+            case MOVE_STATUS_UPING:
                 value = "上架中";
                 break;
-            case 90:
+            case MOVE_STATUS_OVER:
                 value = "移库完成";
                 break;
             default:
@@ -292,7 +295,8 @@ public class PdaUtils {
         }
         return value;
     }
-//    public enum Room
+
+    //    public enum Room
 //    {
 //        广州菲宝仓 = 1,
 //        美国库房 = 2,
@@ -304,4 +308,129 @@ public class PdaUtils {
 //        广州金源仓 = 8,
 //        调样库房 = 9
 //    }
+
+    //物品类型
+    public static final int GOODS_TYPE_ORDER = 0;
+    public static final int GOODS_TYPE_BATH = 1;
+
+    public static String getGoodsTypeDes(int status) {
+        String value;
+        switch (status) {
+            case GOODS_TYPE_ORDER:
+                value = "订单物品";
+                break;
+            case GOODS_TYPE_BATH:
+                value = "囤货物品";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    public static final int SOURCE_TYPE_LOSE = 1;
+    public static final int SOURCE_TYPE_BAD = 2;
+    public static final int SOURCE_TYPE_NOT_UP = 3;
+
+    public static String getSourceTypeDes(int type) {
+        String value;
+        switch (type) {
+            case SOURCE_TYPE_LOSE:
+                value = " 丢失";
+                break;
+            case SOURCE_TYPE_BAD:
+                value = "残次";
+                break;
+            case SOURCE_TYPE_NOT_UP:
+                value = "未上架";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    public static final int TAKING_STATUS_READY = 10;
+    public static final int TAKING_STATUS_FIRST_BEGIN = 20;
+    public static final int TAKING_STATUS_FIRST_OVER = 30;
+    public static final int TAKING_STATUS_RETRY_BEGIN = 40;
+    public static final int TAKING_STATUS_RETRY_OVER = 50;
+    public static final int TAKING_STATUS_OVER = 60;
+    public static final int TAKING_STATUS_CLOSE = 70;
+
+    public static String getTakingStatusDes(int type) {
+        String value;
+        switch (type) {
+            case TAKING_STATUS_READY:
+                value = "待盘点";
+                break;
+            case TAKING_STATUS_FIRST_BEGIN:
+                value = "始盘中";
+                break;
+            case TAKING_STATUS_FIRST_OVER:
+                value = "始盘结束";
+                break;
+            case TAKING_STATUS_RETRY_BEGIN:
+                value = "复盘中";
+                break;
+            case TAKING_STATUS_RETRY_OVER:
+                value = "复盘结束";
+                break;
+            case TAKING_STATUS_OVER:
+                value = "已盘完";
+                break;
+            case TAKING_STATUS_CLOSE:
+                value = "已关闭";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    public static final int TAKING_TYPE_STOCK = 1;
+    public static final int TAKING_TYPE_SKU = 2;
+
+    public static String getTakingTypeDes(int type) {
+        String value;
+        switch (type) {
+            case TAKING_TYPE_STOCK:
+                value = "按货架盘";
+                break;
+            case TAKING_TYPE_SKU:
+                value = "按SKU盘";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    public static final int CHECK_STATUS_READY = 10;
+    public static final int CHECK_STATUS_CHECKED = 20;
+    public static final int CHECK_STATUS_EXTRA = 30;
+
+    public static String getCheckStatusDes(int type) {
+        String value;
+        switch (type) {
+            case CHECK_STATUS_READY:
+                value = "待检";
+                break;
+            case CHECK_STATUS_CHECKED:
+                value = "已检";
+                break;
+            case CHECK_STATUS_EXTRA:
+                value = "多出";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
 }

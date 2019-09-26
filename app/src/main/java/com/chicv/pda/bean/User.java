@@ -9,6 +9,8 @@ public class User {
     private String email;
     private String pwd;
     private String accessToken;
+    private int RoomId;
+    private String RoomName;
 
     public String getName() {
         return name;
@@ -56,5 +58,21 @@ public class User {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public int getRoomId() {
+        return RoomId;
+    }
+
+    public void setRoomId(int roomId) {
+        RoomId = roomId;
+    }
+
+    public String getRoomName() {
+        return RoomName;
+    }
+
+    public void setRoomName(String roomName) {
+        RoomName = roomName;
     }
 }

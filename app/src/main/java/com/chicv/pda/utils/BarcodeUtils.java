@@ -24,6 +24,12 @@ public class BarcodeUtils {
      * 捡货单号
      */
     public static final String REGEX_PICK_GOODS = "(?i)^JH-([?<num>\\d+]{9})$";
+
+    /**
+     * 捡货单号
+     */
+    public static final String REGEX_BAD_CODE = "(?i)^BS-([?<num>\\d+]{9})$";
+
     /**
      * 内部拣货单号
      */
@@ -116,6 +122,10 @@ public class BarcodeUtils {
         return Pattern.matches(REGEX_QR_CODE_NEW, barcode);
     }
 
+    public static boolean isBadCode(String barcode) {
+        return Pattern.matches(REGEX_BAD_CODE, barcode);
+    }
+
     public static boolean isNum(String barcode) {
         return Pattern.matches(REGEX_NUM, barcode);
     }
@@ -200,6 +210,26 @@ public class BarcodeUtils {
      */
     public static String generateLKBarcode(long id) {
         return String.format(Locale.CHINA, "LK-%09d", id);
+    }
+
+    /**
+     * 生成报损条码 LK-000000001
+     *
+     * @param id 货位ID
+     * @return
+     */
+    public static String generateBSBarcode(long id) {
+        return String.format(Locale.CHINA, "BS-%09d", id);
+    }
+
+    /**
+     * 生成盘点条码 PD-000000001
+     *
+     * @param id 货位ID
+     * @return
+     */
+    public static String generatePDBarcode(long id) {
+        return String.format(Locale.CHINA, "PD-%09d", id);
     }
 
     /**

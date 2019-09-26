@@ -12,8 +12,11 @@ import com.chicv.pda.base.BaseFragment;
 import com.chicv.pda.ui.loseGoods.LoseDeliveryGoodsActivity;
 import com.chicv.pda.ui.loseGoods.LosePickGoodsActivity;
 import com.chicv.pda.ui.moveRoom.MoveRoomDownActivity;
+import com.chicv.pda.ui.moveRoom.MoveRoomLoseActivity;
 import com.chicv.pda.ui.moveRoom.MoveRoomUpActivity;
 import com.chicv.pda.ui.pickGoods.InternalPickActivity;
+import com.chicv.pda.ui.stock.BadListActivity;
+import com.chicv.pda.ui.stock.CheckListActivity;
 import com.chicv.pda.ui.transferGoods.TransferLoseActivity;
 
 import butterknife.ButterKnife;
@@ -54,7 +57,8 @@ public class OtherFragment extends BaseFragment {
     }
 
     @OnClick({R.id.text_lose_pick, R.id.text_lose_delivery, R.id.text_internal_pick,
-            R.id.text_transfer_lose, R.id.text_move_up, R.id.text_move_down})
+            R.id.text_transfer_lose, R.id.text_move_up, R.id.text_move_down, R.id.text_report_bad
+            , R.id.text_check, R.id.text_move_lose})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_lose_pick:
@@ -74,6 +78,15 @@ public class OtherFragment extends BaseFragment {
                 break;
             case R.id.text_move_down:
                 startActivity(new Intent(getActivity(), MoveRoomDownActivity.class));
+                break;
+            case R.id.text_report_bad:
+                startActivity(new Intent(getActivity(), BadListActivity.class));
+                break;
+            case R.id.text_check:
+                startActivity(new Intent(getActivity(), CheckListActivity.class));
+                break;
+            case R.id.text_move_lose:
+                startActivity(new Intent(getActivity(), MoveRoomLoseActivity.class));
                 break;
         }
     }

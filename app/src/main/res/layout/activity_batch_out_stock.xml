@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/view_barcode" />
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:padding="0dp"
+            android:text="拣货单：" />
+
+        <TextView
+            android:id="@+id/text_pick_num"
+            style="@style/TextViewCommonRight"
+            tools:text="jh-4564564" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:padding="0dp"
+            android:text="下一货位：" />
+
+        <TextView
+            android:id="@+id/text_stock_next"
+            style="@style/TextViewCommonRight"
+            tools:text="hw-4564564" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="货位号：" />
+
+        <TextView
+            android:id="@+id/text_stock"
+            style="@style/TextViewCommonRight"
+            tools:text="hw-4564564" />
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="囤货规格：" />
+
+        <TextView
+            android:id="@+id/text_batch_code"
+            style="@style/TextViewCommonRight"
+            tools:text="88" />
+
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="本次出库：" />
+
+        <com.chicv.pda.view.NumView
+            android:id="@+id/num_view"
+            android:layout_width="130dp"
+            android:layout_height="match_parent">
+
+        </com.chicv.pda.view.NumView>
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="待出库数：" />
+
+        <TextView
+            android:id="@+id/text_wait_num"
+            style="@style/TextViewCommonRight"
+            tools:text="99" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="剩余库存：" />
+
+        <TextView
+            android:id="@+id/text_extra_num"
+            style="@style/TextViewCommonRight"
+            tools:text="77" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_commit"
+            style="@style/ButtonBottom"
+            android:layout_gravity="bottom"
+            android:text="出库" />
+    </FrameLayout>
+
+</LinearLayout>

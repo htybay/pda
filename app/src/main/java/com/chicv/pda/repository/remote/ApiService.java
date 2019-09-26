@@ -9,27 +9,37 @@ import com.chicv.pda.bean.GoodsStock;
 import com.chicv.pda.bean.InternalPick;
 import com.chicv.pda.bean.LocationGoods;
 import com.chicv.pda.bean.LoseGoods;
+import com.chicv.pda.bean.OutGoodsInfo;
 import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.PositionGoods;
 import com.chicv.pda.bean.RecommendStock;
+import com.chicv.pda.bean.StockAbnomalGoods;
+import com.chicv.pda.bean.StockBackPickInfo;
 import com.chicv.pda.bean.StockCardingBean;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.StockLimit;
+import com.chicv.pda.bean.StockLoss;
 import com.chicv.pda.bean.StockMoveRoom;
+import com.chicv.pda.bean.StockPosition;
 import com.chicv.pda.bean.StockPositionBean;
 import com.chicv.pda.bean.StockReceiveBatch;
 import com.chicv.pda.bean.StockRecord;
+import com.chicv.pda.bean.StockTaking;
+import com.chicv.pda.bean.TakingSubTask;
 import com.chicv.pda.bean.TransferBathBean;
 import com.chicv.pda.bean.TransferIn;
 import com.chicv.pda.bean.TransferPick;
 import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
+import com.chicv.pda.bean.param.BadGoodsParam;
 import com.chicv.pda.bean.param.BatchInStockParam;
 import com.chicv.pda.bean.param.BatchMoveStockParam;
+import com.chicv.pda.bean.param.GoodsOutParam;
 import com.chicv.pda.bean.param.HandleStockParam;
 import com.chicv.pda.bean.param.InStockParam;
 import com.chicv.pda.bean.param.LoginParam;
 import com.chicv.pda.bean.param.MoveRoomDownParam;
+import com.chicv.pda.bean.param.MoveRoomLoseParam;
 import com.chicv.pda.bean.param.MoveRoomUpParam;
 import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
@@ -37,6 +47,7 @@ import com.chicv.pda.bean.param.PickInternalGoodsParam;
 import com.chicv.pda.bean.param.RecommendStockParam;
 import com.chicv.pda.bean.param.SampleInReturnParam;
 import com.chicv.pda.bean.param.SampleInStockParam;
+import com.chicv.pda.bean.param.StockBackOutParam;
 import com.chicv.pda.bean.param.TransferGoodsAddParam;
 import com.chicv.pda.bean.param.TransferInStockParam;
 import com.chicv.pda.bean.param.TransferLoseParam;
@@ -363,6 +374,12 @@ public interface ApiService {
     @POST("/api/Stock/MoveRoom/PickLowerShelf")
     Observable<ApiResult<Object>> moveRoomDown(@Body MoveRoomDownParam param);
 
+ /**
+     * 移库丢失---提交
+     */
+    @POST("/api/Stock/MoveRoom/MoveRoomLose")
+    Observable<ApiResult<Object>> moveRoomLose(@Body MoveRoomLoseParam param);
+
     /**
      * 检查更新
      */
@@ -428,4 +445,97 @@ public interface ApiService {
      */
     @POST("/api/Stock/Carding/StockCardingHandleMove")
     Observable<ApiResult<Object>> stockCardingHandleMove(@Body HandleStockParam param);
+
+    /**
+     * 退货物品出库 获取退货出库单信息
+     */
+    @GET("/api/Logistics/BackGoods/GetBackPick")
+    Observable<ApiResult<Integer>> getBackPick(@Query("pickId") int pickId);
+
+    /**
+     * 退货物品出库 获取单个物品退货信息
+     */
+    @GET("/api/Logistics/BackGoods/GetGoodsOut")
+    Observable<ApiResult<OutGoodsInfo>> getGoodsOut(@Query("goodsId") int goodsId, @Query("pickId") int pickId);
+
+    /**
+     * 退货物品出库 上传数据
+     */
+    @POST("/api/Logistics/BackGoods/GoodsManyOut")
+    Observable<ApiResult<Object>> goodsManyOut(@Body GoodsOutParam param);
+
+    /**
+     * 囤货物品出库 判断是否存在该拣货单
+     */
+    @GET("/api/Stock/StockBack/GetHasStockBackPick")
+    Observable<ApiResult<Object>> getHasStockBackPick(@Query("stockPickId") int stockPickId, @Query("operateName") String operateName);
+
+    /**
+     * 囤货物品出库 获取拣货单的信息
+     */
+    @GET("/api/Stock/StockBack/IsStockBackPickEnd")
+    Observable<ApiResult<StockBackPickInfo>> isStockBackPickEnd(@Query("stockPickId") int stockPickId);
+
+    /**
+     * 囤货物品出库 当前扫描的囤货退货拣货单明细是否有存在该货位上待出库囤货
+     */
+    @GET("/api/Stock/StockBack/GetPositionText")
+    Observable<ApiResult<StockPosition>> getPositionText(@Query("stockPickId") int stockPickId, @Query("gridId") int gridId);
+
+    /**
+     * 囤货物品出库 获取当前拣货单、货位下待出库囤货
+     */
+    @GET("/api/Stock/StockBack/GetWaitOutQuantity")
+    Observable<ApiResult<Integer>> getWaitOutQuantity(@Query("stockPickId") int stockPickId, @Query("gridId") int gridId, @Query("batchCode") String batchCode);
+
+    /**
+     * 囤货物品出库 根据当前货位\当前规格获取库存数量
+     */
+    @GET("/api/Stock/StockBack/GetStockQuantity")
+    Observable<ApiResult<Integer>> getStockQuantity(@Query("gridId") int gridId, @Query("batchCode") String batchCode);
+
+    /**
+     * 囤货物品出库 提交数据
+     */
+    @POST("/api/Stock/StockBack/StockBackOut")
+    Observable<ApiResult<Object>> stockBackOut(@Body StockBackOutParam param);
+
+    /**
+     * 报损 获取报损列表
+     */
+    @GET("/api/Stock/StockLosses/GetStockLosses")
+    Observable<ApiResult<List<StockLoss>>> getStockLosses(@Query("roomId") int roomId);
+
+    /**
+     * 报损 获取报损详情
+     */
+    @GET("/api/Stock/StockLosses/GetAbnomalGoodsList")
+    Observable<ApiResult<List<StockAbnomalGoods>>> getAbnomalGoodsList(@Query("lossesId") int lossesId);
+
+
+    /**
+     * 报损 获取报损详情
+     */
+    @POST("/api/Stock/StockLosses/PostLossesCheckData")
+    Observable<ApiResult<Object>> postLossesCheckData(@Body BadGoodsParam param);
+
+    /**
+     * 盘点 获取盘点任务
+     */
+    @GET("/api/Stock/StockTaking/GetTask")
+    Observable<ApiResult<List<StockTaking>>> getCheckTask(@Query("userId") String userId);
+
+    /**
+     * 盘点 获取盘点详情
+     */
+    @GET("/api/Stock/StockTaking/GetSubtask")
+    Observable<ApiResult<TakingSubTask>> getSubtask(@Query("taskId") int taskId);
+
+    /**
+     * 盘点 上传盘点数据
+     */
+    @POST("/api/Stock/StockTaking/SubmitSubtaskRecords")
+    Observable<ApiResult<Object>> submitSubtaskRecords(@Body TakingSubTask param);
+
+
 }

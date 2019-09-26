@@ -21,9 +21,9 @@
 
         <TextView
             style="@style/TextTab"
+            android:id="@+id/text_out_stock"
             android:drawableTop="@drawable/icon_out_stock"
-            android:text="出库"
-            android:textColor="@color/color_999" />
+            android:text="出库" />
 
 
         <TextView

@@ -46,11 +46,10 @@
             android:text="配货" />
 
         <TextView
+            android:id="@+id/text_out_stock"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_back_goos_out"
-            android:text="退货出库"
-            android:textColor="@color/color_999" />
-
+            android:text="退货出库" />
 
         <TextView
             android:id="@+id/text_goods_stock"

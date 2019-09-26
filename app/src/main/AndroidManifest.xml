@@ -181,6 +181,13 @@
         <activity android:name=".ui.stock.HandleStockManualActivity" />
         <activity android:name=".ui.stock.HandleStockCountActivity" />
         <activity android:name=".ui.stock.HandleStockDetailActivity" />
+        <activity android:name=".ui.stock.GoodsOutStockActivity" />
+        <activity android:name=".ui.stock.BatchOutStockActivity" />
+        <activity android:name=".ui.stock.BadListActivity" />
+        <activity android:name=".ui.stock.BadDetailActivity" />
+        <activity android:name=".ui.stock.CheckListActivity" />
+        <activity android:name=".ui.stock.CheckDetailActivity" />
+        <activity android:name=".ui.moveRoom.MoveRoomLoseActivity" />
 
         <!-- 安装包自动跳转 -->
         <provider

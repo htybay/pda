@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/view_barcode" />
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="出库单：" />
+
+        <TextView
+            android:id="@+id/text_pick_num"
+            style="@style/TextViewCommonRight"
+            tools:text="jh-4564564" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="物品编号"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <include layout="@layout/view_line_vertical_white" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="货位信息"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <include layout="@layout/view_line_vertical_white" />
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="物品类型"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+        <include layout="@layout/view_line_vertical_white" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/text_count"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textColor="@color/color_333"
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:text="总件数:20 已扫：3 未扫:2  异常:3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_selector"
+            android:text="清空"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_commit"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_selector"
+            android:text="出库"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>
