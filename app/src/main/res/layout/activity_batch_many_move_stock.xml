@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/view_barcode" />
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="旧货位：" />
+
+        <TextView
+            android:id="@+id/text_stock_old"
+            style="@style/TextViewCommonRight"
+            tools:text="4564564" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/LinearLayoutCommon">
+
+        <TextView
+            style="@style/TextViewCommonLeft"
+            android:text="新货位：" />
+
+        <TextView
+            android:id="@+id/text_stock_new"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/blue_light"
+            android:textSize="16sp"
+            tools:text="jh-4564564" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_remove"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/btn_selector"
+            android:text="移动"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="囤货规格"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <include layout="@layout/view_line_vertical_white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="已扫数量"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <include layout="@layout/view_line_vertical_white" />
+
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="待移数量"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

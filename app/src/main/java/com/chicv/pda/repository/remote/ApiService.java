@@ -33,6 +33,7 @@ import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.bean.param.BadGoodsParam;
 import com.chicv.pda.bean.param.BatchInStockParam;
+import com.chicv.pda.bean.param.BatchManyMoveStockParam;
 import com.chicv.pda.bean.param.BatchMoveStockParam;
 import com.chicv.pda.bean.param.GoodsOutParam;
 import com.chicv.pda.bean.param.HandleStockParam;
@@ -265,6 +266,12 @@ public interface ApiService {
     Observable<ApiResult<Object>> batchMoveStock(@Body BatchMoveStockParam param);
 
     /**
+     * 囤货移位---批量移位
+     */
+    @POST("Api/Stock/Order/StockGoodsBatchMove")
+    Observable<ApiResult<Object>> batchManyMoveStock(@Body BatchManyMoveStockParam param);
+
+    /**
      * 内部拣货单---获取内部拣货单信息
      */
     @GET("Api/Stock/Picking/GetInternalPick ")
@@ -374,7 +381,7 @@ public interface ApiService {
     @POST("/api/Stock/MoveRoom/PickLowerShelf")
     Observable<ApiResult<Object>> moveRoomDown(@Body MoveRoomDownParam param);
 
- /**
+    /**
      * 移库丢失---提交
      */
     @POST("/api/Stock/MoveRoom/MoveRoomLose")
@@ -536,6 +543,7 @@ public interface ApiService {
      */
     @POST("/api/Stock/StockTaking/SubmitSubtaskRecords")
     Observable<ApiResult<Object>> submitSubtaskRecords(@Body TakingSubTask param);
+
 
 
 }

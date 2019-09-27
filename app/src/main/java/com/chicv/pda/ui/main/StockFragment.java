@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.ui.goods.BatchManyMoveStockActivity;
 import com.chicv.pda.ui.goods.BatchMoveStockActivity;
 import com.chicv.pda.ui.pickGoods.TransferPickActivity;
 import com.chicv.pda.ui.stock.BatchInStockActivity;
@@ -55,7 +56,8 @@ public class StockFragment extends BaseFragment {
     }
 
     @OnClick({R.id.text_in_stock, R.id.text_goods_move, R.id.text_transfer_add, R.id.text_transfer_pick,
-            R.id.text_transfer_receive, R.id.text_transfer_send, R.id.text_transfer_in_stock, R.id.text_out_stock})
+            R.id.text_transfer_receive, R.id.text_transfer_send, R.id.text_transfer_in_stock,
+            R.id.text_out_stock, R.id.text_batch_many_move})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_in_stock:
@@ -81,6 +83,9 @@ public class StockFragment extends BaseFragment {
                 break;
             case R.id.text_out_stock:
                 startActivity(new Intent(getActivity(), BatchOutStockActivity.class));
+                break;
+            case R.id.text_batch_many_move:
+                startActivity(new Intent(getActivity(), BatchManyMoveStockActivity.class));
                 break;
         }
     }

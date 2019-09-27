@@ -188,6 +188,7 @@
         <activity android:name=".ui.stock.CheckListActivity" />
         <activity android:name=".ui.stock.CheckDetailActivity" />
         <activity android:name=".ui.moveRoom.MoveRoomLoseActivity" />
+        <activity android:name=".ui.goods.BatchManyMoveStockActivity" />
 
         <!-- 安装包自动跳转 -->
         <provider
