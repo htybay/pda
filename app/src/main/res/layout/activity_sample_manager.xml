@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_sample_get"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_move_down"
+            android:text="取样" />
+
+        <TextView
+            android:id="@+id/text_sample_up"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_move_up"
+            android:text="调样上架" />
+
+
+        <TextView
+            style="@style/TextTab" />
+
+    </LinearLayout>
+</LinearLayout>

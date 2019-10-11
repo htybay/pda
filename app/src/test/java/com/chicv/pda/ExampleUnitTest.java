@@ -126,5 +126,13 @@ public class ExampleUnitTest {
         System.out.println(s.equalsIgnoreCase(d));
     }
 
+  @Test
+    public void sortTest8() {
+
+       String s = "颜色:蓝色;尺码:M|不拍摄";
+      String[] split = s.split("\\|");
+      System.out.println(split[0]+"----"+split[1]);
+    }
+
 
 }

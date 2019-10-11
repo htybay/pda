@@ -13,6 +13,7 @@ import com.chicv.pda.bean.OutGoodsInfo;
 import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.PositionGoods;
 import com.chicv.pda.bean.RecommendStock;
+import com.chicv.pda.bean.SampleInverfyInfo;
 import com.chicv.pda.bean.StockAbnomalGoods;
 import com.chicv.pda.bean.StockBackPickInfo;
 import com.chicv.pda.bean.StockCardingBean;
@@ -544,6 +545,25 @@ public interface ApiService {
     @POST("/api/Stock/StockTaking/SubmitSubtaskRecords")
     Observable<ApiResult<Object>> submitSubtaskRecords(@Body TakingSubTask param);
 
+
+    /**
+     * 取样 提交货位信息
+     */
+    @GET("/api/Stock/StockSample/Sampling")
+    Observable<ApiResult<Object>> commitSample(@Query("gridId") int gridId);
+
+
+    /**
+     * 调样入库
+     */
+    @POST("/api/Stock/StockSample/SampleInVerify")
+    Observable<ApiResult<String>> sampleInVerify(@Body SampleInverfyInfo sampleInverfyInfo);
+
+    /**
+     * 调样入库
+     */
+    @POST("/api/Stock/StockSample/SampleIn")
+    Observable<ApiResult<Object>> sampleIn(@Body List<SampleInverfyInfo> infos);
 
 
 }

@@ -67,51 +67,20 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text_move_up"
+            android:id="@+id/text_move_manager"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_move_up"
-            android:text="移库上架" />
+            android:text="移库管理" />
 
         <TextView
-            android:id="@+id/text_move_down"
-            style="@style/TextTab"
-            android:drawableTop="@drawable/icon_move_down"
-            android:text="移库下架" />
-
-
-        <TextView
-            android:id="@+id/text_move_lose"
-            style="@style/TextTab"
-            android:drawableTop="@drawable/icon_move_lose"
-            android:text="移库丢失" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
-
-        <TextView
+            android:id="@+id/text_sample_manager"
             style="@style/TextTab"
             android:drawableTop="@drawable/icon_pick_batch"
-            android:text="拣货批次"
-            android:textColor="@color/color_999" />
+            android:text="样品管理" />
 
-        <TextView
-            style="@style/TextTab" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@color/color_999"
-            android:textSize="18sp" />
-
+        <TextView style="@style/TextTab" />
 
     </LinearLayout>
+
 </LinearLayout>

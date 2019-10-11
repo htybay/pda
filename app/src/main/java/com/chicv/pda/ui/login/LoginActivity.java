@@ -49,12 +49,16 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        initToolbar("登录",false);
+        initToolbar("登录", false);
         initView();
     }
 
     private void initView() {
-        textVersion.setText("版本号:V" + BuildConfig.VERSION_NAME);
+        if (Constant.DEBUG) {
+            textVersion.setText("(测试)版本号:V" + BuildConfig.VERSION_NAME);
+        } else {
+            textVersion.setText("版本号:V" + BuildConfig.VERSION_NAME);
+        }
         boolean rememberPwd = SPUtils.getBoolean(Constant.KEY_REMEMBER_PWD);
         if (rememberPwd) {
             cbRemember.setChecked(rememberPwd);

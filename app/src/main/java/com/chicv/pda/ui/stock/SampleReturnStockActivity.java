@@ -57,7 +57,7 @@ public class SampleReturnStockActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sample_in);
+        setContentView(R.layout.activity_sample_return);
         ButterKnife.bind(this);
         initToolbar("归还上架");
         initView();

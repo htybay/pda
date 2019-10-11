@@ -13,6 +13,7 @@ import com.chicv.pda.BuildConfig;
 import com.chicv.pda.R;
 import com.chicv.pda.base.BaseApplication;
 import com.chicv.pda.base.BaseFragment;
+import com.chicv.pda.base.Constant;
 import com.chicv.pda.bean.UpdateInfo;
 import com.chicv.pda.bean.User;
 import com.chicv.pda.repository.HttpManager;
@@ -67,7 +68,11 @@ public class MineFragment extends BaseFragment {
 
     private void initView() {
         textName.setText(user.getName());
-        textVersion.setText("版本号：v" + BuildConfig.VERSION_NAME);
+        if (Constant.DEBUG) {
+            textVersion.setText("(测试)版本号:V" + BuildConfig.VERSION_NAME);
+        } else {
+            textVersion.setText("版本号：v" + BuildConfig.VERSION_NAME);
+        }
     }
 
     @Override

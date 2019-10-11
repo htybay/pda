@@ -189,6 +189,10 @@
         <activity android:name=".ui.stock.CheckDetailActivity" />
         <activity android:name=".ui.moveRoom.MoveRoomLoseActivity" />
         <activity android:name=".ui.goods.BatchManyMoveStockActivity" />
+        <activity android:name=".ui.moveRoom.MoveRoomManagerActivity" />
+        <activity android:name=".ui.sampleGoods.SampleGetActivity" />
+        <activity android:name=".ui.sampleGoods.SampleUpActivity" />
+        <activity android:name=".ui.sampleGoods.SampleManagerActivity" />
 
         <!-- 安装包自动跳转 -->
         <provider
