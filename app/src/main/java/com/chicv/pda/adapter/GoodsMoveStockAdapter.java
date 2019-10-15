@@ -36,7 +36,7 @@ public class GoodsMoveStockAdapter extends BaseQuickAdapter<GoodsMoveBean, Goods
         helper.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(helper.getAdapterPosition());
+                remove(helper.getLayoutPosition());
             }
         });
     }

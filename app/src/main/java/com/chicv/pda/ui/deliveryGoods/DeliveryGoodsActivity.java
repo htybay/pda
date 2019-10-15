@@ -233,8 +233,10 @@ public class DeliveryGoodsActivity extends BaseActivity {
         mPickGoods = value;
         mNormalUnDeliveryCount = 0;
         mNormalGoodsCount = 0;
+        if (mPickGoods == null || mPickGoods.details == null) {
+            return;
+        }
         List<PickGoods.PickGoodsDetail> details = mPickGoods.details;
-        if (details == null) return;
         //新 去掉状态为完成的物品
         Iterator<PickGoods.PickGoodsDetail> iterator = details.iterator();
         while (iterator.hasNext()) {

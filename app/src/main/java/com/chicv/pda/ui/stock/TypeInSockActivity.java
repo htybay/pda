@@ -1,6 +1,5 @@
 package com.chicv.pda.ui.stock;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -34,8 +33,7 @@ public class TypeInSockActivity extends BaseActivity {
     }
 
     @OnClick({R.id.text_buy, R.id.text_not_standard, R.id.text_back_goods,
-            R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check,
-            R.id.text_sample_in, R.id.text_return_in})
+            R.id.text_change_goods, R.id.text_check_extra, R.id.text_retry_check})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_buy:
@@ -55,12 +53,6 @@ public class TypeInSockActivity extends BaseActivity {
                 break;
             case R.id.text_retry_check:
                 startActivity(Constant.STOCK_TYPE_IN_RETRY_CHECK, "重新质检入库");
-                break;
-            case R.id.text_sample_in:
-                startActivity(new Intent(this, SampleInStockActivity.class));
-                break;
-            case R.id.text_return_in:
-                startActivity(new Intent(this, SampleReturnStockActivity.class));
                 break;
         }
     }
