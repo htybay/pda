@@ -179,6 +179,7 @@ public class PdaUtils {
     public static final int MOVE_STATUS_MOVING = 10;
     public static final int MOVE_STATUS_UPING = 20;
     public static final int MOVE_STATUS_OVER = 90;
+
     //        未知 = 0,
     //        移库中 = 10,
     //        上架中 = 20,
@@ -432,5 +433,87 @@ public class PdaUtils {
         }
         return value;
     }
+
+    // 位置类型
+    //    未知数据 = 0,
+    //    单SKU单件同列 = 1,
+    //    单SKU单件同区 = 2,
+    //    单SKU单件同层 = 3,
+    //
+    //    多SKU单件同列 = 4,
+    //    多SKU单件同区 = 5,
+    //    多SKU单件同层 = 6,
+    //
+    //    多SKU多件同列 = 7,
+    //    多SKU多件同区同列数同列值 = 8,
+    //    多SKU多件同区 = 9,
+    //
+    //    多SKU多件同层同区数同区值 = 10,
+    //    多SKU多件同层 = 11,
+    //
+    //    多SKU多件同库同层数同层值 = 12,
+    //    多SKU多件同库 = 13
+    private int locationType;
+
+    public static String getLocationTypeDes(int locationType) {
+        String value;
+        switch (locationType) {
+            case 0:
+                value = "未知数据";
+                break;
+            case 1:
+                value = "单SKU单件同列";
+                break;
+            case 2:
+                value = "单SKU单件同区";
+                break;
+            case 3:
+                value = "单SKU单件同层";
+                break;
+            case 4:
+                value = "多SKU单件同列";
+                break;
+            case 5:
+                value = "多SKU单件同区";
+                break;
+            case 6:
+                value = "多SKU单件同层";
+                break;
+            case 7:
+                value = "多SKU多件同列";
+                break;
+            case 8:
+                value = "多SKU多件同区同列数同列值";
+                break;
+            case 9:
+                value = "多SKU多件同区";
+                break;
+            case 10:
+                value = "多SKU多件同层同区数同区值";
+                break;
+            case 11:
+                value = "多SKU多件同层";
+                break;
+            case 12:
+                value = "多SKU多件同库同层数同层值";
+                break;
+            case 13:
+                value = "多SKU多件同库";
+                break;
+            default:
+                value = "";
+                break;
+        }
+        return value;
+    }
+
+    /**
+     *  拣货丢失权限
+     */
+    public static final String PERMISSION_PICK_LOSE = "f32db262-a199-46b6-86de-0bc3721ce62a";
+    /**
+     * 拣货完成权限
+     */
+    public static final String PERMISSION_PICK_OVER = "2112BF19-56C7-430B-842E-92FC08F0C9A5";
 
 }

@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true" android:state_selected="true">
         <shape>
-            <gradient android:endColor="@color/app_color_dark" android:startColor="@color/app_color_dark" />
+            <gradient android:endColor="@color/red" android:startColor="@color/red" />
             <corners android:radius="8dp" />
         </shape>
     </item>
@@ -18,7 +18,7 @@
 
     <item>
         <shape>
-            <gradient android:endColor="@color/app_color_dark" android:startColor="@color/app_color_dark" />
+            <gradient android:endColor="@color/red_dark" android:startColor="@color/red_dark" />
             <corners android:radius="8dp" />
         </shape>
     </item>

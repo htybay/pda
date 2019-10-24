@@ -11,8 +11,14 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 import static org.junit.Assert.assertEquals;
 
@@ -132,6 +138,23 @@ public class ExampleUnitTest {
        String s = "颜色:蓝色;尺码:M|不拍摄";
       String[] split = s.split("\\|");
       System.out.println(split[0]+"----"+split[1]);
+    }
+
+    @Test
+    public void  test9(){
+        Disposable disposable = Flowable.interval(0, 10, TimeUnit.SECONDS)
+                .map(new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long aLong) throws Exception {
+                        return 10 - aLong;
+                    }
+                })
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                       System.out.println(aLong);
+                    }
+                });
     }
 
 

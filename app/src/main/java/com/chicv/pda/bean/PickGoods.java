@@ -82,6 +82,9 @@ public class PickGoods {
     /// 拣货明细
     public List<PickGoodsDetail> details;
 
+    private Container container;
+    private String FloorNames;
+
     public long getId() {
         return id;
     }
@@ -267,6 +270,21 @@ public class PickGoods {
         this.details = details;
     }
 
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
+    }
+
+    public String getFloorNames() {
+        return FloorNames;
+    }
+
+    public void setFloorNames(String floorNames) {
+        FloorNames = floorNames;
+    }
 
     /**
      * 捡货详情

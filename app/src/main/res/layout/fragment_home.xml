@@ -76,18 +76,11 @@
             android:drawableTop="@drawable/icon_goods_move"
             android:text="理库" />
 
-
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
+            android:id="@+id/text_hk_pick"
+            style="@style/TextTab"
+            android:drawableTop="@drawable/icon_delivery_lose"
+            android:text="单件拣货" />
     </LinearLayout>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.chicv.pda.ui.deliveryGoods.DeliveryGoodsActivity;
 import com.chicv.pda.ui.goods.GoodsMoveStockActivity;
 import com.chicv.pda.ui.goods.GoodsStockActivity;
 import com.chicv.pda.ui.goods.ReceiveGoodsActivity;
+import com.chicv.pda.ui.pickGoods.PickManagerActivity;
 import com.chicv.pda.ui.pickGoods.PickgoodsActivity;
 import com.chicv.pda.ui.stock.GoodsOutStockActivity;
 import com.chicv.pda.ui.stock.HandleStockActivity;
@@ -56,7 +57,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     @OnClick({R.id.text_receive_goods, R.id.text_pick_goods, R.id.text_delivery_goods, R.id.text_in_stock,
-            R.id.text_goods_stock, R.id.text_goods_change_stock, R.id.text_handle_stock, R.id.text_out_stock})
+            R.id.text_goods_stock, R.id.text_goods_change_stock, R.id.text_handle_stock, R.id.text_out_stock,
+            R.id.text_hk_pick})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_receive_goods:
@@ -82,6 +84,9 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.text_out_stock:
                 startActivity(new Intent(getActivity(), GoodsOutStockActivity.class));
+                break;
+            case R.id.text_hk_pick:
+                startActivity(new Intent(getActivity(), PickManagerActivity.class));
                 break;
         }
     }

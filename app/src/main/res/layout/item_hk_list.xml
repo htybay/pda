@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:contentPadding="5dp"
+        app:contentPaddingBottom="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_product_des"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:drawableLeft="@drawable/ic_pick"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="拣货单号:"
+                android:textColor="@color/color_333"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_product_num"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="JH-000000001"
+                android:textColor="@color/color_666"
+                app:layout_constraintBaseline_toBaselineOf="@id/text_product_des"
+                app:layout_constraintLeft_toRightOf="@id/text_product_des"
+                app:layout_constraintTop_toTopOf="@id/text_product_des" />
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingRight="5dp"
+                android:text="邓小平"
+                android:textColor="@color/color_666"
+                app:layout_constraintBaseline_toBaselineOf="@id/text_product_des"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_hk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_product_des">
+
+                <TextView
+                    android:id="@+id/text_hk_des"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:drawableLeft="@drawable/ic_hk"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="货框码:"
+                    android:textColor="@color/color_333"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_product_des" />
+                <TextView
+                    android:id="@+id/text_hk_num"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    tools:text="HK-000000001"
+                    android:textColor="@color/color_666"
+                    app:layout_constraintBaseline_toBaselineOf="@id/text_hk_des"
+                    app:layout_constraintLeft_toRightOf="@id/text_hk_des"
+                    app:layout_constraintTop_toTopOf="@id/text_hk_des" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_time_des"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:drawableLeft="@drawable/ic_clock"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="派单时间:"
+                android:textColor="@color/color_333"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_hk" />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="2019-10-01 14:50"
+                android:textColor="@color/color_666"
+                app:layout_constraintBaseline_toBaselineOf="@id/text_time_des"
+                app:layout_constraintLeft_toRightOf="@id/text_time_des" />
+
+
+            <TextView
+                android:id="@+id/text_floor"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_corner_blue_light"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="四楼"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_time_des" />
+
+            <TextView
+                android:id="@+id/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/shape_corner_blue_light"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="规格描述"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toRightOf="@id/text_floor"
+                app:layout_constraintTop_toTopOf="@id/text_floor" />
+
+            <Button
+                android:id="@+id/btn_pick"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:background="@drawable/btn_selector"
+                android:gravity="center"
+                android:text="拣货>>"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

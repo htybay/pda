@@ -1,6 +1,8 @@
 package com.chicv.pda.bean;
 
 
+import java.util.List;
+
 public class User {
 
     private String name;
@@ -11,6 +13,7 @@ public class User {
     private String accessToken;
     private int RoomId;
     private String RoomName;
+    private List<PermissionBean> permissions;
 
     public String getName() {
         return name;
@@ -74,5 +77,13 @@ public class User {
 
     public void setRoomName(String roomName) {
         RoomName = roomName;
+    }
+
+    public List<PermissionBean> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<PermissionBean> permissions) {
+        this.permissions = permissions;
     }
 }

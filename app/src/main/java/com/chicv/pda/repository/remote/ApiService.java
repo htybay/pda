@@ -46,6 +46,7 @@ import com.chicv.pda.bean.param.MoveRoomUpParam;
 import com.chicv.pda.bean.param.OutStockParam;
 import com.chicv.pda.bean.param.PickGoodsParam;
 import com.chicv.pda.bean.param.PickInternalGoodsParam;
+import com.chicv.pda.bean.param.PickListParam;
 import com.chicv.pda.bean.param.RecommendStockParam;
 import com.chicv.pda.bean.param.SampleInReturnParam;
 import com.chicv.pda.bean.param.SampleInStockParam;
@@ -564,6 +565,30 @@ public interface ApiService {
      */
     @POST("/api/Stock/StockSample/SampleIn")
     Observable<ApiResult<Object>> sampleIn(@Body List<SampleInverfyInfo> infos);
+
+    /**
+     * 单件拣货 获取拣货单列表
+     */
+    @POST("/Api/Stock/Picking/GetPickList")
+    Observable<ApiResult<List<PickGoods>>> getPickList(@Body PickListParam param);
+
+    /**
+     * 单件拣货 派单
+     */
+    @POST("/Api/Stock/Picking/DistributeOrder")
+    Observable<ApiResult<Object>> distributeOrder();
+
+    /**
+     * 单件拣货 扫描货框 绑定货框
+     */
+    @GET("/Api/Stock/Picking/ContainerBuild")
+    Observable<ApiResult<Object>> containerBuild(@Query("pickId") int pickId, @Query("containerId") int containerId);
+
+    /**
+     * 单件拣货 拣货完成
+     */
+    @GET("/Api/Stock/Picking/PickingComplete")
+    Observable<ApiResult<Object>> pickingComplete(@Query("pickId") int pickId);
 
 
 }

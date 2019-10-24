@@ -73,6 +73,11 @@ public class BarcodeUtils {
     public static final String REGEX_MOVE_CODE = "(?i)^MO-([?<num>\\d+]{9})$";
 
     /**
+     * 货框单号
+     */
+    public static final String REGEX_HK_CODE = "(?i)^HK-([?<num>\\d+]{9})$";
+
+    /**
      * 移库单号
      */
     public static final String REGEX_NUM = "(?i)^(\\d+)$";
@@ -126,6 +131,10 @@ public class BarcodeUtils {
         return Pattern.matches(REGEX_BAD_CODE, barcode);
     }
 
+    public static boolean isHKCode(String barcode) {
+        return Pattern.matches(REGEX_HK_CODE, barcode);
+    }
+
     public static boolean isNum(String barcode) {
         return Pattern.matches(REGEX_NUM, barcode);
     }
@@ -160,6 +169,16 @@ public class BarcodeUtils {
      */
     public static String generateJHBarcode(long pickId) {
         return String.format(Locale.CHINA, "JH-%09d", pickId);
+    }
+
+    /**
+     * 生成货框条码 HK-000000001
+     *
+     * @param pickId 拣货单ID
+     * @return
+     */
+    public static String generateHKBarcode(long pickId) {
+        return String.format(Locale.CHINA, "HK-%09d", pickId);
     }
 
     /**
