@@ -520,6 +520,10 @@ public class PickHkGoodsActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object value) {
                         ToastUtils.showString("成功！");
+                        PickOverEvent pickEvent = new PickOverEvent();
+                        pickEvent.setPickId((int) mPickGoods.getId());
+                        pickEvent.setContinuePick(false);
+                        EventBusUtls.notifyPickChanged(pickEvent);
                         finish();
                     }
                 });
