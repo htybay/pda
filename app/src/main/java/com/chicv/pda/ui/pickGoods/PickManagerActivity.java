@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -40,7 +39,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -59,10 +57,11 @@ public class PickManagerActivity extends BaseActivity {
 
     @BindView(R.id.rlv_goods)
     RecyclerView rlvGoods;
-    @BindView(R.id.btn_receive)
-    Button btnReceive;
+
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+
+    Button btnReceive;
 
     BaseQuickAdapter<PickGoods, BaseViewHolder> mAdapter;
     private User mUser;
@@ -130,9 +129,15 @@ public class PickManagerActivity extends BaseActivity {
         };
         rlvGoods.setLayoutManager(new LinearLayoutManager(this));
         rlvGoods.setAdapter(mAdapter);
-        mEmptyView = View.inflate(getApplicationContext(), R.layout.view_empty, null);
-        TextView textDes = mEmptyView.findViewById(R.id.text_des);
-        textDes.setText("没有拣货单，请点击接单进行领取");
+        mEmptyView = View.inflate(getApplicationContext(), R.layout.view_empty_pick_manager, null);
+        btnReceive = mEmptyView.findViewById(R.id.btn_receive);
+        btnReceive.setVisibility(mUser.containPermission(PdaUtils.PERMISSION_PICK_RECEIVE) ? View.VISIBLE : View.GONE);
+        btnReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                receiveOrder();
+            }
+        });
         mAdapter.setEmptyView(mEmptyView);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -188,11 +193,6 @@ public class PickManagerActivity extends BaseActivity {
                         refreshLayout.autoRefresh();
                     }
                 });
-    }
-
-    @OnClick(R.id.btn_receive)
-    public void onViewClicked() {
-        receiveOrder();
     }
 
     //接单

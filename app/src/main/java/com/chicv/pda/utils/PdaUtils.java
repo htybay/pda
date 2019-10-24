@@ -515,5 +515,9 @@ public class PdaUtils {
      * 拣货完成权限
      */
     public static final String PERMISSION_PICK_OVER = "2112BF19-56C7-430B-842E-92FC08F0C9A5";
+    /**
+     * 点击接货权限
+     */
+    public static final String PERMISSION_PICK_RECEIVE = "C68639F7-6E83-4AC3-A2C4-890579A0D8DC";
 
 }

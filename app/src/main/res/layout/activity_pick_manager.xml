@@ -33,9 +33,4 @@
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <Button
-        android:id="@+id/btn_receive"
-        style="@style/ButtonBottom"
-        android:text="接单" />
-
 </LinearLayout>

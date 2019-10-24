@@ -31,6 +31,7 @@
                 android:gravity="center_vertical"
                 android:text="拣货单号:"
                 android:textColor="@color/color_333"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +44,7 @@
                 android:gravity="center_vertical"
                 android:text="JH-000000001"
                 android:textColor="@color/color_666"
+                android:textSize="14sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/text_product_des"
                 app:layout_constraintLeft_toRightOf="@id/text_product_des"
                 app:layout_constraintTop_toTopOf="@id/text_product_des" />
@@ -55,6 +57,7 @@
                 android:paddingRight="5dp"
                 android:text="邓小平"
                 android:textColor="@color/color_666"
+                android:textSize="15sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/text_product_des"
                 app:layout_constraintRight_toRightOf="parent" />
 
@@ -75,6 +78,7 @@
                     android:gravity="center_vertical"
                     android:text="货框码:"
                     android:textColor="@color/color_333"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_product_des" />
                 <TextView
@@ -85,6 +89,7 @@
                     android:gravity="center_vertical"
                     tools:text="HK-000000001"
                     android:textColor="@color/color_666"
+                    android:textSize="14sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/text_hk_des"
                     app:layout_constraintLeft_toRightOf="@id/text_hk_des"
                     app:layout_constraintTop_toTopOf="@id/text_hk_des" />
@@ -100,6 +105,7 @@
                 android:gravity="center_vertical"
                 android:text="派单时间:"
                 android:textColor="@color/color_333"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ll_hk" />
 
@@ -111,6 +117,7 @@
                 android:gravity="center_vertical"
                 android:text="2019-10-01 14:50"
                 android:textColor="@color/color_666"
+                android:textSize="14sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/text_time_des"
                 app:layout_constraintLeft_toRightOf="@id/text_time_des" />
 
@@ -146,15 +153,14 @@
                 app:layout_constraintLeft_toRightOf="@id/text_floor"
                 app:layout_constraintTop_toTopOf="@id/text_floor" />
 
-            <Button
-                android:id="@+id/btn_pick"
+            <TextView
                 android:layout_width="70dp"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:background="@drawable/btn_selector"
                 android:gravity="center"
                 android:text="拣货>>"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
         </android.support.constraint.ConstraintLayout>

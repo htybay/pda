@@ -18,7 +18,6 @@ import com.chicv.pda.R;
 import com.chicv.pda.adapter.PickGoodsAdapter;
 import com.chicv.pda.base.BaseActivity;
 import com.chicv.pda.base.Constant;
-import com.chicv.pda.bean.PermissionBean;
 import com.chicv.pda.bean.PickGoods;
 import com.chicv.pda.bean.StockInfo;
 import com.chicv.pda.bean.User;
@@ -106,13 +105,7 @@ public class PickHkGoodsActivity extends BaseActivity {
     }
 
     private boolean canLose() {
-        List<PermissionBean> permissions = mUser.getPermissions();
-        for (PermissionBean permission : permissions) {
-            if (TextUtils.equals(PdaUtils.PERMISSION_PICK_LOSE, permission.getPermissionGuid())) {
-                return true;
-            }
-        }
-        return false;
+        return mUser.containPermission(PdaUtils.PERMISSION_PICK_LOSE);
     }
 
     private void initButtonView() {
@@ -391,7 +384,7 @@ public class PickHkGoodsActivity extends BaseActivity {
                 break;
             }
         }
-        if(mPickGoods.getContainer()!=null&&mPickGoods.getContainer().getContainerId()!=0){
+        if (mPickGoods.getContainer() != null && mPickGoods.getContainer().getContainerId() != 0) {
             mHkCode = mPickGoods.getContainer().getContainerId();
             textHkNum.setText(BarcodeUtils.generateHKBarcode(mHkCode));
         }

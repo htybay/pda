@@ -86,4 +86,16 @@ public class User {
     public void setPermissions(List<PermissionBean> permissions) {
         this.permissions = permissions;
     }
+
+    public boolean containPermission(String permissionName) {
+        if (permissions == null || permissionName == null) {
+            return false;
+        }
+        for (PermissionBean permission : permissions) {
+            if (permissionName.equalsIgnoreCase(permission.getPermissionGuid())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
