@@ -16,7 +16,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -155,6 +157,31 @@ public class ExampleUnitTest {
                        System.out.println(aLong);
                     }
                 });
+        Observable<Integer> integerObservable1 = Observable.fromArray(1, 2, 3, 0);
+        Observable<Integer> integerObservable2 = Observable.fromArray(4, 5, 6, 7);
+        Observable<String> stringObservable = Observable.fromArray("a", "b", "c","d","e");
+        Observable<String> zip = Observable.zip(integerObservable1, stringObservable, new BiFunction<Integer, String, String>() {
+
+            @Override
+            public String apply(Integer integer, String s) throws Exception {
+                return integer + s;
+            }
+        });
+        Observable<Integer> merge = Observable.merge(integerObservable1, integerObservable2);
+
+        zip.subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                System.out.println(Thread.currentThread().getName()+"-----"+s);
+            }
+        });
+        merge.subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer s) throws Exception {
+                System.out.println(Thread.currentThread().getName()+"-----"+s);
+            }
+        });
+
     }
 
 
